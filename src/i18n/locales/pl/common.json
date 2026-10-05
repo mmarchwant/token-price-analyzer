@@ -1,0 +1,41 @@
+{
+  "appTitle": "Token Price Analyzer",
+  "nav": {
+    "advisor": "Doradca",
+    "explorer": "Eksplorator",
+    "budget": "Budżet",
+    "subscriptions": "Subskrypcje",
+    "compare": "Porównanie",
+    "history": "Historia",
+    "profiles": "Profile",
+    "sources": "Źródła"
+  },
+  "settings": {
+    "language": "Język",
+    "currency": "Waluta",
+    "theme": "Motyw",
+    "themeSystem": "Systemowy",
+    "themeLight": "Jasny",
+    "themeDark": "Ciemny",
+    "openMenu": "Otwórz menu główne",
+    "closeMenu": "Zamknij menu główne"
+  },
+  "actions": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "retry": "Spróbuj ponownie",
+    "close": "Zamknij",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano!",
+    "skipToContent": "Przejdź do treści"
+  },
+  "footer": {
+    "sourcesLink": "Źródła danych i metodologia",
+    "attribution": "Dane są automatycznie aktualizowane każdego dnia."
+  },
+  "notFound": {
+    "title": "Strona nie znaleziona",
+    "description": "Strona, której szukasz, nie istnieje lub została przeniesiona.",
+    "goHome": "Wróć do strony głównej"
+  }
+}
