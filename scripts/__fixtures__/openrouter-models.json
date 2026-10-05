@@ -1,0 +1,770 @@
+{
+  "data": [
+    {
+      "id": "openrouter/auto",
+      "canonical_slug": "openrouter/auto",
+      "hugging_face_id": null,
+      "name": "OpenRouter: Auto Router",
+      "created": 1700000000,
+      "description": "Auto router model",
+      "context_length": 2000000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "-1",
+        "completion": "-1"
+      },
+      "top_provider": {
+        "max_completion_tokens": null
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "~openai/gpt-4-turbo",
+      "canonical_slug": "openai/gpt-4-turbo",
+      "alias_target": "openai/gpt-4-turbo-2024-04-09",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-4 Turbo Alias",
+      "created": 1700000000,
+      "description": "Alias entry",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00001",
+        "completion": "0.00003"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "openai/gpt-3.5-turbo",
+      "canonical_slug": "openai/gpt-3.5-turbo",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-3.5 Turbo",
+      "created": 1685232000,
+      "description": "GPT-3.5 Turbo chat model",
+      "context_length": 16385,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000005",
+        "completion": "0.0000015",
+        "input_cache_read": "0.00000025",
+        "input_cache_write": "0.0000005"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools", "response_format"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 55.0,
+          "coding_index": 42.1,
+          "agentic_index": null
+        }
+      }
+    },
+    {
+      "id": "openai/gpt-3.5-turbo:free",
+      "canonical_slug": "openai/gpt-3.5-turbo",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-3.5 Turbo (free)",
+      "created": 1685232000,
+      "description": "Free variant of GPT-3.5 Turbo",
+      "context_length": 16385,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "openai/gpt-3.5-turbo:batch",
+      "canonical_slug": "openai/gpt-3.5-turbo",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-3.5 Turbo (batch)",
+      "created": 1685232000,
+      "description": "Batch variant of GPT-3.5 Turbo",
+      "context_length": 16385,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00000025",
+        "completion": "0.00000075"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "google/gemma-2-9b-it:free",
+      "canonical_slug": "google/gemma-2-9b-it",
+      "hugging_face_id": "google/gemma-2-9b-it",
+      "name": "Google: Gemma 2 9B IT (free)",
+      "created": 1719446400,
+      "description": "Free-only model gemma 2",
+      "context_length": 8192,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 62.0,
+          "coding_index": 50.0,
+          "agentic_index": 48.0
+        }
+      }
+    },
+    {
+      "id": "anthropic/claude-sonnet-5.5",
+      "canonical_slug": "anthropic/claude-sonnet-5.5",
+      "hugging_face_id": null,
+      "name": "Anthropic: Claude 3.5 Sonnet",
+      "created": 1718841600,
+      "description": "Claude 3.5 Sonnet flagship model",
+      "context_length": 200000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000003",
+        "completion": "0.000015",
+        "input_cache_read": "0.0000003",
+        "input_cache_write": "0.00000375",
+        "overrides": [
+          {
+            "min_prompt_tokens": 128000,
+            "prompt": "0.000006",
+            "completion": "0.000024",
+            "input_cache_read": "0.0000006"
+          }
+        ]
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools", "structured_outputs"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 88.0,
+          "coding_index": 92.5,
+          "agentic_index": 85.0
+        }
+      }
+    },
+    {
+      "id": "anthropic/claude-3.5-haiku",
+      "canonical_slug": "anthropic/claude-3.5-haiku",
+      "hugging_face_id": null,
+      "name": "Anthropic: Claude 3.5 Haiku",
+      "created": 1730764800,
+      "description": "Fast and light model",
+      "context_length": 200000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000008",
+        "completion": "0.000004",
+        "overrides": [
+          {
+            "utc_start": "2026-01-01T00:00:00Z",
+            "utc_end": "2026-01-01T23:59:59Z",
+            "prompt": "0.0000004",
+            "completion": "0.000002"
+          }
+        ]
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 71.0,
+          "coding_index": 75.0,
+          "agentic_index": 68.0
+        }
+      }
+    },
+    {
+      "id": "openai/gpt-4o",
+      "canonical_slug": "openai/gpt-4o",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-4o",
+      "created": 1715558400,
+      "description": "Omni model from OpenAI",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000025",
+        "completion": "0.00001"
+      },
+      "top_provider": {
+        "max_completion_tokens": 16384
+      },
+      "supported_parameters": ["tools", "structured_outputs"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 82.0,
+          "coding_index": 84.0,
+          "agentic_index": 80.0
+        }
+      }
+    },
+    {
+      "id": "google/gemini-2.5-pro",
+      "canonical_slug": "google/gemini-2.5-pro",
+      "hugging_face_id": null,
+      "name": "Google: Gemini 2.5 Pro",
+      "created": 1730000000,
+      "description": "Google Gemini 2.5 Pro",
+      "context_length": 2000000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00000125",
+        "completion": "0.000005"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools", "reasoning"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 86.0,
+          "coding_index": 87.0,
+          "agentic_index": 83.0
+        }
+      }
+    },
+    {
+      "id": "deepseek/deepseek-r1",
+      "canonical_slug": "deepseek/deepseek-r1",
+      "hugging_face_id": "deepseek-ai/DeepSeek-R1",
+      "name": "DeepSeek: DeepSeek R1",
+      "created": 1737331200,
+      "description": "Reasoning model DeepSeek R1",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00000055",
+        "completion": "0.00000219"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["reasoning"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 87.5,
+          "coding_index": 90.0,
+          "agentic_index": 84.0
+        }
+      }
+    },
+    {
+      "id": "mistralai/mistral-large",
+      "canonical_slug": "mistralai/mistral-large",
+      "hugging_face_id": null,
+      "name": "Mistral AI: Mistral Large 2",
+      "created": 1721779200,
+      "description": "Mistral Large model",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.000006"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 78.0,
+          "coding_index": 76.0,
+          "agentic_index": 74.0
+        }
+      }
+    },
+    {
+      "id": "xai/grok-3",
+      "canonical_slug": "xai/grok-3",
+      "hugging_face_id": null,
+      "name": "xAI: Grok 3",
+      "created": 1739836800,
+      "description": "Grok 3 model from xAI",
+      "context_length": 1000000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000003",
+        "completion": "0.000015"
+      },
+      "top_provider": {
+        "max_completion_tokens": 16384
+      },
+      "supported_parameters": ["tools", "reasoning"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 89.0,
+          "coding_index": 91.0,
+          "agentic_index": 86.0
+        }
+      }
+    },
+    {
+      "id": "meta-llama/llama-3.3-70b-instruct",
+      "canonical_slug": "meta-llama/llama-3.3-70b-instruct",
+      "hugging_face_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "name": "Meta: Llama 3.3 70B Instruct",
+      "created": 1733443200,
+      "description": "Llama 3.3 70B open weight model",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000004",
+        "completion": "0.0000004"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 76.0,
+          "coding_index": 72.0,
+          "agentic_index": 70.0
+        }
+      }
+    },
+    {
+      "id": "qwen/qwen-2.5-coder-32b-instruct",
+      "canonical_slug": "qwen/qwen-2.5-coder-32b-instruct",
+      "hugging_face_id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+      "name": "Qwen: Qwen 2.5 Coder 32B Instruct",
+      "created": 1731369600,
+      "description": "Qwen coder model",
+      "context_length": 32768,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000002",
+        "completion": "0.0000002"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "openai/gpt-4o-mini",
+      "canonical_slug": "openai/gpt-4o-mini",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-4o Mini",
+      "created": 1721260800,
+      "description": "Small efficient omni model",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00000015",
+        "completion": "0.0000006"
+      },
+      "top_provider": {
+        "max_completion_tokens": 16384
+      },
+      "supported_parameters": ["tools", "structured_outputs"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 72.0,
+          "coding_index": 74.0,
+          "agentic_index": 69.0
+        }
+      }
+    },
+    {
+      "id": "anthropic/claude-3-opus",
+      "canonical_slug": "anthropic/claude-3-opus",
+      "hugging_face_id": null,
+      "name": "Anthropic: Claude 3 Opus",
+      "created": 1709510400,
+      "description": "Claude 3 Opus model",
+      "context_length": 200000,
+      "architecture": {
+        "input_modalities": ["text", "image"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000015",
+        "completion": "0.000075"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 81.0,
+          "coding_index": 78.0,
+          "agentic_index": 77.0
+        }
+      }
+    },
+    {
+      "id": "mistralai/mistral-small-2402",
+      "canonical_slug": "mistralai/mistral-small-2402",
+      "hugging_face_id": null,
+      "name": "Mistral AI: Mistral Small (2402)",
+      "created": 1708992000,
+      "description": "Mistral small model dated",
+      "context_length": 32768,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000002",
+        "completion": "0.0000006"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": [],
+      "expiration_date": "2026-12-31",
+      "benchmarks": null
+    },
+    {
+      "id": "openai/gpt-6-sol",
+      "canonical_slug": "openai/gpt-6-sol",
+      "hugging_face_id": null,
+      "name": "OpenAI: GPT-6 Sol",
+      "created": 1750000000,
+      "description": "Future OpenAI model",
+      "context_length": 200000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000005",
+        "completion": "0.00002"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview",
+      "canonical_slug": "google/gemini-3.1-pro-preview",
+      "hugging_face_id": null,
+      "name": "Google: Gemini 3.1 Pro Preview",
+      "created": 1760000000,
+      "description": "Future Gemini model preview",
+      "context_length": 2000000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.000008"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "anthropic/claude-opus-5.5",
+      "canonical_slug": "anthropic/claude-opus-5.5",
+      "hugging_face_id": null,
+      "name": "Anthropic: Claude Opus 5.5",
+      "created": 1765000000,
+      "description": "Future Opus model",
+      "context_length": 200000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00002",
+        "completion": "0.00008"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "mistralai/mistral-small",
+      "canonical_slug": "mistralai/mistral-small",
+      "hugging_face_id": null,
+      "name": "Mistral AI: Mistral Small",
+      "created": 1720000000,
+      "description": "Mistral small standard model",
+      "context_length": 32768,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000002",
+        "completion": "0.0000006"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "deepseek/deepseek-chat",
+      "canonical_slug": "deepseek/deepseek-chat",
+      "hugging_face_id": "deepseek-ai/DeepSeek-V3",
+      "name": "DeepSeek: DeepSeek V3",
+      "created": 1735200000,
+      "description": "DeepSeek V3 chat model",
+      "context_length": 64000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.00000014",
+        "completion": "0.00000028"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": {
+        "artificial_analysis": {
+          "intelligence_index": 79.0,
+          "coding_index": 82.0,
+          "agentic_index": 76.0
+        }
+      }
+    },
+    {
+      "id": "moonshotai/moonshot-v1-8k",
+      "canonical_slug": "moonshotai/moonshot-v1-8k",
+      "hugging_face_id": null,
+      "name": "Moonshot AI: Moonshot V1 8K",
+      "created": 1700000000,
+      "description": "Moonshot model",
+      "context_length": 8192,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000012",
+        "completion": "0.0000012"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "z-ai/glm-4-plus",
+      "canonical_slug": "z-ai/glm-4-plus",
+      "hugging_face_id": null,
+      "name": "Z AI: GLM 4 Plus",
+      "created": 1720000000,
+      "description": "Z AI GLM model",
+      "context_length": 128000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000007",
+        "completion": "0.000007"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": ["tools"],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "minimax/minimax-01",
+      "canonical_slug": "minimax/minimax-01",
+      "hugging_face_id": null,
+      "name": "MiniMax: MiniMax-Text-01",
+      "created": 1730000000,
+      "description": "MiniMax text model",
+      "context_length": 1000000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.0000002",
+        "completion": "0.0000011"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "shared-provider/common-model",
+      "canonical_slug": "shared-provider/common-model",
+      "hugging_face_id": null,
+      "name": "Shared Provider: Common Model",
+      "created": 1700000000,
+      "description": "Model with shared key across providers test",
+      "context_length": 16385,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000002"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "other-provider/common-model",
+      "canonical_slug": "other-provider/common-model",
+      "hugging_face_id": null,
+      "name": "Other Provider: Common Model",
+      "created": 1700000000,
+      "description": "Another model with same key but different provider",
+      "context_length": 16385,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000002"
+      },
+      "top_provider": {
+        "max_completion_tokens": 4096
+      },
+      "supported_parameters": [],
+      "expiration_date": null,
+      "benchmarks": null
+    },
+    {
+      "id": "thinking-vendor/smart-model:thinking",
+      "canonical_slug": "thinking-vendor/smart-model:thinking",
+      "hugging_face_id": null,
+      "name": "Thinking Vendor: Smart Model (Thinking)",
+      "created": 1730000000,
+      "description": "Variant suffix other than free/batch should be kept as separate model",
+      "context_length": 64000,
+      "architecture": {
+        "input_modalities": ["text"],
+        "output_modalities": ["text"]
+      },
+      "pricing": {
+        "prompt": "0.000002",
+        "completion": "0.000008"
+      },
+      "top_provider": {
+        "max_completion_tokens": 8192
+      },
+      "supported_parameters": ["reasoning"],
+      "expiration_date": null,
+      "benchmarks": null
+    }
+  ]
+}

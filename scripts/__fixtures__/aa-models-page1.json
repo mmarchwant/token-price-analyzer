@@ -1,0 +1,127 @@
+{
+  "tier": "free",
+  "intelligence_index_version": "v2",
+  "pagination": {
+    "page": 1,
+    "page_size": 5,
+    "total_pages": 2,
+    "has_more": true
+  },
+  "data": [
+    {
+      "id": "aa-claude-3-5-sonnet",
+      "name": "Claude 3.5 Sonnet",
+      "slug": "claude-sonnet-5-5",
+      "release_date": "2024-06-20",
+      "model_creator": {
+        "id": "anthropic",
+        "name": "Anthropic"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 88.0,
+        "artificial_analysis_coding_index": 92.5,
+        "artificial_analysis_agentic_index": 85.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 3.0,
+        "price_1m_output_tokens": 15.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 65.4,
+        "median_time_to_first_token_seconds": 0.45
+      }
+    },
+    {
+      "id": "aa-gpt-4o",
+      "name": "GPT-4o",
+      "slug": "gpt-4o",
+      "release_date": "2024-05-13",
+      "model_creator": {
+        "id": "openai",
+        "name": "OpenAI"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 82.0,
+        "artificial_analysis_coding_index": 84.0,
+        "artificial_analysis_agentic_index": 80.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 2.5,
+        "price_1m_output_tokens": 10.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 92.1,
+        "median_time_to_first_token_seconds": 0.38
+      }
+    },
+    {
+      "id": "aa-gemini-2-5-pro",
+      "name": "Gemini 2.5 Pro",
+      "slug": "gemini-2-5-pro",
+      "release_date": "2024-10-29",
+      "model_creator": {
+        "id": "google",
+        "name": "Google"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 86.0,
+        "artificial_analysis_coding_index": 87.0,
+        "artificial_analysis_agentic_index": 83.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 1.25,
+        "price_1m_output_tokens": 5.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 78.3,
+        "median_time_to_first_token_seconds": 0.52
+      }
+    },
+    {
+      "id": "aa-deepseek-r1",
+      "name": "DeepSeek R1",
+      "slug": "deepseek-r1",
+      "release_date": "2025-01-20",
+      "model_creator": {
+        "id": "deepseek",
+        "name": "DeepSeek"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 87.5,
+        "artificial_analysis_coding_index": 90.0,
+        "artificial_analysis_agentic_index": 84.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 0.55,
+        "price_1m_output_tokens": 2.19
+      },
+      "performance": {
+        "median_output_tokens_per_second": 32.5,
+        "median_time_to_first_token_seconds": 0.85
+      }
+    },
+    {
+      "id": "aa-unmatched-1",
+      "name": "Unmatched Model 1",
+      "slug": "unmatched-model-1",
+      "release_date": "2025-02-01",
+      "model_creator": {
+        "id": "unknown",
+        "name": "Unknown Corp"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 50.0,
+        "artificial_analysis_coding_index": 50.0,
+        "artificial_analysis_agentic_index": 50.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 1.0,
+        "price_1m_output_tokens": 2.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 50.0,
+        "median_time_to_first_token_seconds": 0.5
+      }
+    }
+  ]
+}

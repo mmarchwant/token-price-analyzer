@@ -1,0 +1,150 @@
+{
+  "tier": "free",
+  "intelligence_index_version": "v2",
+  "pagination": {
+    "page": 2,
+    "page_size": 6,
+    "total_pages": 2,
+    "has_more": false
+  },
+  "data": [
+    {
+      "id": "aa-mistral-large",
+      "name": "Mistral Large 2",
+      "slug": "mistral-large",
+      "release_date": "2024-07-24",
+      "model_creator": {
+        "id": "mistral",
+        "name": "Mistral"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 78.0,
+        "artificial_analysis_coding_index": 76.0,
+        "artificial_analysis_agentic_index": 74.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 2.0,
+        "price_1m_output_tokens": 6.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 45.0,
+        "median_time_to_first_token_seconds": 0.6
+      }
+    },
+    {
+      "id": "aa-grok-3",
+      "name": "Grok 3",
+      "slug": "grok-3",
+      "release_date": "2025-02-17",
+      "model_creator": {
+        "id": "xai",
+        "name": "xAI"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 89.0,
+        "artificial_analysis_coding_index": 91.0,
+        "artificial_analysis_agentic_index": 86.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 3.0,
+        "price_1m_output_tokens": 15.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 70.0,
+        "median_time_to_first_token_seconds": 0.4
+      }
+    },
+    {
+      "id": "aa-claude-3-5-haiku",
+      "name": "Claude 3.5 Haiku",
+      "slug": "claude-3-5-haiku",
+      "release_date": "2024-11-04",
+      "model_creator": {
+        "id": "anthropic",
+        "name": "Anthropic"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 71.0,
+        "artificial_analysis_coding_index": 75.0,
+        "artificial_analysis_agentic_index": 68.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 0.8,
+        "price_1m_output_tokens": 4.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 110.0,
+        "median_time_to_first_token_seconds": 0.25
+      }
+    },
+    {
+      "id": "aa-llama-3-3-70b",
+      "name": "Llama 3.3 70B Instruct",
+      "slug": "llama-3-3-70b-instruct",
+      "release_date": "2024-12-06",
+      "model_creator": {
+        "id": "meta",
+        "name": "Meta"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 76.0,
+        "artificial_analysis_coding_index": 72.0,
+        "artificial_analysis_agentic_index": 70.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 0.4,
+        "price_1m_output_tokens": 0.4
+      },
+      "performance": {
+        "median_output_tokens_per_second": 55.0,
+        "median_time_to_first_token_seconds": 0.5
+      }
+    },
+    {
+      "id": "aa-claude-3-5-sonnet-dup",
+      "name": "Claude 3.5 Sonnet Duplicate",
+      "slug": "claude-sonnet-5-5",
+      "release_date": "2024-06-20",
+      "model_creator": {
+        "id": "anthropic",
+        "name": "Anthropic"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 80.0,
+        "artificial_analysis_coding_index": 85.0,
+        "artificial_analysis_agentic_index": 80.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 3.0,
+        "price_1m_output_tokens": 15.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 60.0,
+        "median_time_to_first_token_seconds": 0.5
+      }
+    },
+    {
+      "id": "aa-unmatched-2",
+      "name": "Unmatched Model 2",
+      "slug": "unmatched-model-2",
+      "release_date": "2025-02-01",
+      "model_creator": {
+        "id": "unknown",
+        "name": "Unknown Corp"
+      },
+      "evaluations": {
+        "artificial_analysis_intelligence_index": 40.0,
+        "artificial_analysis_coding_index": 40.0,
+        "artificial_analysis_agentic_index": 40.0
+      },
+      "pricing": {
+        "price_1m_input_tokens": 1.0,
+        "price_1m_output_tokens": 2.0
+      },
+      "performance": {
+        "median_output_tokens_per_second": 40.0,
+        "median_time_to_first_token_seconds": 0.6
+      }
+    }
+  ]
+}
