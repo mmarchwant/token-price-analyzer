@@ -251,3 +251,63 @@ export function parseSnapshot(json: unknown) {
   }
   return result.data;
 }
+
+export const PricePointSchema = z.tuple([
+  z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  z.number(),
+  z.number(),
+]);
+
+export const PlanPricePointSchema = z.tuple([z.string().regex(/^\d{4}-\d{2}-\d{2}$/), z.number()]);
+
+export const PriceHistorySchema = z.object({
+  schemaVersion: z.literal(1),
+  year: z.number().int(),
+  updatedAt: z.string(),
+  models: z.record(
+    z.string(),
+    z.object({
+      firstSeen: z.string(),
+      points: z.array(PricePointSchema),
+    }),
+  ),
+  subscriptions: z.record(
+    z.string(),
+    z.object({
+      firstSeen: z.string(),
+      points: z.array(PlanPricePointSchema),
+    }),
+  ),
+});
+
+export const HistoryIndexSchema = z.object({
+  schemaVersion: z.literal(1),
+  years: z.array(z.number().int()),
+  updatedAt: z.string(),
+});
+
+export function parsePriceHistory(json: unknown) {
+  const result = PriceHistorySchema.safeParse(json);
+  if (!result.success) {
+    const issues = result.error.issues.slice(0, 5);
+    const messages = issues.map((issue) => {
+      const path = issue.path.length > 0 ? issue.path.join('.') : 'root';
+      return `${path}: ${issue.message}`;
+    });
+    throw new Error(`Invalid PriceHistory:\n${messages.join('\n')}`);
+  }
+  return result.data;
+}
+
+export function parseHistoryIndex(json: unknown) {
+  const result = HistoryIndexSchema.safeParse(json);
+  if (!result.success) {
+    const issues = result.error.issues.slice(0, 5);
+    const messages = issues.map((issue) => {
+      const path = issue.path.length > 0 ? issue.path.join('.') : 'root';
+      return `${path}: ${issue.message}`;
+    });
+    throw new Error(`Invalid HistoryIndex:\n${messages.join('\n')}`);
+  }
+  return result.data;
+}

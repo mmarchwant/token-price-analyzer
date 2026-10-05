@@ -1,0 +1,78 @@
+# Daily data refresh and history tracking workflow.
+#
+# Permissions:
+# - contents: write (to commit updated public/data files back to the default branch)
+# - pages: write & id-token: write (for chained deployment to GitHub Pages)
+#
+# Chained deployment:
+# Pushes made with the default GITHUB_TOKEN do not trigger other workflows.
+# Therefore, when data changes, the deploy job directly invokes .github/workflows/deploy.yml
+# using workflow_call with the newly committed git SHA.
+
+name: Refresh Data
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run data:fetch
+        env:
+          AA_API_KEY: ${{ secrets.AA_API_KEY }}
+
+      - run: npm run data:validate
+
+      - run: npm run data:history
+
+      - run: npm run test
+
+      - id: commit
+        run: |
+          if [ -n "$(git status --porcelain public/data)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+            DATE_STR=$(date -u +'%Y-%m-%d')
+            git add public/data
+            git commit -m "chore(data): refresh snapshot ${DATE_STR}"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: refresh
+    if: needs.refresh.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ needs.refresh.outputs.sha }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

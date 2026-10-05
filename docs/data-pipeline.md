@@ -94,9 +94,28 @@ _Note:_ An override's `tier` and human-readable `note` are always preserved when
 
 ---
 
+## Daily Refresh & History
+
+- **Schedule & Action:** Daily at 04:23 UTC via `.github/workflows/refresh-data.yml` (and manual `workflow_dispatch`).
+- **Steps executed in CI:**
+  1. `npm run data:fetch` with `AA_API_KEY` secret.
+  2. `npm run data:validate` to ensure schema compliance.
+  3. `npm run data:history` to update annual price history.
+  4. `npm run test` as a sanity check.
+- **Commit & Deployment Chain:**
+  - If `public/data` changes, `github-actions[bot]` commits `chore(data): refresh snapshot YYYY-MM-DD` and pushes to the repository default branch.
+  - Pushes made using `GITHUB_TOKEN` do not trigger other workflows automatically. To ensure deployment happens, `refresh-data.yml` chains directly to `.github/workflows/deploy.yml` via `workflow_call` using the output commit `sha`.
+- **Compaction Strategy:**
+  - `public/data/history/<year>.json` stores only price points where `inputPerMTok`, `outputPerMTok`, or `priceUsdMonthly` changed by more than 1e-9 compared to the previous point.
+  - When crossing into a new year, points from the previous year are carried forward on `YYYY-01-01` to maintain continuous trendlines in charts.
+- **Manual Execution:** Run `npm run data:history` locally or trigger the **Refresh Data** workflow from the Actions tab.
+
+---
+
 ## Commands
 
 - `npm run data:fetch`: Fetches live data from network endpoints, builds `public/data/snapshot.json` and `public/data/meta.json`.
+- `npm run data:history`: Updates `public/data/history/index.json` and `public/data/history/<year>.json` from `public/data/snapshot.json`.
 - `npm run data:sample`: Builds offline snapshot and metadata from local fixtures (`scripts/__fixtures__/`) and writes to `public/data/` as well as `src/domain/__fixtures__/built-snapshot.json`.
 - `npm run data:validate`: Validates curated dataset integrity and verifies `public/data/snapshot.json` against domain zod schemas.
 

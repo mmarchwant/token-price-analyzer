@@ -1,4 +1,4 @@
-# token-price-analyzer
+# token-price-analyzer [![Refresh Data](https://github.com/<owner>/token-price-analyzer/actions/workflows/refresh-data.yml/badge.svg)](https://github.com/<owner>/token-price-analyzer/actions/workflows/refresh-data.yml)
 
 A static web application (Vite + React + TypeScript, deployed to GitHub Pages) that compares current AI model API prices, subscription plans and model quality.
 
@@ -24,6 +24,7 @@ It answers questions like: _"I have $20 this month — should I pay for an API o
 - `npm run test:coverage`: Runs Vitest code coverage report
 - `npm run e2e`: Runs Playwright end-to-end tests
 - `npm run data:fetch`: Fetches live source data and generates `public/data/snapshot.json`
+- `npm run data:history`: Updates `public/data/history/index.json` and annual price history files
 - `npm run data:sample`: Generates an offline snapshot from fixture datasets
 - `npm run data:validate`: Validates curated datasets and snapshot JSON against domain schemas
 
@@ -36,6 +37,10 @@ It answers questions like: _"I have $20 this month — should I pay for an API o
 ## Data Pipeline & Architecture
 
 For full details on data sources, precedence rules, model matching, and failure behavior, see [Data Pipeline Documentation](docs/data-pipeline.md).
+
+## Data Refresh
+
+The application automatically refreshes pricing, FX rates, and model benchmarks every day at 04:23 UTC via the `refresh-data.yml` GitHub Action workflow. Updated snapshot data and change-only price history points are validated, committed to the repository, and deployed to GitHub Pages automatically.
 
 ## Deployment & GitHub Settings
 
