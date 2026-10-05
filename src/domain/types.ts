@@ -46,3 +46,11 @@ export type FxRates = z.infer<typeof FxRatesSchema>;
 export type SourceId = z.infer<typeof SourceIdSchema>;
 export type SourceStatus = z.infer<typeof SourceStatusSchema>;
 export type Snapshot = z.infer<typeof SnapshotSchema>;
+
+export interface CuratedData {
+  profiles: UsageProfile[];
+  plans: SubscriptionPlan[];
+  fees: ChannelFee[];
+  qualityOverrides: QualityOverride[];
+  aliases: ModelAlias[];
+}

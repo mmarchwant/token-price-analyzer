@@ -4,8 +4,8 @@ import type { ModelEntry, PriceOffer, QualityScores } from '../types.js';
 const OpenRouterOverrideSchema = z
   .object({
     min_prompt_tokens: z.number().optional(),
-    utc_start: z.string().optional(),
-    utc_end: z.string().optional(),
+    utc_start: z.union([z.string(), z.number()]).optional(),
+    utc_end: z.union([z.string(), z.number()]).optional(),
     prompt: z.string(),
     completion: z.string(),
     input_cache_read: z.string().optional(),

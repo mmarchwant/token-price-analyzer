@@ -23,12 +23,19 @@ It answers questions like: _"I have $20 this month — should I pay for an API o
 - `npm run test:watch`: Runs Vitest in watch mode
 - `npm run test:coverage`: Runs Vitest code coverage report
 - `npm run e2e`: Runs Playwright end-to-end tests
+- `npm run data:fetch`: Fetches live source data and generates `public/data/snapshot.json`
+- `npm run data:sample`: Generates an offline snapshot from fixture datasets
+- `npm run data:validate`: Validates curated datasets and snapshot JSON against domain schemas
 
 ## Local Development
 
 1. Ensure Node.js `>=22` is installed (or use `.nvmrc` via `nvm use`).
 2. Install dependencies: `npm ci`
 3. Start dev server: `npm run dev`
+
+## Data Pipeline & Architecture
+
+For full details on data sources, precedence rules, model matching, and failure behavior, see [Data Pipeline Documentation](docs/data-pipeline.md).
 
 ## Deployment & GitHub Settings
 
@@ -38,10 +45,10 @@ The application is automatically built and deployed to GitHub Pages on pushes to
 - **Settings → Actions → Workflow permissions:** Read and write permissions (required for automated data refresh)
 - **Optional Secret:** `AA_API_KEY` (for Artificial Analysis API integration)
 
-## Planned Data Sources
+## Data Sources
 
 - **OpenRouter:** Live and daily API pricing and model benchmarks.
 - **LiteLLM Price List:** Direct API prices across providers.
-- **Artificial Analysis:** Quality indices and speed benchmarks.
+- **Artificial Analysis:** Quality indices and speed benchmarks ([Artificial Analysis](https://artificialanalysis.ai)).
 - **Frankfurter (ECB):** Reference foreign exchange rates.
 - **Curated Data:** Hand-maintained subscription plan limits, usage profiles, and channel fees.

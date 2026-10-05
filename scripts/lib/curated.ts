@@ -8,21 +8,9 @@ import {
   SubscriptionPlanSchema,
   UsageProfileSchema,
 } from '../../src/domain/schemas';
-import type {
-  ChannelFee,
-  ModelAlias,
-  QualityOverride,
-  SubscriptionPlan,
-  UsageProfile,
-} from '../../src/domain/types';
+import type { CuratedData } from '../../src/domain/types';
 
-export interface CuratedData {
-  profiles: UsageProfile[];
-  plans: SubscriptionPlan[];
-  fees: ChannelFee[];
-  qualityOverrides: QualityOverride[];
-  aliases: ModelAlias[];
-}
+export type { CuratedData };
 
 const UsageProfilesFileSchema = z.object({
   profiles: z.array(UsageProfileSchema),
