@@ -24,7 +24,8 @@ function main() {
       const snapshotRaw = JSON.parse(fs.readFileSync(snapshotPath, 'utf-8'));
       snapshot = parseSnapshot(snapshotRaw);
     } catch (err) {
-      console.warn('Could not parse public/data/snapshot.json:', err);
+      console.error(`Could not parse ${snapshotPath}:`, err);
+      process.exit(1);
     }
   } else {
     console.log('public/data/snapshot.json not found, skipping snapshot model checks.');
