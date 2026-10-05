@@ -13,6 +13,7 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "data:fetch": "tsx scripts/fetch-data.ts",
+    "data:history": "tsx scripts/update-history.ts",
     "data:sample": "tsx scripts/sample-data.ts",
     "data:validate": "tsx scripts/validate-data.ts",
     "test": "vitest run",

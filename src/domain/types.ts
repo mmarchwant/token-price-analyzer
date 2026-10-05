@@ -13,6 +13,10 @@ import {
   QualityOverridesFileSchema,
   QualityScoresSchema,
   QualityTierSchema,
+  PricePointSchema,
+  PlanPricePointSchema,
+  PriceHistorySchema,
+  HistoryIndexSchema,
   RangeSchema,
   SnapshotSchema,
   SourceIdSchema,
@@ -46,6 +50,11 @@ export type FxRates = z.infer<typeof FxRatesSchema>;
 export type SourceId = z.infer<typeof SourceIdSchema>;
 export type SourceStatus = z.infer<typeof SourceStatusSchema>;
 export type Snapshot = z.infer<typeof SnapshotSchema>;
+
+export type PricePoint = z.infer<typeof PricePointSchema>;
+export type PlanPricePoint = z.infer<typeof PlanPricePointSchema>;
+export type PriceHistory = z.infer<typeof PriceHistorySchema>;
+export type HistoryIndex = z.infer<typeof HistoryIndexSchema>;
 
 export interface CuratedData {
   profiles: UsageProfile[];
