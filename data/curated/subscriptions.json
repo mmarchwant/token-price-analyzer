@@ -1,0 +1,916 @@
+{
+  "plans": [
+    {
+      "id": "chatgpt-go",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "name": "ChatGPT Go",
+      "priceUsdMonthly": 8,
+      "url": "https://chatgpt.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "openai/gpt-5.6-luna",
+      "includedModelIds": ["openai/gpt-5.6-luna"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": true,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Unlimited GPT-5.6 Luna text chats subject to abuse guardrails; ad-supported in some regions.",
+        "pl": "Nielimitowane rozmowy tekstowe GPT-5.6 Luna podlegające ochronie przed nadużyciami; w niektórych regionach wspierane reklamami."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://chatgpt.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-plus",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "name": "ChatGPT Plus",
+      "priceUsdMonthly": 20,
+      "url": "https://chatgpt.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "official",
+      "primaryModelId": "openai/gpt-6-sol",
+      "includedModelIds": [
+        "openai/gpt-6-astra",
+        "openai/gpt-6-sol",
+        "openai/gpt-6-luna",
+        "openai/gpt-5.6-sol"
+      ],
+      "features": {
+        "codingAgents": ["codex"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 10,
+          "high": 100
+        }
+      },
+      "unitLabel": {
+        "en": "Codex local message (multi-step agent run)",
+        "pl": "lokalna wiadomość Codex (wieloetapowe zadanie agenta)"
+      },
+      "referenceUnit": {
+        "inputTokens": 300000,
+        "outputTokens": 6000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "OpenAI publishes approximate Codex ranges per 5h: 10–100 (Sol), 25–200 (Terra), 250–2,000 (Luna) local messages. Ordinary chat has no single published cap.",
+        "pl": "OpenAI publikuje przybliżone zakresy Codex na 5h: 10–100 (Sol), 25–200 (Terra), 250–2 000 (Luna) wiadomości lokalnych. Zwykły czat nie ma jednego opublikowanego limitu."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://chatgpt.com/pricing"
+        },
+        {
+          "label": "OpenAI Help Center",
+          "url": "https://help.openai.com"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-pro-100",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "name": "ChatGPT Pro ($100)",
+      "priceUsdMonthly": 100,
+      "url": "https://chatgpt.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "openai/gpt-6-sol",
+      "includedModelIds": [
+        "openai/gpt-6-astra",
+        "openai/gpt-6-sol",
+        "openai/gpt-6-luna",
+        "openai/gpt-5.6-sol",
+        "openai/gpt-6-astra-pro"
+      ],
+      "features": {
+        "codingAgents": ["codex"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 50,
+          "high": 500
+        }
+      },
+      "unitLabel": {
+        "en": "Codex local message (multi-step agent run)",
+        "pl": "lokalna wiadomość Codex (wieloetapowe zadanie agenta)"
+      },
+      "referenceUnit": {
+        "inputTokens": 300000,
+        "outputTokens": 6000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "About 5× Plus limits.",
+        "pl": "Około 5× limity planu Plus."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://chatgpt.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-pro-200",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "name": "ChatGPT Pro ($200)",
+      "priceUsdMonthly": 200,
+      "url": "https://chatgpt.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "openai/gpt-6-sol",
+      "includedModelIds": [
+        "openai/gpt-6-astra",
+        "openai/gpt-6-sol",
+        "openai/gpt-6-luna",
+        "openai/gpt-5.6-sol",
+        "openai/gpt-6-astra-pro"
+      ],
+      "features": {
+        "codingAgents": ["codex"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 200,
+          "high": 2000
+        }
+      },
+      "unitLabel": {
+        "en": "Codex local message (multi-step agent run)",
+        "pl": "lokalna wiadomość Codex (wieloetapowe zadanie agenta)"
+      },
+      "referenceUnit": {
+        "inputTokens": 300000,
+        "outputTokens": 6000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "Reopened to new sign-ups on 2026-09-29 with a reduced, unpublished allowance; this range is the previous 20× allowance and is likely overstated.",
+        "pl": "Ponownie otwarty dla nowych rejestracji 2026-09-29 ze zmniejszonym, nieopublikowanym limitem; ten zakres reprezentuje wcześniejszy limit 20× i jest prawdopodobnie zawyżony."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://chatgpt.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "claude-pro",
+      "provider": "anthropic",
+      "providerName": "Anthropic",
+      "name": "Claude Pro",
+      "priceUsdMonthly": 20,
+      "annualPriceUsdMonthly": 17,
+      "url": "https://claude.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-sonnet-5.5",
+      "includedModelIds": [
+        "anthropic/claude-opus-5.5",
+        "anthropic/claude-sonnet-5.5",
+        "anthropic/claude-opus-5",
+        "anthropic/claude-sonnet-5"
+      ],
+      "features": {
+        "codingAgents": ["claude-code"],
+        "imageGeneration": false,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 45,
+          "high": 90
+        }
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Anthropic does not publish counts. ~45 messages per 5h is a community estimate from before the 2026-09-22 limit increase; a weekly cap also applies. Fable models are available only via extra usage credits.",
+        "pl": "Anthropic nie publikuje dokładnych liczb. ~45 wiadomości na 5h to szacunek społeczności z przed podwyżki limitów 2026-09-22; obowiązuje również limit tygodniowy. Modele Fable są dostępne tylko za dodatkowe kredyty."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://claude.com/pricing"
+        },
+        {
+          "label": "Claude Support",
+          "url": "https://support.claude.com"
+        }
+      ]
+    },
+    {
+      "id": "claude-max-5x",
+      "provider": "anthropic",
+      "providerName": "Anthropic",
+      "name": "Claude Max 5×",
+      "priceUsdMonthly": 100,
+      "url": "https://claude.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-opus-5.5",
+      "includedModelIds": [
+        "anthropic/claude-opus-5.5",
+        "anthropic/claude-sonnet-5.5",
+        "anthropic/claude-opus-5",
+        "anthropic/claude-sonnet-5",
+        "anthropic/claude-fable-5.1"
+      ],
+      "features": {
+        "codingAgents": ["claude-code"],
+        "imageGeneration": false,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 225,
+          "high": 450
+        }
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Officially 5× the Pro per-session allowance; Fable 5.1 can use up to 50% of the weekly allowance.",
+        "pl": "Oficjalnie 5× limit sesji planu Pro; Fable 5.1 może wykorzystać do 50% limitu tygodniowego."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://claude.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "claude-max-20x",
+      "provider": "anthropic",
+      "providerName": "Anthropic",
+      "name": "Claude Max 20×",
+      "priceUsdMonthly": 200,
+      "url": "https://claude.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-opus-5.5",
+      "includedModelIds": [
+        "anthropic/claude-opus-5.5",
+        "anthropic/claude-sonnet-5.5",
+        "anthropic/claude-opus-5",
+        "anthropic/claude-sonnet-5",
+        "anthropic/claude-fable-5.1"
+      ],
+      "features": {
+        "codingAgents": ["claude-code"],
+        "imageGeneration": false,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 900,
+          "high": 1800
+        }
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Officially 20× the Pro per-session allowance.",
+        "pl": "Oficjalnie 20× limit sesji planu Pro."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://claude.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "google-ai-plus",
+      "provider": "google",
+      "providerName": "Google",
+      "name": "Google AI Plus",
+      "priceUsdMonthly": 4.99,
+      "url": "https://one.google.com/about/google-ai-plans/",
+      "lastVerified": "2026-10-05",
+      "confidence": "official",
+      "primaryModelId": "google/gemini-3.6-flash",
+      "includedModelIds": ["google/gemini-3.6-flash", "google/gemini-3.1-pro-preview"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "2× Free usage; compute-based limits refresh every 5h with a weekly ceiling; 400 GB storage.",
+        "pl": "2× użycia bezpłatnego; limity oparte na mocy obliczeniowej odświeżają się co 5h z tygodniowym pułapem; 400 GB miejsca."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://one.google.com/about/google-ai-plans/"
+        }
+      ]
+    },
+    {
+      "id": "google-ai-pro",
+      "provider": "google",
+      "providerName": "Google",
+      "name": "Google AI Pro",
+      "priceUsdMonthly": 19.99,
+      "url": "https://one.google.com/about/google-ai-plans/",
+      "lastVerified": "2026-10-05",
+      "confidence": "official",
+      "primaryModelId": "google/gemini-3.1-pro-preview",
+      "includedModelIds": ["google/gemini-3.1-pro-preview", "google/gemini-3.8-flash"],
+      "features": {
+        "codingAgents": ["gemini-cli", "jules"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false,
+        "longContextTokens": 1048576
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "4× Free usage, compute-based; also raises Jules and Gemini CLI limits; 5 TB storage.",
+        "pl": "4× użycia bezpłatnego, oparte na mocy obliczeniowej; zwiększa również limity Jules i Gemini CLI; 5 TB miejsca."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://one.google.com/about/google-ai-plans/"
+        }
+      ]
+    },
+    {
+      "id": "google-ai-ultra-5x",
+      "provider": "google",
+      "providerName": "Google",
+      "name": "Google AI Ultra 5×",
+      "priceUsdMonthly": 99.99,
+      "url": "https://one.google.com/about/google-ai-plans/",
+      "lastVerified": "2026-10-05",
+      "confidence": "official",
+      "primaryModelId": "google/gemini-3.1-pro-preview",
+      "includedModelIds": ["google/gemini-3.1-pro-preview", "google/gemini-3.8-flash"],
+      "features": {
+        "codingAgents": ["gemini-cli", "jules"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false,
+        "longContextTokens": 1048576
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "5× AI Pro limits; includes Deep Think.",
+        "pl": "5× limity AI Pro; zawiera funkcję Deep Think."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://one.google.com/about/google-ai-plans/"
+        }
+      ]
+    },
+    {
+      "id": "google-ai-ultra-20x",
+      "provider": "google",
+      "providerName": "Google",
+      "name": "Google AI Ultra 20×",
+      "priceUsdMonthly": 199.99,
+      "url": "https://one.google.com/about/google-ai-plans/",
+      "lastVerified": "2026-10-05",
+      "confidence": "official",
+      "primaryModelId": "google/gemini-3.1-pro-preview",
+      "includedModelIds": ["google/gemini-3.1-pro-preview", "google/gemini-3.8-flash"],
+      "features": {
+        "codingAgents": ["gemini-cli", "jules"],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false,
+        "longContextTokens": 1048576
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "20× AI Pro limits; includes Deep Think.",
+        "pl": "20× limity AI Pro; zawiera funkcję Deep Think."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://one.google.com/about/google-ai-plans/"
+        }
+      ]
+    },
+    {
+      "id": "supergrok",
+      "provider": "x-ai",
+      "providerName": "xAI",
+      "name": "SuperGrok",
+      "priceUsdMonthly": 30,
+      "url": "https://x.ai/grok",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "x-ai/grok-4.7",
+      "includedModelIds": ["x-ai/grok-4.7"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Limits not published as fixed numbers.",
+        "pl": "Limity nie są publikowane jako stałe liczby."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://x.ai/grok"
+        }
+      ]
+    },
+    {
+      "id": "glm-coding-lite",
+      "provider": "z-ai",
+      "providerName": "Z.ai",
+      "name": "GLM Coding Lite",
+      "priceUsdMonthly": 18,
+      "url": "https://z.ai/subscribe",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "z-ai/glm-5.3",
+      "includedModelIds": ["z-ai/glm-5.3", "z-ai/glm-5.3-flash"],
+      "features": {
+        "codingAgents": ["claude-code", "cline", "opencode"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": true
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 80,
+          "high": 80
+        },
+        "weeklyUnitsCap": {
+          "low": 400,
+          "high": 400
+        }
+      },
+      "unitLabel": {
+        "en": "prompt in a coding tool",
+        "pl": "prompt w narzędziu do kodowania"
+      },
+      "referenceUnit": {
+        "inputTokens": 150000,
+        "outputTokens": 4000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "Usable only in officially supported coding tools; the newest models consume 2–3× quota at peak hours.",
+        "pl": "Do użytku tylko w oficjalnie wspieranych narzędziach do kodowania; najnowsze modele zużywają 2–3× limitu w godzinach szczytu."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://z.ai/subscribe"
+        }
+      ]
+    },
+    {
+      "id": "glm-coding-pro",
+      "provider": "z-ai",
+      "providerName": "Z.ai",
+      "name": "GLM Coding Pro",
+      "priceUsdMonthly": 80,
+      "url": "https://z.ai/subscribe",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "z-ai/glm-5.3",
+      "includedModelIds": ["z-ai/glm-5.3", "z-ai/glm-5.3-flash"],
+      "features": {
+        "codingAgents": ["claude-code", "cline", "opencode"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": true
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 400,
+          "high": 400
+        },
+        "weeklyUnitsCap": {
+          "low": 2000,
+          "high": 2000
+        }
+      },
+      "unitLabel": {
+        "en": "prompt in a coding tool",
+        "pl": "prompt w narzędziu do kodowania"
+      },
+      "referenceUnit": {
+        "inputTokens": 150000,
+        "outputTokens": 4000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "Usable only in officially supported coding tools; the newest models consume 2–3× quota at peak hours.",
+        "pl": "Do użytku tylko w oficjalnie wspieranych narzędziach do kodowania; najnowsze modele zużywają 2–3× limitu w godzinach szczytu."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://z.ai/subscribe"
+        }
+      ]
+    },
+    {
+      "id": "glm-coding-max",
+      "provider": "z-ai",
+      "providerName": "Z.ai",
+      "name": "GLM Coding Max",
+      "priceUsdMonthly": 168,
+      "url": "https://z.ai/subscribe",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "z-ai/glm-5.3",
+      "includedModelIds": ["z-ai/glm-5.3", "z-ai/glm-5.3-flash"],
+      "features": {
+        "codingAgents": ["claude-code", "cline", "opencode"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": true
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 5,
+        "unitsPerWindow": {
+          "low": 1600,
+          "high": 1600
+        },
+        "weeklyUnitsCap": {
+          "low": 8000,
+          "high": 8000
+        }
+      },
+      "unitLabel": {
+        "en": "prompt in a coding tool",
+        "pl": "prompt w narzędziu do kodowania"
+      },
+      "referenceUnit": {
+        "inputTokens": 150000,
+        "outputTokens": 4000,
+        "cachedInputShare": 0.9
+      },
+      "notes": {
+        "en": "Usable only in officially supported coding tools; the newest models consume 2–3× quota at peak hours.",
+        "pl": "Do użytku tylko w oficjalnie wspieranych narzędziach do kodowania; najnowsze modele zużywają 2–3× limitu w godzinach szczytu."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://z.ai/subscribe"
+        }
+      ]
+    },
+    {
+      "id": "github-copilot-pro",
+      "provider": "github",
+      "providerName": "GitHub",
+      "name": "Copilot Pro",
+      "priceUsdMonthly": 10,
+      "url": "https://github.com/features/copilot/plans",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-sonnet-5.5",
+      "includedModelIds": [],
+      "features": {
+        "codingAgents": ["copilot"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "monthly",
+        "unitsPerMonth": {
+          "low": 300,
+          "high": 300
+        }
+      },
+      "unitLabel": {
+        "en": "premium request",
+        "pl": "zapytanie premium"
+      },
+      "referenceUnit": {
+        "inputTokens": 30000,
+        "outputTokens": 1500,
+        "cachedInputShare": 0.5
+      },
+      "notes": {
+        "en": "Premium-request multipliers differ per model; base-model completions are unlimited. Verify current numbers.",
+        "pl": "Mnożniki zapytań premium różnią się w zależności od modelu; dopełnienia modeli podstawowych są nielimitowane. Sprawdź aktualne wartości."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://github.com/features/copilot/plans"
+        }
+      ]
+    },
+    {
+      "id": "github-copilot-pro-plus",
+      "provider": "github",
+      "providerName": "GitHub",
+      "name": "Copilot Pro+",
+      "priceUsdMonthly": 39,
+      "url": "https://github.com/features/copilot/plans",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-sonnet-5.5",
+      "includedModelIds": [],
+      "features": {
+        "codingAgents": ["copilot"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "monthly",
+        "unitsPerMonth": {
+          "low": 1500,
+          "high": 1500
+        }
+      },
+      "unitLabel": {
+        "en": "premium request",
+        "pl": "zapytanie premium"
+      },
+      "referenceUnit": {
+        "inputTokens": 30000,
+        "outputTokens": 1500,
+        "cachedInputShare": 0.5
+      },
+      "notes": {
+        "en": "Premium-request multipliers differ per model; base-model completions are unlimited. Verify current numbers.",
+        "pl": "Mnożniki zapytań premium różnią się w zależności od modelu; dopełnienia modeli podstawowych są nielimitowane. Sprawdź aktualne wartości."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://github.com/features/copilot/plans"
+        }
+      ]
+    },
+    {
+      "id": "cursor-pro",
+      "provider": "cursor",
+      "providerName": "Cursor",
+      "name": "Cursor Pro",
+      "priceUsdMonthly": 20,
+      "url": "https://cursor.com/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "anthropic/claude-sonnet-5.5",
+      "includedModelIds": [],
+      "features": {
+        "codingAgents": ["cursor"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "usd-credit",
+        "usdPerMonth": 20
+      },
+      "unitLabel": {
+        "en": "premium request",
+        "pl": "zapytanie premium"
+      },
+      "referenceUnit": {
+        "inputTokens": 30000,
+        "outputTokens": 1500,
+        "cachedInputShare": 0.5
+      },
+      "notes": {
+        "en": "Includes roughly $20/month of frontier-model usage at API prices plus an unlimited 'Auto' model. Verify current terms.",
+        "pl": "Zawiera około 20 $/miesiąc użycia modeli wiodących po cenach API oraz nielimitowany model 'Auto'. Sprawdź aktualne warunki."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://cursor.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "mistral-le-chat-pro",
+      "provider": "mistralai",
+      "providerName": "Mistral",
+      "name": "Le Chat Pro",
+      "priceUsdMonthly": 14.99,
+      "url": "https://mistral.ai/pricing",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "mistralai/mistral-medium-3-5",
+      "includedModelIds": ["mistralai/mistral-medium-3-5"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": true,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Limits not published as fixed numbers.",
+        "pl": "Limity nie są publikowane jako stałe liczby."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://mistral.ai/pricing"
+        }
+      ]
+    },
+    {
+      "id": "perplexity-pro",
+      "provider": "perplexity",
+      "providerName": "Perplexity",
+      "name": "Perplexity Pro",
+      "priceUsdMonthly": 20,
+      "url": "https://www.perplexity.ai/pro",
+      "lastVerified": "2026-10-05",
+      "confidence": "reported",
+      "primaryModelId": "perplexity/sonar-pro",
+      "includedModelIds": ["perplexity/sonar-pro"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": false,
+        "deepResearch": true,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "chat message",
+        "pl": "wiadomość w czacie"
+      },
+      "referenceUnit": {
+        "inputTokens": 3000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.3
+      },
+      "notes": {
+        "en": "Search-focused; lets you pick third-party models per query.",
+        "pl": "Zorientowany na wyszukiwanie; pozwala wybierać modele firm trzecich dla każdego zapytania."
+      },
+      "sources": [
+        {
+          "label": "Official pricing page",
+          "url": "https://www.perplexity.ai/pro"
+        }
+      ]
+    }
+  ]
+}

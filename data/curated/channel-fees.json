@@ -1,0 +1,52 @@
+{
+  "fees": [
+    {
+      "vendor": "openrouter",
+      "purchaseFeePct": 5.5,
+      "minFeeUsd": 0.8,
+      "minTopUpUsd": 5,
+      "notes": {
+        "en": "OpenRouter charges a purchase fee for card processing; values must be verified.",
+        "pl": "OpenRouter pobiera opłatę za obsługę płatności kartą; wartości należy zweryfikować."
+      },
+      "sourceUrl": "https://openrouter.ai/docs/faq",
+      "lastVerified": "2026-10-05"
+    },
+    {
+      "vendor": "anthropic",
+      "purchaseFeePct": 0,
+      "minFeeUsd": 0,
+      "minTopUpUsd": 5,
+      "notes": {
+        "en": "Direct Anthropic API billing; values must be verified.",
+        "pl": "Płatności bezpośrednie w API Anthropic; wartości należy zweryfikować."
+      },
+      "sourceUrl": "https://docs.anthropic.com/en/api/billing",
+      "lastVerified": "2026-10-05"
+    },
+    {
+      "vendor": "openai",
+      "purchaseFeePct": 0,
+      "minFeeUsd": 0,
+      "minTopUpUsd": 5,
+      "notes": {
+        "en": "Direct OpenAI API billing; values must be verified.",
+        "pl": "Płatności bezpośrednie w API OpenAI; wartości należy zweryfikować."
+      },
+      "sourceUrl": "https://platform.openai.com/docs/guides/billing",
+      "lastVerified": "2026-10-05"
+    },
+    {
+      "vendor": "google",
+      "purchaseFeePct": 0,
+      "minFeeUsd": 0,
+      "minTopUpUsd": 0,
+      "notes": {
+        "en": "Pay-as-you-go billing; the API also has a free tier; values must be verified.",
+        "pl": "Płatności według zużycia; API posiada również bezpłatny pakiet; wartości należy zweryfikować."
+      },
+      "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+      "lastVerified": "2026-10-05"
+    }
+  ]
+}
