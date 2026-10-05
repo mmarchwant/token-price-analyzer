@@ -1,0 +1,186 @@
+{
+  "claude-3-5-sonnet-20241022": {
+    "litellm_provider": "anthropic",
+    "mode": "chat",
+    "input_cost_per_token": 0.000003,
+    "output_cost_per_token": 0.000015,
+    "cache_read_input_token_cost": 0.0000003,
+    "cache_creation_input_token_cost": 0.00000375,
+    "input_cost_per_token_above_200k_tokens": 0.000006,
+    "output_cost_per_token_above_200k_tokens": 0.000024
+  },
+  "claude-sonnet-5.5": {
+    "litellm_provider": "anthropic",
+    "mode": "chat",
+    "input_cost_per_token": 0.000003,
+    "output_cost_per_token": 0.000015,
+    "cache_read_input_token_cost": 0.0000003,
+    "cache_creation_input_token_cost": 0.00000375,
+    "input_cost_per_token_above_200k_tokens": 0.000006,
+    "output_cost_per_token_above_200k_tokens": 0.000024
+  },
+  "claude-3-5-haiku-20241022": {
+    "litellm_provider": "anthropic",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000008,
+    "output_cost_per_token": 0.000004
+  },
+  "claude-3-opus-20240229": {
+    "litellm_provider": "anthropic",
+    "mode": "chat",
+    "input_cost_per_token": 0.000015,
+    "output_cost_per_token": 0.000075
+  },
+  "gpt-4o": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000025,
+    "output_cost_per_token": 0.00001
+  },
+  "gpt-4o-2024-08-06": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000025,
+    "output_cost_per_token": 0.00001
+  },
+  "gpt-4o-mini": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.00000015,
+    "output_cost_per_token": 0.0000006
+  },
+  "gpt-3.5-turbo": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000005,
+    "output_cost_per_token": 0.0000015
+  },
+  "gpt-6-sol": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.000005,
+    "output_cost_per_token": 0.00002
+  },
+  "gemini-1.5-pro": {
+    "litellm_provider": "gemini",
+    "mode": "chat",
+    "input_cost_per_token": 0.00000125,
+    "output_cost_per_token": 0.000005,
+    "input_cost_per_token_above_128k_tokens": 0.0000025,
+    "output_cost_per_token_above_128k_tokens": 0.00001
+  },
+  "gemini-2.5-pro": {
+    "litellm_provider": "gemini",
+    "mode": "chat",
+    "input_cost_per_token": 0.00000125,
+    "output_cost_per_token": 0.000005
+  },
+  "gemini-3.1-pro-preview": {
+    "litellm_provider": "gemini",
+    "mode": "chat",
+    "input_cost_per_token": 0.000002,
+    "output_cost_per_token": 0.000008
+  },
+  "grok-3": {
+    "litellm_provider": "xai",
+    "mode": "chat",
+    "input_cost_per_token": 0.000003,
+    "output_cost_per_token": 0.000015
+  },
+  "deepseek-r1": {
+    "litellm_provider": "deepseek",
+    "mode": "chat",
+    "input_cost_per_token": 0.00000055,
+    "output_cost_per_token": 0.00000219
+  },
+  "deepseek-chat": {
+    "litellm_provider": "deepseek",
+    "mode": "chat",
+    "input_cost_per_token": 0.00000014,
+    "output_cost_per_token": 0.00000028
+  },
+  "mistral-large-2407": {
+    "litellm_provider": "mistral",
+    "mode": "chat",
+    "input_cost_per_token": 0.000002,
+    "output_cost_per_token": 0.000006
+  },
+  "mistral-small": {
+    "litellm_provider": "mistral",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000002,
+    "output_cost_per_token": 0.0000006
+  },
+  "text-embedding-3-small": {
+    "litellm_provider": "openai",
+    "mode": "embedding",
+    "input_cost_per_token": 0.00000002,
+    "output_cost_per_token": 0
+  },
+  "bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0": {
+    "litellm_provider": "bedrock",
+    "mode": "chat",
+    "input_cost_per_token": 0.000003,
+    "output_cost_per_token": 0.000015
+  },
+  "azure/gpt-4o": {
+    "litellm_provider": "azure",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000025,
+    "output_cost_per_token": 0.00001
+  },
+  "moonshot-v1-8k": {
+    "litellm_provider": "moonshot",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000012,
+    "output_cost_per_token": 0.0000012
+  },
+  "glm-4-plus": {
+    "litellm_provider": "zai",
+    "mode": "chat",
+    "input_cost_per_token": 0.000007,
+    "output_cost_per_token": 0.000007
+  },
+  "qwen-2.5-coder-32b-instruct": {
+    "litellm_provider": "dashscope",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000002,
+    "output_cost_per_token": 0.0000002
+  },
+  "minimax-01": {
+    "litellm_provider": "minimax",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000002,
+    "output_cost_per_token": 0.0000011
+  },
+  "unknown-litellm-model": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.00001,
+    "output_cost_per_token": 0.00003
+  },
+  "common-model": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.000001,
+    "output_cost_per_token": 0.000002
+  },
+  "gpt-3.5-turbo-old": {
+    "litellm_provider": "openai",
+    "mode": "chat",
+    "input_cost_per_token": 0.000001,
+    "output_cost_per_token": 0.000002
+  },
+  "claude-opus-5-5-20260922": {
+    "litellm_provider": "anthropic",
+    "mode": "chat",
+    "input_cost_per_token": 0.00002,
+    "output_cost_per_token": 0.00008
+  },
+  "mistral-small-2603": {
+    "litellm_provider": "mistral",
+    "mode": "chat",
+    "input_cost_per_token": 0.0000002,
+    "output_cost_per_token": 0.0000006
+  }
+}
