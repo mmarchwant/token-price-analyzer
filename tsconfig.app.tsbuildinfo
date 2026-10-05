@@ -1,1 +1,1 @@
-{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/app/App.test.tsx","./src/app/App.tsx","./src/test/setup.ts"],"version":"6.0.3"}
+{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/app/App.test.tsx","./src/app/App.tsx","./src/domain/currency.test.ts","./src/domain/currency.ts","./src/domain/pricing.test.ts","./src/domain/pricing.ts","./src/domain/quality.test.ts","./src/domain/quality.ts","./src/domain/range.test.ts","./src/domain/range.ts","./src/domain/schemas.test.ts","./src/domain/schemas.ts","./src/domain/types.ts","./src/test/setup.ts"],"version":"6.0.3"}

@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2025-01-15T12:00:00Z",
+  "sources": [
+    {
+      "id": "openrouter",
+      "ok": true,
+      "skipped": false,
+      "fetchedAt": "2025-01-15T12:00:00Z",
+      "itemCount": 8
+    },
+    {
+      "id": "litellm",
+      "ok": true,
+      "skipped": false,
+      "fetchedAt": "2025-01-15T12:00:00Z",
+      "itemCount": 5
+    },
+    {
+      "id": "artificial-analysis",
+      "ok": true,
+      "skipped": false,
+      "fetchedAt": "2025-01-15T12:00:00Z",
+      "itemCount": 5
+    },
+    {
+      "id": "frankfurter",
+      "ok": true,
+      "skipped": false,
+      "fetchedAt": "2025-01-15T12:00:00Z",
+      "itemCount": 2
+    },
+    {
+      "id": "curated",
+      "ok": true,
+      "skipped": false,
+      "fetchedAt": "2025-01-15T12:00:00Z",
+      "itemCount": 10
+    }
+  ],
+  "fx": {
+    "base": "USD",
+    "date": "2025-01-15",
+    "rates": {
+      "USD": 1,
+      "PLN": 4.0,
+      "EUR": 0.92
+    }
+  },
+  "models": [
+    {
+      "id": "anthropic/claude-3-5-sonnet",
+      "name": "Claude 3.5 Sonnet",
+      "provider": "anthropic",
+      "providerName": "Anthropic",
+      "description": "Smart model",
+      "createdAt": "2024-06-20",
+      "contextLength": 200000,
+      "maxOutputTokens": 8192,
+      "inputModalities": ["text", "image"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": true,
+        "structuredOutputs": true,
+        "imageInput": true
+      },
+      "openWeights": false,
+      "offers": [
+        {
+          "channel": "direct",
+          "vendor": "anthropic",
+          "sourceId": "litellm",
+          "inputPerMTok": 3.0,
+          "outputPerMTok": 15.0,
+          "cacheReadPerMTok": 0.3,
+          "cacheWritePerMTok": 3.75,
+          "isFree": false
+        },
+        {
+          "channel": "openrouter",
+          "vendor": "openrouter",
+          "sourceId": "openrouter",
+          "inputPerMTok": 3.0,
+          "outputPerMTok": 15.0,
+          "cacheReadPerMTok": 0.3,
+          "cacheWritePerMTok": 3.75,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "intelligence": 88,
+        "coding": 92,
+        "agentic": 85,
+        "source": "artificial-analysis",
+        "tier": "S"
+      },
+      "speed": {
+        "outputTokensPerSecond": 75,
+        "timeToFirstTokenSeconds": 0.8,
+        "source": "artificial-analysis"
+      }
+    },
+    {
+      "id": "openai/gpt-4o",
+      "name": "GPT-4o",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "description": "Flagship OpenAI model",
+      "contextLength": 128000,
+      "maxOutputTokens": 4096,
+      "inputModalities": ["text", "image"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": true,
+        "structuredOutputs": true,
+        "imageInput": true
+      },
+      "openWeights": false,
+      "offers": [
+        {
+          "channel": "direct",
+          "vendor": "openai",
+          "sourceId": "litellm",
+          "inputPerMTok": 2.5,
+          "outputPerMTok": 10.0,
+          "cacheReadPerMTok": 1.25,
+          "isFree": false
+        },
+        {
+          "channel": "openrouter-batch",
+          "vendor": "openrouter",
+          "sourceId": "openrouter",
+          "inputPerMTok": 1.25,
+          "outputPerMTok": 5.0,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "intelligence": 86,
+        "coding": 88,
+        "agentic": 82,
+        "source": "openrouter-aa",
+        "tier": "A"
+      }
+    },
+    {
+      "id": "google/gemini-1-5-pro",
+      "name": "Gemini 1.5 Pro",
+      "provider": "google",
+      "providerName": "Google",
+      "description": "Long context model",
+      "contextLength": 2000000,
+      "maxOutputTokens": 8192,
+      "inputModalities": ["text", "image", "audio", "video"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": true,
+        "structuredOutputs": true,
+        "imageInput": true
+      },
+      "openWeights": false,
+      "offers": [
+        {
+          "channel": "direct",
+          "vendor": "google",
+          "sourceId": "litellm",
+          "inputPerMTok": 1.25,
+          "outputPerMTok": 5.0,
+          "isFree": false,
+          "longContext": {
+            "thresholdTokens": 128000,
+            "inputPerMTok": 2.5,
+            "outputPerMTok": 10.0,
+            "cacheReadPerMTok": 0.625
+          }
+        }
+      ],
+      "quality": {
+        "intelligence": 84,
+        "coding": 81,
+        "agentic": 78,
+        "source": "manual",
+        "tier": "A"
+      }
+    },
+    {
+      "id": "meta-llama/llama-3-3-70b-instruct",
+      "name": "Llama 3.3 70B Instruct",
+      "provider": "meta",
+      "providerName": "Meta",
+      "contextLength": 128000,
+      "inputModalities": ["text"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": false,
+        "structuredOutputs": true,
+        "imageInput": false
+      },
+      "openWeights": true,
+      "offers": [
+        {
+          "channel": "openrouter",
+          "vendor": "openrouter",
+          "sourceId": "openrouter",
+          "inputPerMTok": 0.4,
+          "outputPerMTok": 0.4,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "intelligence": 80,
+        "coding": 79,
+        "agentic": 75,
+        "source": "artificial-analysis",
+        "tier": "B"
+      }
+    },
+    {
+      "id": "meta-llama/llama-3-1-8b-instruct:free",
+      "name": "Llama 3.1 8B Instruct (Free)",
+      "provider": "meta",
+      "providerName": "Meta",
+      "contextLength": 131072,
+      "inputModalities": ["text"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": false,
+        "structuredOutputs": false,
+        "imageInput": false
+      },
+      "openWeights": true,
+      "offers": [
+        {
+          "channel": "openrouter-free",
+          "vendor": "openrouter",
+          "sourceId": "openrouter",
+          "inputPerMTok": 0,
+          "outputPerMTok": 0,
+          "isFree": true
+        }
+      ],
+      "quality": {
+        "intelligence": 65,
+        "coding": 60,
+        "agentic": 55,
+        "source": "manual",
+        "tier": "C"
+      }
+    },
+    {
+      "id": "deepseek/deepseek-r1",
+      "name": "DeepSeek R1",
+      "provider": "deepseek",
+      "providerName": "DeepSeek",
+      "contextLength": 64000,
+      "inputModalities": ["text"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": false,
+        "reasoning": true,
+        "structuredOutputs": false,
+        "imageInput": false
+      },
+      "openWeights": true,
+      "offers": [
+        {
+          "channel": "direct",
+          "vendor": "deepseek",
+          "sourceId": "litellm",
+          "inputPerMTok": 0.55,
+          "outputPerMTok": 2.19,
+          "cacheReadPerMTok": 0.14,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "intelligence": 87,
+        "coding": 89,
+        "agentic": 80,
+        "source": "artificial-analysis",
+        "tier": "S"
+      }
+    },
+    {
+      "id": "mistralai/mistral-small",
+      "name": "Mistral Small",
+      "provider": "mistralai",
+      "providerName": "Mistral AI",
+      "contextLength": 32000,
+      "inputModalities": ["text"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": false,
+        "structuredOutputs": true,
+        "imageInput": false
+      },
+      "openWeights": false,
+      "offers": [
+        {
+          "channel": "direct",
+          "vendor": "mistralai",
+          "sourceId": "litellm",
+          "inputPerMTok": 0.2,
+          "outputPerMTok": 0.6,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "source": "none"
+      }
+    },
+    {
+      "id": "qwen/qwen-2-5-72b-instruct",
+      "name": "Qwen 2.5 72B Instruct",
+      "provider": "qwen",
+      "providerName": "Qwen",
+      "contextLength": 128000,
+      "inputModalities": ["text"],
+      "outputModalities": ["text"],
+      "capabilities": {
+        "tools": true,
+        "reasoning": true,
+        "structuredOutputs": true,
+        "imageInput": false
+      },
+      "openWeights": true,
+      "offers": [
+        {
+          "channel": "openrouter",
+          "vendor": "openrouter",
+          "sourceId": "openrouter",
+          "inputPerMTok": 0.35,
+          "outputPerMTok": 0.4,
+          "isFree": false
+        }
+      ],
+      "quality": {
+        "intelligence": 78,
+        "coding": 82,
+        "agentic": 74,
+        "source": "artificial-analysis",
+        "tier": "B"
+      }
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "chatgpt-plus",
+      "provider": "openai",
+      "providerName": "OpenAI",
+      "name": "ChatGPT Plus",
+      "priceUsdMonthly": 20,
+      "url": "https://chatgpt.com",
+      "lastVerified": "2025-01-10",
+      "confidence": "official",
+      "primaryModelId": "openai/gpt-4o",
+      "includedModelIds": ["openai/gpt-4o"],
+      "features": {
+        "codingAgents": ["canvas"],
+        "imageGeneration": true,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "window",
+        "windowHours": 3,
+        "unitsPerWindow": {
+          "low": 40,
+          "high": 80
+        }
+      },
+      "unitLabel": {
+        "en": "messages",
+        "pl": "wiadomości"
+      },
+      "referenceUnit": {
+        "inputTokens": 1000,
+        "outputTokens": 500,
+        "cachedInputShare": 0
+      },
+      "notes": {
+        "en": "Dynamic limit based on system load",
+        "pl": "Dynamiczny limit zależny od obciążenia"
+      },
+      "sources": [
+        {
+          "label": "OpenAI Help",
+          "url": "https://help.openai.com"
+        }
+      ]
+    },
+    {
+      "id": "claude-pro",
+      "provider": "anthropic",
+      "providerName": "Anthropic",
+      "name": "Claude Pro",
+      "priceUsdMonthly": 20,
+      "url": "https://claude.ai",
+      "lastVerified": "2025-01-10",
+      "confidence": "official",
+      "primaryModelId": "anthropic/claude-3-5-sonnet",
+      "includedModelIds": ["anthropic/claude-3-5-sonnet"],
+      "features": {
+        "codingAgents": ["artifacts"],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": false
+      },
+      "limit": {
+        "kind": "monthly",
+        "unitsPerMonth": {
+          "low": 500,
+          "high": 1500
+        }
+      },
+      "unitLabel": {
+        "en": "prompts",
+        "pl": "zapytania"
+      },
+      "referenceUnit": {
+        "inputTokens": 2000,
+        "outputTokens": 800,
+        "cachedInputShare": 0.5
+      },
+      "notes": {
+        "en": "Varies by conversation length",
+        "pl": "Zależy od długości konwersacji"
+      },
+      "sources": [
+        {
+          "label": "Anthropic Pricing",
+          "url": "https://claude.ai/pricing"
+        }
+      ]
+    },
+    {
+      "id": "openrouter-credits",
+      "provider": "openrouter",
+      "providerName": "OpenRouter",
+      "name": "OpenRouter Monthly Credit",
+      "priceUsdMonthly": 10,
+      "url": "https://openrouter.ai",
+      "lastVerified": "2025-01-10",
+      "confidence": "official",
+      "primaryModelId": "anthropic/claude-3-5-sonnet",
+      "includedModelIds": ["anthropic/claude-3-5-sonnet", "openai/gpt-4o"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": true
+      },
+      "limit": {
+        "kind": "usd-credit",
+        "usdPerMonth": 10
+      },
+      "unitLabel": {
+        "en": "USD credits",
+        "pl": "kredyty USD"
+      },
+      "referenceUnit": {
+        "inputTokens": 1000,
+        "outputTokens": 1000,
+        "cachedInputShare": 0
+      },
+      "notes": {
+        "en": "Prepaid credits",
+        "pl": "Kredyty przedpłacone"
+      },
+      "sources": [
+        {
+          "label": "OpenRouter",
+          "url": "https://openrouter.ai"
+        }
+      ]
+    },
+    {
+      "id": "unknown-plan",
+      "provider": "generic",
+      "providerName": "Generic Provider",
+      "name": "Mystery Plan",
+      "priceUsdMonthly": 15,
+      "url": "https://example.com/plan",
+      "lastVerified": "2025-01-10",
+      "confidence": "reported",
+      "primaryModelId": "mistralai/mistral-small",
+      "includedModelIds": ["mistralai/mistral-small"],
+      "features": {
+        "codingAgents": [],
+        "imageGeneration": false,
+        "deepResearch": false,
+        "apiAccess": true
+      },
+      "limit": {
+        "kind": "unknown"
+      },
+      "unitLabel": {
+        "en": "uses",
+        "pl": "użycia"
+      },
+      "referenceUnit": {
+        "inputTokens": 500,
+        "outputTokens": 500,
+        "cachedInputShare": 0
+      },
+      "notes": {
+        "en": "Limits unverified",
+        "pl": "Limity niepotwierdzone"
+      },
+      "sources": [
+        {
+          "label": "Community Report",
+          "url": "https://example.com/report"
+        }
+      ]
+    }
+  ],
+  "usageProfiles": [
+    {
+      "id": "coding-assistant",
+      "name": {
+        "en": "Coding Assistant",
+        "pl": "Asystent Programowania"
+      },
+      "description": {
+        "en": "Heavy code generation with context caching",
+        "pl": "Intensywne generowanie kodu z buforowaniem kontekstu"
+      },
+      "inputTokensPerTask": 10000,
+      "outputTokensPerTask": 1000,
+      "cachedInputShare": 0.8,
+      "tasksPerDay": 20,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "coding",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "general-chat",
+      "name": {
+        "en": "General Chat",
+        "pl": "Czat Ogólny"
+      },
+      "description": {
+        "en": "Standard Q&A chat tasks",
+        "pl": "Standardowe pytania i odpowiedzi"
+      },
+      "inputTokensPerTask": 1500,
+      "outputTokensPerTask": 500,
+      "cachedInputShare": 0,
+      "tasksPerDay": 10,
+      "workDaysPerMonth": 20,
+      "qualityDimension": "intelligence",
+      "allowBatch": true,
+      "isPreset": true
+    }
+  ],
+  "channelFees": [
+    {
+      "vendor": "openrouter",
+      "purchaseFeePct": 0,
+      "minFeeUsd": 0,
+      "minTopUpUsd": 5,
+      "notes": {
+        "en": "No extra top-up fee",
+        "pl": "Brak dodatkowej opłaty zasilającej"
+      },
+      "sourceUrl": "https://openrouter.ai/docs",
+      "lastVerified": "2025-01-10"
+    },
+    {
+      "vendor": "reseller-x",
+      "purchaseFeePct": 3.5,
+      "minFeeUsd": 0.5,
+      "minTopUpUsd": 10,
+      "notes": {
+        "en": "Payment gateway fee applies",
+        "pl": "Obowiązuje opłata bramki płatniczej"
+      },
+      "sourceUrl": "https://example.com/fees",
+      "lastVerified": "2025-01-10"
+    }
+  ],
+  "diagnostics": {
+    "unmatched": [],
+    "warnings": []
+  }
+}
