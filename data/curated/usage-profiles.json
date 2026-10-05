@@ -1,0 +1,118 @@
+{
+  "profiles": [
+    {
+      "id": "chat-light",
+      "name": {
+        "en": "Casual chat",
+        "pl": "Okazjonalny czat"
+      },
+      "description": {
+        "en": "Short questions or conversation turns with minimal context. A task represents a single question and answer exchange.",
+        "pl": "Krótkie pytania lub wypowiedzi w konwersacji z minimalnym kontekstem. Zadanie oznacza pojedynczą wymianę pytania i odpowiedzi."
+      },
+      "inputTokensPerTask": 1500,
+      "outputTokensPerTask": 600,
+      "cachedInputShare": 0,
+      "tasksPerDay": 15,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "intelligence",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "chat-heavy",
+      "name": {
+        "en": "Heavy chat & writing",
+        "pl": "Intensywny czat i pisanie"
+      },
+      "description": {
+        "en": "Longer discussions, editing, or creative writing sessions with growing context. A task represents an extended chat prompt or draft generation.",
+        "pl": "Dłuższe dyskusje, edycja lub sesje pisania z narastającym kontekstem. Zadanie oznacza rozbudowany prompt w czacie lub wygenerowanie szkicu."
+      },
+      "inputTokensPerTask": 6000,
+      "outputTokensPerTask": 1200,
+      "cachedInputShare": 0.3,
+      "tasksPerDay": 60,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "intelligence",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "coding-assistant",
+      "name": {
+        "en": "Coding assistant (IDE chat)",
+        "pl": "Asystent programisty (czat w IDE)"
+      },
+      "description": {
+        "en": "Interactive code completions, refactoring, and inline chat inside the IDE. A task represents one user prompt with surrounding open files in context.",
+        "pl": "Interaktywne dopełnianie kodu, refaktoryzacja i czat bezpośrednio w IDE. Zadanie oznacza jeden prompt użytkownika z otwartymi plikami w kontekście."
+      },
+      "inputTokensPerTask": 12000,
+      "outputTokensPerTask": 1500,
+      "cachedInputShare": 0.5,
+      "tasksPerDay": 80,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "coding",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "coding-agent",
+      "name": {
+        "en": "Agentic coding (CLI agent turns)",
+        "pl": "Programowanie agentowe (tury agenta CLI)"
+      },
+      "description": {
+        "en": "Autonomous CLI agent runs with large repository context and multi-turn loops. A task represents a single turn in an agent execution.",
+        "pl": "Autonomiczne uruchomienia agentów CLI z dużym kontekstem repozytorium i pętlami wieloturowymi. Zadanie oznacza pojedynczą turę w wykonaniu agenta."
+      },
+      "inputTokensPerTask": 80000,
+      "outputTokensPerTask": 2500,
+      "cachedInputShare": 0.9,
+      "tasksPerDay": 250,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "agentic",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "doc-analysis",
+      "name": {
+        "en": "Long-document analysis",
+        "pl": "Analiza długich dokumentów"
+      },
+      "description": {
+        "en": "Summarizing or querying large PDFs, reports, or transcripts. A task represents processing a document along with user query instructions.",
+        "pl": "Podsumowywanie lub zadawanie pytań do dużych plików PDF, raportów lub transkrypcji. Zadanie oznacza przetworzenie dokumentu wraz z instrukcjami użytkownika."
+      },
+      "inputTokensPerTask": 60000,
+      "outputTokensPerTask": 2000,
+      "cachedInputShare": 0.1,
+      "tasksPerDay": 10,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "intelligence",
+      "allowBatch": false,
+      "isPreset": true
+    },
+    {
+      "id": "batch-processing",
+      "name": {
+        "en": "Bulk processing (batch API)",
+        "pl": "Przetwarzanie masowe (batch API)"
+      },
+      "description": {
+        "en": "Off-line batch text classification, extraction, or data enrichment. A task represents a single item processed in a batch pipeline.",
+        "pl": "Masowa klasyfikacja tekstu, ekstrakcja danych lub wzbogacanie danych w trybie wsadowym. Zadanie oznacza pojedynczy element przetworzony w potoku batch."
+      },
+      "inputTokensPerTask": 2000,
+      "outputTokensPerTask": 400,
+      "cachedInputShare": 0,
+      "tasksPerDay": 2000,
+      "workDaysPerMonth": 22,
+      "qualityDimension": "intelligence",
+      "allowBatch": true,
+      "isPreset": true
+    }
+  ]
+}

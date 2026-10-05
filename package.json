@@ -12,6 +12,7 @@
     "typecheck": "tsc --build",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
+    "data:validate": "tsx scripts/validate-data.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
