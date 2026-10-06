@@ -1,5 +1,90 @@
 {
-  "title": "Subskrypcje",
-  "subtitle": "Porównaj miesięczne plany subskrypcyjne z opłatami za faktyczne użycie API",
-  "comingSoon": "Funkcja porównywania subskrypcji będzie dostępna wkrótce."
+  "title": "Subskrypcje vs API",
+  "subtitle": "Porównaj miesięczne pakiety subskrypcyjne z opłatami za API",
+  "copyLink": "Kopiuj link",
+  "linkCopied": "Skopiowano link!",
+  "filter": {
+    "activeHours": "Aktywne godziny pracy / dzień",
+    "maxPrice": "Maksymalna cena ({{currency}})",
+    "providers": "Dostawca",
+    "allProviders": "Wszyscy dostawcy",
+    "onlyAgent": "Tylko plany z agentem kodującym",
+    "onlyPublished": "Tylko plany z opublikowanymi limitami"
+  },
+  "yourDemand": {
+    "title": "Twoje zapotrzebowanie: {{tasks}} zadań/mies. ({{profileName}})",
+    "summary": "≈ {{apiCost}} na {{cheapestModel}} lub {{apiCostBest}} na {{bestModel}}",
+    "noModels": "Brak pasujących modeli API"
+  },
+  "verdict": {
+    "title": "Werdykt",
+    "subscriptionWins": "Subskrypcja bardziej się opłaca: oszczędzasz ≈ {{low}}–{{high}} / mies. w porównaniu do API na {{modelName}}.",
+    "apiWins": "API jest tańsze: oszczędzasz {{savings}} / mies. w porównaniu do subskrypcji przy Twoim zapotrzebowaniu na {{modelName}}.",
+    "tie": "Zarówno subskrypcja, jak i API oferują podobny koszt dla Twojego poziomu użycia.",
+    "unknown": "Limity dla wybranego planu nie są opublikowane, więc nie można dokładnie oszacować wydajności.",
+    "advisorLink": "Zobacz Doradcę dla szczegółowej rekomendacji"
+  },
+  "bands": {
+    "budget": "Budżetowe (< $15)",
+    "about20": "~$20 ($15–$40)",
+    "power": "Power ($40–$120)",
+    "max": "Max (> $120)"
+  },
+  "card": {
+    "verified": "zweryfikowano {{date}}",
+    "outdated": "niezweryfikowano >45 dni",
+    "annual": "≈ {{price}}/mies. przy płatności rocznej",
+    "listPrice": "cena katalogowa",
+    "includedModels": "Zawarte modele",
+    "unknownModel": "brak w obecnych danych",
+    "features": "Funkcje",
+    "limits": "Limity",
+    "capacity": "Wydajność",
+    "capacityVal": "{{low}}–{{high}} zadań/miesiąc",
+    "coverage": "{{pct}}% pokrycia zapotrzebowania",
+    "unknownLimit": "Limity nieopublikowane: brak możliwości oszacowania wydajności",
+    "value": "Wartość",
+    "valueVal": "≈ {{apiEqLow}}–{{apiEqHigh}} użycia API → {{levLow}}–{{levHigh}}× Twoje pieniądze",
+    "sameMoneyApi": "Tyle samo na API",
+    "sameMoneyVal": "{{primaryTasks}} zadań na {{primaryModel}}, {{bestTasks}} zadań na {{bestModel}}",
+    "missingPrimary": "Brak danych cenowych dla głównego modelu",
+    "selectChart": "Wybierz do wykresu",
+    "compareLink": "Dodaj do porównania"
+  },
+  "confidence": {
+    "official": "Oficjalna",
+    "reported": "Zgłoszona",
+    "estimated": "Szacowana"
+  },
+  "featureNames": {
+    "imageGeneration": "Generowanie obrazów",
+    "deepResearch": "Głębokie badania",
+    "apiAccess": "Dostęp do API",
+    "longContext": "Długi kontekst ({{tokens}} tok)"
+  },
+  "limit": {
+    "window": "{{low}}–{{high}} {{unit}} na {{hours}}h",
+    "windowWithWeekly": "{{low}}–{{high}} {{unit}} na {{hours}}h (max {{weeklyLow}}–{{weeklyHigh}}/tydz.)",
+    "monthly": "{{low}}–{{high}} {{unit}} na miesiąc",
+    "usdCredit": "${{amount}} USD miesięcznego kredytu API",
+    "unknown": "Limity nieopublikowane"
+  },
+  "chart": {
+    "title": "Wykres punktu rentowności (Break-even)",
+    "subtitle": "Miesięczny koszt w zależności od wykonanych zadań",
+    "xAxis": "Zadania / miesiąc",
+    "yAxis": "Koszt miesięczny",
+    "demandLine": "Twoje zapotrzebowanie ({{tasks}} zadań)",
+    "limitReached": "limit osiągnięty",
+    "summaryTitle": "Tabela analizy punktu rentowności",
+    "showSummary": "Pokaż tabelę podsumowującą",
+    "hideSummary": "Ukryj tabelę podsumowującą",
+    "colPlan": "Plan subskrypcji",
+    "colPrice": "Cena",
+    "colApiModel": "Model API",
+    "colCostPerTask": "Koszt / Zadanie",
+    "colBreakEven": "Zadania do rentowności",
+    "colVsDemand": "vs Twoje zapotrzebowanie"
+  },
+  "disclaimer": "Limity są szacunkami opartymi na publicznych oświadczeniach i zgłoszeniach społeczności; często ulegają zmianom. Zobacz Źródła, aby poznać metodologię."
 }

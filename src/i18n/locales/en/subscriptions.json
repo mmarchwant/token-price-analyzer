@@ -1,5 +1,90 @@
 {
-  "title": "Subscriptions",
+  "title": "Subscriptions vs API",
   "subtitle": "Compare monthly subscription plans vs pay-as-you-go API costs",
-  "comingSoon": "Subscriptions comparison feature is coming soon."
+  "copyLink": "Copy link",
+  "linkCopied": "Link copied!",
+  "filter": {
+    "activeHours": "Active work hours / day",
+    "maxPrice": "Max price ({{currency}})",
+    "providers": "Provider",
+    "allProviders": "All providers",
+    "onlyAgent": "Only plans with a coding agent",
+    "onlyPublished": "Only plans with published limits"
+  },
+  "yourDemand": {
+    "title": "Your demand: {{tasks}} tasks/month ({{profileName}})",
+    "summary": "≈ {{apiCost}} on {{cheapestModel}} or {{apiCostBest}} on {{bestModel}}",
+    "noModels": "No matching API models"
+  },
+  "verdict": {
+    "title": "Verdict",
+    "subscriptionWins": "Subscription is better value: saves ≈ {{low}}–{{high}} / month compared to API on {{modelName}}.",
+    "apiWins": "API is cheaper: saves {{savings}} / month compared to subscription for your demand on {{modelName}}.",
+    "tie": "Both subscription and API offer similar cost for your usage level.",
+    "unknown": "Limits for the selected plan are not published, so capacity cannot be accurately estimated.",
+    "advisorLink": "See Advisor for detailed recommendation"
+  },
+  "bands": {
+    "budget": "Budget (< $15)",
+    "about20": "~$20 ($15–$40)",
+    "power": "Power ($40–$120)",
+    "max": "Max (> $120)"
+  },
+  "card": {
+    "verified": "verified {{date}}",
+    "outdated": "unverified >45 days",
+    "annual": "≈ {{price}}/mo billed annually",
+    "listPrice": "list price",
+    "includedModels": "Included models",
+    "unknownModel": "not in current data",
+    "features": "Features",
+    "limits": "Limits",
+    "capacity": "Capacity",
+    "capacityVal": "{{low}}–{{high}} tasks/month",
+    "coverage": "{{pct}}% coverage of demand",
+    "unknownLimit": "Limits not published: capacity cannot be estimated",
+    "value": "Value",
+    "valueVal": "≈ {{apiEqLow}}–{{apiEqHigh}} of API usage → {{levLow}}–{{levHigh}}× your money",
+    "sameMoneyApi": "Same money on API",
+    "sameMoneyVal": "{{primaryTasks}} tasks on {{primaryModel}}, {{bestTasks}} tasks on {{bestModel}}",
+    "missingPrimary": "Primary model price data unavailable",
+    "selectChart": "Select for chart",
+    "compareLink": "Add to compare"
+  },
+  "confidence": {
+    "official": "Official",
+    "reported": "Reported",
+    "estimated": "Estimated"
+  },
+  "featureNames": {
+    "imageGeneration": "Image Generation",
+    "deepResearch": "Deep Research",
+    "apiAccess": "API Access",
+    "longContext": "Long context ({{tokens}} tok)"
+  },
+  "limit": {
+    "window": "{{low}}–{{high}} {{unit}} per {{hours}}h",
+    "windowWithWeekly": "{{low}}–{{high}} {{unit}} per {{hours}}h (capped at {{weeklyLow}}–{{weeklyHigh}}/wk)",
+    "monthly": "{{low}}–{{high}} {{unit}} per month",
+    "usdCredit": "${{amount}} USD monthly API credit",
+    "unknown": "Limits not published"
+  },
+  "chart": {
+    "title": "Break-even tasks chart",
+    "subtitle": "Monthly cost by tasks completed",
+    "xAxis": "Tasks / month",
+    "yAxis": "Monthly cost",
+    "demandLine": "Your demand ({{tasks}} tasks)",
+    "limitReached": "limit reached",
+    "summaryTitle": "Break-even Analysis Table",
+    "showSummary": "Show summary table",
+    "hideSummary": "Hide summary table",
+    "colPlan": "Subscription Plan",
+    "colPrice": "Price",
+    "colApiModel": "API Model",
+    "colCostPerTask": "Cost / Task",
+    "colBreakEven": "Break-even Tasks",
+    "colVsDemand": "vs Your Demand"
+  },
+  "disclaimer": "Limits are estimates based on public statements and community reports; they change often. See Sources for methodology."
 }
