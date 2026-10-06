@@ -1,6 +1,6 @@
 {
-  "title": "AI Advisor",
-  "subtitle": "Find the best model API or subscription for your budget and usage style",
+  "title": "What should I buy this month?",
+  "subtitle": "Find the optimal API or subscription strategy tailored to your budget and usage style",
   "comingSoon": "AI Advisor feature is coming soon.",
   "loadedSummary": "Loaded {{models}} and {{plans}}",
   "modelsCount_one": "1 model",
@@ -10,5 +10,83 @@
   "plansCount_one": "1 subscription plan",
   "plansCount_few": "{{count}} subscription plans",
   "plansCount_many": "{{count}} subscription plans",
-  "plansCount_other": "{{count}} subscription plans"
+  "plansCount_other": "{{count}} subscription plans",
+  "steps": {
+    "budget": {
+      "title": "1. Budget",
+      "label": "Monthly budget"
+    },
+    "profile": {
+      "title": "2. What do you do?",
+      "custom": "Custom..."
+    },
+    "intensity": {
+      "title": "3. How much?",
+      "tasksPerMonth": "≈ {{count}} tasks/month",
+      "hoursLabel": "Active hours per day"
+    },
+    "needs": {
+      "title": "4. Must-haves",
+      "codingAgent": "Coding Agent",
+      "codingAgentTooltip": "Requires dedicated coding agent support or agentic tool calling",
+      "imageGeneration": "Image Generation",
+      "imageGenerationTooltip": "Requires capability to generate images",
+      "deepResearch": "Deep Research",
+      "deepResearchTooltip": "Requires automated deep web research capability",
+      "longContext": "Long Context (≥ 500k)",
+      "longContextTooltip": "Requires large context window of at least 500,000 tokens",
+      "openWeights": "Open Weights",
+      "openWeightsTooltip": "Requires open-weights / open-source model",
+      "toolCalling": "Tool Calling",
+      "toolCallingTooltip": "Requires function / tool calling support"
+    },
+    "quality": {
+      "title": "5. Minimum quality",
+      "anyTier": "Any",
+      "includeFree": "Include free models",
+      "preferFlexibility": "Prefer pay-as-you-go",
+      "tierTooltip": "Quality tiers (S, A, B, C, D) group models by relative performance and benchmark scores."
+    }
+  },
+  "results": {
+    "topPickBadge": "TOP PICK",
+    "otherPickBadge": "ALTERNATIVE",
+    "monthlyCost": "Monthly cost",
+    "score": "Score",
+    "tier": "Tier",
+    "coverage": "Coverage",
+    "coveragePct": "{{pct}}% demand covered",
+    "seeInSubscriptions": "See in Subscriptions",
+    "seeInExplorer": "See in Explorer",
+    "compare": "Compare",
+    "copyLink": "Copy link to these results",
+    "linkCopied": "Link copied to clipboard!",
+    "emptyState": {
+      "title": "No matching recommendations found",
+      "subtitle": "Try increasing your budget, lowering the minimum quality tier, or unchecking some requirements."
+    },
+    "footerDisclaimer": "Estimates, not financial advice. See methodology."
+  },
+  "strategies": {
+    "api": "API Pay-as-you-go",
+    "subscription": "Subscription",
+    "subscription+api": "Subscription + API Top-up",
+    "two-subscriptions": "Two Subscriptions"
+  },
+  "reasons": {
+    "covers-demand": "Covers {{pct}}% of estimated monthly demand",
+    "partial-coverage": "Covers {{pct}}% of estimated monthly demand",
+    "best-quality-in-budget": "Highest quality score within your budget",
+    "best-value": "Best overall value score",
+    "includes-coding-agent": "Includes coding agents: {{agents}}",
+    "leftover-budget": "${{usd}} leftover budget for API top-ups or other tools",
+    "separate-limit-pools": "Combines separate rate-limit pools from two providers",
+    "free-rate-limited": "Free tier model with potential rate limits",
+    "top-up-fee": "Includes ${{usd}} top-up channel fee",
+    "limits-unpublished": "Usage limits are not officially published",
+    "estimate-low-confidence": "Based on community-reported or estimated limits",
+    "deep-research-not-in-api": "API models do not include standalone Deep Research interfaces",
+    "min-top-up-not-met": "Leftover budget (${{usd}}) is below minimum top-up requirement",
+    "cheaper-than-api": "Saves ${{usd}}/month compared to equivalent API usage"
+  }
 }
