@@ -53,9 +53,9 @@ describe('App Shell', () => {
     expect(screen.getByRole('link', { name: 'Profiles' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Sources' })).toBeInTheDocument();
 
-    // Default route redirects to Advisor placeholder page
+    // Default route redirects to Advisor page
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 1, name: 'AI Advisor' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'What should I buy this month?' })).toBeInTheDocument();
     });
   });
 

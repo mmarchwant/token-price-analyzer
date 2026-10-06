@@ -1,6 +1,6 @@
 {
-  "title": "Doradca AI",
-  "subtitle": "Znajdź najlepszy model API lub subskrypcję dopasowaną do Twojego budżetu i sposobu użycia",
+  "title": "Co kupić w tym miesiącu?",
+  "subtitle": "Znajdź optymalną strategię zakupu API lub subskrypcji dopasowaną do Twojego budżetu i sposobu użycia",
   "comingSoon": "Funkcja Doradcy AI będzie dostępna wkrótce.",
   "loadedSummary": "Załadowano {{models}} i {{plans}}",
   "modelsCount_one": "{{count}} model",
@@ -10,5 +10,83 @@
   "plansCount_one": "{{count}} plan subskrypcyjny",
   "plansCount_few": "{{count}} plany subskrypcyjne",
   "plansCount_many": "{{count}} planów subskrypcyjnych",
-  "plansCount_other": "{{count}} planów subskrypcyjnych"
+  "plansCount_other": "{{count}} planów subskrypcyjnych",
+  "steps": {
+    "budget": {
+      "title": "1. Budżet",
+      "label": "Budżet miesięczny"
+    },
+    "profile": {
+      "title": "2. Co robisz?",
+      "custom": "Własny..."
+    },
+    "intensity": {
+      "title": "3. Jak dużo?",
+      "tasksPerMonth": "≈ {{count}} zadań/miesiąc",
+      "hoursLabel": "Aktywne godziny dziennie"
+    },
+    "needs": {
+      "title": "4. Wymagania",
+      "codingAgent": "Agent kodujący",
+      "codingAgentTooltip": "Wymaga wsparcia dla agenta kodującego lub wywoływania narzędzi",
+      "imageGeneration": "Generowanie obrazów",
+      "imageGenerationTooltip": "Wymaga możliwości generowania obrazów",
+      "deepResearch": "Deep Research",
+      "deepResearchTooltip": "Wymaga funkcji automatycznego głębokiego wyszukiwania w sieci",
+      "longContext": "Długi kontekst (≥ 500k)",
+      "longContextTooltip": "Wymaga dużego okna kontekstu o wielkości co najmniej 500 000 tokenów",
+      "openWeights": "Otwarte wagi",
+      "openWeightsTooltip": "Wymaga modelu z otwartymi wagami (open-source)",
+      "toolCalling": "Wywoływanie funkcji",
+      "toolCallingTooltip": "Wymaga obsługi wywoływania funkcji / narzędzi"
+    },
+    "quality": {
+      "title": "5. Minimalna jakość",
+      "anyTier": "Dowolna",
+      "includeFree": "Uwzględnij darmowe modele",
+      "preferFlexibility": "Preferuj płatność za zużycie",
+      "tierTooltip": "Klasy jakości (S, A, B, C, D) grupują modele według względnej wydajności i wyników w testach."
+    }
+  },
+  "results": {
+    "topPickBadge": "GŁÓWNA REKOMENDACJA",
+    "otherPickBadge": "ALTERNATYWA",
+    "monthlyCost": "Miesięczny koszt",
+    "score": "Ocena",
+    "tier": "Klasa",
+    "coverage": "Pokrycie",
+    "coveragePct": "Pokrywa {{pct}}% zapotrzebowania",
+    "seeInSubscriptions": "Zobacz w Subskrypcjach",
+    "seeInExplorer": "Zobacz w Eksploratorze",
+    "compare": "Porównaj",
+    "copyLink": "Kopiuj link do wyników",
+    "linkCopied": "Skopiowano link do schowka!",
+    "emptyState": {
+      "title": "Brak pasujących rekomendacji",
+      "subtitle": "Spróbuj zwiększyć budżet, obniżyć minimalną klasę jakości lub odznaczyć niektóre wymagania."
+    },
+    "footerDisclaimer": "Szacunki, nie stanowią porady finansowej. Zobacz metodykę."
+  },
+  "strategies": {
+    "api": "API Pay-as-you-go",
+    "subscription": "Subskrypcja",
+    "subscription+api": "Subskrypcja + Doładowanie API",
+    "two-subscriptions": "Dwie subskrypcje"
+  },
+  "reasons": {
+    "covers-demand": "Pokrywa {{pct}}% szacowanego miesięcznego zapotrzebowania",
+    "partial-coverage": "Pokrywa {{pct}}% szacowanego miesięcznego zapotrzebowania",
+    "best-quality-in-budget": "Najwyższa jakość w ramach budżetu",
+    "best-value": "Najlepszy stosunek jakości do ceny",
+    "includes-coding-agent": "Zawiera agenty kodujące: {{agents}}",
+    "leftover-budget": "Pozostaje {{usd}} $ budżetu na doładowania API lub inne narzędzia",
+    "separate-limit-pools": "Łączy osobne limity zapytań od dwóch dostawców",
+    "free-rate-limited": "Darmowy model z możliwymi limitami zapytań",
+    "top-up-fee": "Zawiera {{usd}} $ opłaty za doładowanie",
+    "limits-unpublished": "Limity użycia nie są oficjalnie publikowane",
+    "estimate-low-confidence": "Na podstawie zgłoszeń społeczności lub szacunków",
+    "deep-research-not-in-api": "Modele API nie zawierają samodzielnego interfejsu Deep Research",
+    "min-top-up-not-met": "Pozostały budżet ({{usd}} $) jest poniżej minimalnej kwoty doładowania",
+    "cheaper-than-api": "Oszczędność {{usd}} $/mies. w porównaniu z odpowiadającym zużyciem API"
+  }
 }

@@ -18,7 +18,7 @@ globalThis.ResizeObserver = class ResizeObserver {
 
 describe('SubscriptionsPage component', () => {
   beforeEach(async () => {
-    window.location.hash = '#/';
+    window.location.hash = '#/subscriptions';
     useSettingsStore.getState().resetSettings();
     queryClient.clear();
     queryClient.setDefaultOptions({
@@ -40,23 +40,20 @@ describe('SubscriptionsPage component', () => {
     vi.restoreAllMocks();
   });
 
-  async function navigateToSubscriptions(user: ReturnType<typeof userEvent.setup>) {
+  async function navigateToSubscriptions() {
     render(<App />);
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: 'Subscriptions' })[0]).toBeInTheDocument();
-    });
-    const subLink = screen.getAllByRole('link', { name: 'Subscriptions' })[0]!;
-    await user.click(subLink);
-    await waitFor(() => {
-      expect(
-        screen.getByRole('heading', { level: 1, name: 'Subscriptions vs API' }),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole('heading', { level: 1, name: 'Subscriptions vs API' }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 4000 },
+    );
   }
 
   it('renders SubscriptionsPage with cards and demand bar', async () => {
-    const user = userEvent.setup();
-    await navigateToSubscriptions(user);
+    await navigateToSubscriptions();
 
     expect(screen.getByText(/Your demand:/i)).toBeInTheDocument();
     expect(screen.getByText('Claude Pro')).toBeInTheDocument();
@@ -64,8 +61,7 @@ describe('SubscriptionsPage component', () => {
   });
 
   it('unknown-limit card shows the non-estimable state', async () => {
-    const user = userEvent.setup();
-    await navigateToSubscriptions(user);
+    await navigateToSubscriptions();
 
     expect(
       screen.getAllByText('Limits not published: capacity cannot be estimated')[0],
@@ -74,7 +70,7 @@ describe('SubscriptionsPage component', () => {
 
   it('changing active hours updates window plan capacity', async () => {
     const user = userEvent.setup();
-    await navigateToSubscriptions(user);
+    await navigateToSubscriptions();
 
     const hoursInput = screen.getByLabelText('Active work hours / day');
     await user.clear(hoursInput);
@@ -88,7 +84,7 @@ describe('SubscriptionsPage component', () => {
 
   it('selecting a plan updates the break-even chart and summary table', async () => {
     const user = userEvent.setup();
-    await navigateToSubscriptions(user);
+    await navigateToSubscriptions();
 
     const toggleSummaryBtn = screen.getByRole('button', { name: 'Show summary table' });
     await user.click(toggleSummaryBtn);
