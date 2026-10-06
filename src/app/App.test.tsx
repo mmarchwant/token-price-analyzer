@@ -55,7 +55,9 @@ describe('App Shell', () => {
 
     // Default route redirects to Advisor page
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 1, name: 'What should I buy this month?' })).toBeInTheDocument();
+      expect(
+        screen.getByRole('heading', { level: 1, name: 'What should I buy this month?' }),
+      ).toBeInTheDocument();
     });
   });
 

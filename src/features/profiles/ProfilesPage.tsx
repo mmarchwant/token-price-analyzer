@@ -13,6 +13,7 @@ import {
   Toggle,
   ErrorState,
 } from '../../components/ui';
+import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
@@ -271,7 +272,7 @@ export default function ProfilesPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title={t('title')} subtitle={t('subtitle')} />
+      <PageHeader title={t('title')} subtitle={t('subtitle')} actions={<ShareButton />} />
 
       {/* Import Profile Confirmation or Error Banner */}
       {importedProfile && (

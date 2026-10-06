@@ -15,16 +15,11 @@ import {
   Toggle,
 } from '../../components/ui';
 import { ProfileSelect } from '../../components/ProfileSelect';
+import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
-import {
-  booleanCodec,
-  buildShareUrl,
-  enumCodec,
-  numberCodec,
-  useUrlState,
-} from '../../state/urlState';
+import { booleanCodec, enumCodec, numberCodec, useUrlState } from '../../state/urlState';
 import { buildBudgetRows, pickHighlights, type BudgetRow } from './budgetRows';
 import { WorkTimeLadder } from './WorkTimeLadder';
 import { BudgetBarChart } from './BudgetBarChart';
@@ -63,7 +58,6 @@ export default function BudgetPage() {
   );
   const [feesToggle, setFeesToggle] = useUrlState('fees', booleanCodec, true);
 
-  const [copied, setCopied] = useState(false);
   const [sortKey, setSortKey] = useState<keyof BudgetRow | 'modelName'>('workDays');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
@@ -76,15 +70,6 @@ export default function BudgetPage() {
     const newCur = e.target.value as Currency;
     setCur(newCur);
     setSettingsBudget({ amount, currency: newCur });
-  };
-
-  const handleCopyLink = () => {
-    const url = buildShareUrl();
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
   };
 
   const budgetUsd = useMemo(() => toUsd(amount, cur), [amount, cur, toUsd]);
@@ -155,11 +140,7 @@ export default function BudgetPage() {
       <PageHeader
         title={t('title')}
         subtitle={t('subtitle')}
-        actions={
-          <Button variant="secondary" size="sm" onClick={handleCopyLink}>
-            {copied ? t('linkCopied') : t('copyLink')}
-          </Button>
-        }
+        actions={<ShareButton label={t('copyLink')} copiedLabel={t('linkCopied')} />}
       />
 
       {/* Controls Card */}
