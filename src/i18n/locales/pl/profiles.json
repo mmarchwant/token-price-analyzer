@@ -1,6 +1,102 @@
 {
   "title": "Profile użycia",
-  "subtitle": "Zarządzaj wzorcami użycia i zadaniami do szacowania kosztów",
-  "comingSoon": "Funkcja Profili użycia będzie dostępna wkrótce.",
-  "selectLabel": "Profil użycia"
+  "subtitle": "Zarządzaj wzorcami użycia i zadaniami, które napędzają wyliczenia kosztów w całej aplikacji",
+  "selectLabel": "Profil użycia",
+  "groups": {
+    "presets": "Wzorce",
+    "custom": "Moje profile"
+  },
+  "badges": {
+    "active": "Aktywny",
+    "preset": "Wzorzec"
+  },
+  "actions": {
+    "setActive": "Ustaw jako aktywny",
+    "duplicate": "Powiel i edytuj",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "share": "Udostępnij",
+    "shareCopied": "Skopiowano link do schowka!",
+    "confirmDelete": "Usuń profil",
+    "cancel": "Anuluj",
+    "save": "Zapisz profil",
+    "create": "Utwórz profil",
+    "newProfile": "Nowy profil własny"
+  },
+  "deleteModal": {
+    "title": "Usunąć profil?",
+    "message": "Czy na pewno chcesz usunąć profil \"{{name}}\"? Tej operacji nie można cofnąć.",
+    "confirm": "Tak, usuń",
+    "cancel": "Anuluj"
+  },
+  "editor": {
+    "title": "Edytor profilu",
+    "editTitle": "Edycja \"{{name}}\"",
+    "newTitle": "Nowy profil",
+    "nameLabel": "Nazwa profilu",
+    "namePlaceholder": "np. Mój asystent programisty",
+    "inputTokensLabel": "Tokeny wejściowe na zadanie",
+    "outputTokensLabel": "Tokeny wyjściowe na zadanie",
+    "cachedInputShareLabel": "Udział tokenów z pamięci podręcznej ({{pct}}%)",
+    "tasksPerDayLabel": "Liczba zadań dziennie",
+    "workDaysPerMonthLabel": "Dni robocze w miesiącu",
+    "qualityDimensionLabel": "Docelowy wymiar jakości",
+    "qualityDimensions": {
+      "intelligence": {
+        "label": "Inteligencja",
+        "description": "Ogólne rozumowanie, wiedza, logika i złożona analiza"
+      },
+      "coding": {
+        "label": "Programowanie",
+        "description": "Generowanie kodu, refaktoryzacja i dokładność debugowania"
+      },
+      "agentic": {
+        "label": "Agentowe",
+        "description": "Wielokrokowe wywołania narzędzi, planowanie na poziomie repozytorium i wykonanie"
+      }
+    },
+    "allowBatchLabel": "Zezwalaj na oferty Batch API",
+    "allowBatchDesc": "Uwzględniaj tańsze wywołania asynchroniczne/batch (czas realizacji do 24h)",
+    "errors": {
+      "nameRequired": "Nazwa profilu jest wymagana.",
+      "inputTokensMin": "Liczba tokenów wejściowych na zadanie musi być większa niż 0.",
+      "outputTokensMin": "Liczba tokenów wyjściowych na zadanie musi być większa niż 0.",
+      "tasksPerDayMin": "Liczba zadań dziennie musi być większa niż 0.",
+      "workDaysRange": "Liczba dni roboczych w miesiącu musi wynosić od 1 do 31."
+    }
+  },
+  "preview": {
+    "title": "Szybki podgląd kosztów",
+    "monthlyTasks": "Miesięcznie zadań",
+    "monthlyTokens": "Miesięcznie tokenów",
+    "tokensDetail": "{{input}} wej. / {{output}} wyj.",
+    "referenceModelsTitle": "Podgląd modeli referencyjnych",
+    "bestQuality": "Najwyższa jakość",
+    "bestValue": "Najlepszy stosunek",
+    "cheapestPaid": "Najtańszy płatny",
+    "perTask": "na zadanie",
+    "perMonth": "/mc",
+    "noModels": "Brak pasujących modeli dla obecnych ustawień.",
+    "budgetWarning": "Miesięczny koszt modelu o najwyższej jakości ({{cost}}) przekracza Twój budżet ({{budget}})."
+  },
+  "estimator": {
+    "title": "Estymator tokenów",
+    "subtitle": "Szacuj liczbę tokenów na podstawie przykładowego promptu i odpowiedzi",
+    "promptLabel": "Typowy prompt / kontekst",
+    "promptPlaceholder": "Wklej lub wpisz reprezentatywny prompt lub fragment kontekstu...",
+    "responseLabel": "Typowa odpowiedź",
+    "responsePlaceholder": "Wklej lub wpisz reprezentatywny fragment odpowiedzi AI...",
+    "estimatedInput": "Szacowane wejście: ~{{count}} tokenów",
+    "estimatedOutput": "Szacowane wyjście: ~{{count}} tokenów",
+    "disclaimer": "Szacunek przybliżony zakładający średnio ~4 znaki na token.",
+    "useNumbers": "Użyj tych wartości"
+  },
+  "import": {
+    "cardTitle": "Importuj profil",
+    "prompt": "Czy chcesz zaimportować profil \"{{name}}\" do swoich własnych profili?",
+    "confirm": "Zaimportuj profil",
+    "dismiss": "Odrzuć",
+    "errorTitle": "Błąd importu profilu",
+    "errorMsg": "Link z profilem jest nieprawidłowy lub uszkodzony: {{error}}"
+  }
 }
