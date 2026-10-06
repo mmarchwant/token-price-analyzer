@@ -1,6 +1,102 @@
 {
   "title": "Usage Profiles",
-  "subtitle": "Manage usage patterns and task shapes for cost estimation",
-  "comingSoon": "Usage Profiles feature is coming soon.",
-  "selectLabel": "Usage Profile"
+  "subtitle": "Manage usage patterns and task shapes that drive every cost computation in the app",
+  "selectLabel": "Usage Profile",
+  "groups": {
+    "presets": "Presets",
+    "custom": "My profiles"
+  },
+  "badges": {
+    "active": "Active",
+    "preset": "Preset"
+  },
+  "actions": {
+    "setActive": "Set active",
+    "duplicate": "Duplicate & edit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "share": "Share",
+    "shareCopied": "Link copied to clipboard!",
+    "confirmDelete": "Delete profile",
+    "cancel": "Cancel",
+    "save": "Save profile",
+    "create": "Create profile",
+    "newProfile": "New custom profile"
+  },
+  "deleteModal": {
+    "title": "Delete profile?",
+    "message": "Are you sure you want to delete profile \"{{name}}\"? This action cannot be undone.",
+    "confirm": "Yes, delete",
+    "cancel": "Cancel"
+  },
+  "editor": {
+    "title": "Profile Editor",
+    "editTitle": "Edit \"{{name}}\"",
+    "newTitle": "New Profile",
+    "nameLabel": "Profile Name",
+    "namePlaceholder": "e.g. My Coding Assistant",
+    "inputTokensLabel": "Input Tokens per Task",
+    "outputTokensLabel": "Output Tokens per Task",
+    "cachedInputShareLabel": "Cached Input Share ({{pct}}%)",
+    "tasksPerDayLabel": "Tasks per Day",
+    "workDaysPerMonthLabel": "Work Days per Month",
+    "qualityDimensionLabel": "Target Quality Dimension",
+    "qualityDimensions": {
+      "intelligence": {
+        "label": "Intelligence",
+        "description": "General reasoning, knowledge, logic and complex analysis"
+      },
+      "coding": {
+        "label": "Coding",
+        "description": "Code generation, refactoring, and debugging accuracy"
+      },
+      "agentic": {
+        "label": "Agentic",
+        "description": "Multi-step tool calls, repository-level planning, and execution"
+      }
+    },
+    "allowBatchLabel": "Allow Batch API offers",
+    "allowBatchDesc": "Include discounted async/batch pricing (up to 24h delay)",
+    "errors": {
+      "nameRequired": "Profile name is required.",
+      "inputTokensMin": "Input tokens per task must be greater than 0.",
+      "outputTokensMin": "Output tokens per task must be greater than 0.",
+      "tasksPerDayMin": "Tasks per day must be greater than 0.",
+      "workDaysRange": "Work days per month must be between 1 and 31."
+    }
+  },
+  "preview": {
+    "title": "Live Cost Preview",
+    "monthlyTasks": "Monthly tasks",
+    "monthlyTokens": "Monthly tokens",
+    "tokensDetail": "{{input}} in / {{output}} out",
+    "referenceModelsTitle": "Reference Models Preview",
+    "bestQuality": "Best Quality",
+    "bestValue": "Best Value",
+    "cheapestPaid": "Cheapest Paid",
+    "perTask": "per task",
+    "perMonth": "/mo",
+    "noModels": "No eligible models found for current settings.",
+    "budgetWarning": "The monthly cost of the best quality model ({{cost}}) exceeds your budget of {{budget}}."
+  },
+  "estimator": {
+    "title": "Token Estimator",
+    "subtitle": "Estimate tokens from sample prompt and response text",
+    "promptLabel": "Typical prompt / context",
+    "promptPlaceholder": "Paste or type a representative prompt or context snippet here...",
+    "responseLabel": "Typical response",
+    "responsePlaceholder": "Paste or type a representative AI response snippet here...",
+    "estimatedInput": "Estimated input: ~{{count}} tokens",
+    "estimatedOutput": "Estimated output: ~{{count}} tokens",
+    "disclaimer": "Rough approximation based on ~4 characters per token.",
+    "useNumbers": "Use these numbers"
+  },
+  "import": {
+    "cardTitle": "Import Profile",
+    "prompt": "Import profile \"{{name}}\" into your custom profiles?",
+    "confirm": "Import Profile",
+    "dismiss": "Dismiss",
+    "errorTitle": "Failed to Import Profile",
+    "errorMsg": "The profile link is invalid or corrupted: {{error}}"
+  }
 }
