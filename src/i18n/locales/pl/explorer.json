@@ -1,5 +1,106 @@
 {
   "title": "Eksplorator Modeli",
   "subtitle": "Przeglądaj i porównuj ceny modeli u różnych dostawców i w różnych kanałach",
-  "comingSoon": "Funkcja Eksploratora Modeli będzie dostępna wkrótce."
+  "copyLink": "Kopiuj link",
+  "copied": "Skopiowano!",
+  "noResults": "Brak modeli spełniających kryteria filtrowania.",
+  "views": {
+    "table": "Tabela",
+    "map": "Mapa koszt–jakość"
+  },
+  "filters": {
+    "editProfiles": "Edytuj profile",
+    "includeFree": "Uwzględnij darmowe modele",
+    "includeBatch": "Uwzględnij oferty wsadowe (batch)",
+    "search": "Szukaj modeli",
+    "searchPlaceholder": "Filtruj po nazwie lub dostawcy...",
+    "provider": "Dostawca",
+    "allProviders": "Wszyscy dostawcy",
+    "selectedProviders_one": "Wybrano: {{count}}",
+    "selectedProviders_few": "Wybrano: {{count}}",
+    "selectedProviders_many": "Wybrano: {{count}}",
+    "selectedProviders_other": "Wybrano: {{count}}",
+    "selectAll": "Zaznacz wszystko",
+    "clearAll": "Wyczyść",
+    "minTier": "Min. poziom jakości",
+    "tierAny": "Dowolny poziom",
+    "maxPrice": "Maks. cena /1M ({{currency}})",
+    "maxPricePlaceholder": "Brak maks.",
+    "capabilities": "Możliwości",
+    "paretoOnly": "Tylko najlepsze (Pareto)",
+    "hideNoQ": "Ukryj modele bez danych jakości",
+    "reset": "Resetuj filtry"
+  },
+  "caps": {
+    "tools": "Narzędzia",
+    "reasoning": "Rozumowanie",
+    "imageInput": "Wizja",
+    "openWeights": "Otwarte wagi"
+  },
+  "badges": {
+    "free": "Darmowy",
+    "openWeights": "Otwarte wagi",
+    "new": "Nowy",
+    "batch": "Batch",
+    "bestDeal": "★ Najlepsza oferta"
+  },
+  "columns": {
+    "model": "Model",
+    "input": "Wejście /1M",
+    "output": "Wyjście /1M",
+    "cache": "Odczyt pamięci /1M",
+    "effective": "Efektywna /1M",
+    "costPerTask": "Koszt / zadanie",
+    "monthlyCost": "Koszt miesięczny",
+    "quality": "Jakość",
+    "value": "Wartość",
+    "context": "Kontekst",
+    "speed": "Szybkość",
+    "channel": "Kanał"
+  },
+  "tooltips": {
+    "effective": "Średni koszt za 1M tokenów na podstawie proporcji wejścia do wyjścia z Twojego profilu",
+    "quality": "Oceny jakości z Artificial Analysis (wymiar: {{dim}})",
+    "pareto": "Optimum Pareto: najlepsza jakość w tym przedziale cenowym",
+    "channel": "Aktywna oferta: {{active}}. Dostępne: {{all}}"
+  },
+  "quality": {
+    "tier": "Poziom",
+    "intelligence": "Inteligencja",
+    "coding": "Kodowanie",
+    "agentic": "Agentywność"
+  },
+  "drawer": {
+    "close": "Zamknij",
+    "description": "Opis",
+    "qualityScores": "Oceny jakości",
+    "source": "Źródło",
+    "specs": "Specyfikacja i szybkość",
+    "maxOutput": "Maks. wyjście",
+    "offers": "Dostępne oferty i cennik",
+    "channel": "Kanał",
+    "vendor": "Sprzedawca",
+    "longContext": "Długi kontekst",
+    "selected": "Wybrano",
+    "addToCompare": "Dodaj do porównania",
+    "viewOpenRouter": "Zobacz na OpenRouter"
+  },
+  "map": {
+    "title": "Mapa Koszt vs. Jakość",
+    "subtitle": "Koszt na zadanie w skali logarytmicznej ({{currency}}) vs Ocena Jakości",
+    "paretoLegend": "Frontier Pareto (Najlepsze oferty)",
+    "ariaLabel": "Wykres punktowy kosztu do jakości przedstawiający rozkład wartości modeli",
+    "paretoFrontierTitle": "Optymalne modele Pareto (Najlepsze oferty)"
+  },
+  "summary": {
+    "count_one": "{{count}} z {{total}} modelu",
+    "count_few": "{{count}} z {{total}} modeli",
+    "count_many": "{{count}} z {{total}} modeli",
+    "count_other": "{{count}} z {{total}} modeli"
+  },
+  "pagination": {
+    "pageOf": "Strona {{current}} z {{total}}",
+    "prev": "Poprzednia",
+    "next": "Następna"
+  }
 }
