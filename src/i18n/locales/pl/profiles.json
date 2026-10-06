@@ -1,5 +1,6 @@
 {
-  "title": "Profile Użytkowania",
-  "subtitle": "Zarządzaj własnymi profilami użytkowania ze specyficznym rozkładem tokenów",
-  "comingSoon": "Funkcja Profili Użytkowania będzie dostępna wkrótce."
+  "title": "Profile użycia",
+  "subtitle": "Zarządzaj wzorcami użycia i zadaniami do szacowania kosztów",
+  "comingSoon": "Funkcja Profili użycia będzie dostępna wkrótce.",
+  "selectLabel": "Profil użycia"
 }

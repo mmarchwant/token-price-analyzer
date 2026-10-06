@@ -1,22 +1,44 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import i18n from '../i18n';
 import App from './App';
 import { useSettingsStore } from '../state/settings';
+import { queryClient } from '../data/queryClient';
+import builtSnapshot from '../domain/__fixtures__/built-snapshot.json';
+
+const originalFetch = globalThis.fetch;
 
 describe('App Shell', () => {
   beforeEach(async () => {
     window.location.hash = '#/';
     useSettingsStore.getState().resetSettings();
+    queryClient.clear();
+    queryClient.setDefaultOptions({
+      queries: { retry: false },
+    });
     await i18n.changeLanguage('en');
+
+    globalThis.fetch = vi.fn().mockImplementation((url: string | URL | Request) => {
+      const urlStr = String(url);
+      if (urlStr.includes('snapshot.json')) {
+        return Promise.resolve(new Response(JSON.stringify(builtSnapshot), { status: 200 }));
+      }
+      return Promise.resolve(new Response('{}', { status: 200 }));
+    });
+  });
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+    vi.restoreAllMocks();
   });
 
   it('renders layout, navigation links, and default route placeholder', async () => {
     render(<App />);
 
-    // App header title
-    expect(screen.getByText('Token Price Analyzer')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Token Price Analyzer')).toBeInTheDocument();
+    });
 
     // Skip to content link
     expect(screen.getByText('Skip to content')).toBeInTheDocument();
@@ -41,6 +63,10 @@ describe('App Shell', () => {
     const user = userEvent.setup();
     render(<App />);
 
+    await waitFor(() => {
+      expect(screen.getByRole('link', { name: 'Explorer' })).toBeInTheDocument();
+    });
+
     const explorerLink = screen.getByRole('link', { name: 'Explorer' });
     await user.click(explorerLink);
 
@@ -52,6 +78,10 @@ describe('App Shell', () => {
   it('switches language to PL and updates navigation labels', async () => {
     const user = userEvent.setup();
     render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('combobox', { name: 'Language' })).toBeInTheDocument();
+    });
 
     const langSelect = screen.getByRole('combobox', { name: 'Language' });
     await user.selectOptions(langSelect, 'pl');

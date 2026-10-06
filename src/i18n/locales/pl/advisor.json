@@ -1,5 +1,14 @@
 {
   "title": "Doradca AI",
-  "subtitle": "Znajdź najlepsze API modelu lub subskrypcję dopasowaną do Twojego budżetu i stylu użytkowania",
-  "comingSoon": "Funkcja Doradcy AI będzie dostępna wkrótce."
+  "subtitle": "Znajdź najlepszy model API lub subskrypcję dopasowaną do Twojego budżetu i sposobu użycia",
+  "comingSoon": "Funkcja Doradcy AI będzie dostępna wkrótce.",
+  "loadedSummary": "Załadowano {{models}} i {{plans}}",
+  "modelsCount_one": "{{count}} model",
+  "modelsCount_few": "{{count}} modele",
+  "modelsCount_many": "{{count}} modeli",
+  "modelsCount_other": "{{count}} modeli",
+  "plansCount_one": "{{count}} plan subskrypcyjny",
+  "plansCount_few": "{{count}} plany subskrypcyjne",
+  "plansCount_many": "{{count}} planów subskrypcyjnych",
+  "plansCount_other": "{{count}} planów subskrypcyjnych"
 }

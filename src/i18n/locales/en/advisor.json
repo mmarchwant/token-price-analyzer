@@ -1,5 +1,14 @@
 {
   "title": "AI Advisor",
   "subtitle": "Find the best model API or subscription for your budget and usage style",
-  "comingSoon": "AI Advisor feature is coming soon."
+  "comingSoon": "AI Advisor feature is coming soon.",
+  "loadedSummary": "Loaded {{models}} and {{plans}}",
+  "modelsCount_one": "1 model",
+  "modelsCount_few": "{{count}} models",
+  "modelsCount_many": "{{count}} models",
+  "modelsCount_other": "{{count}} models",
+  "plansCount_one": "1 subscription plan",
+  "plansCount_few": "{{count}} subscription plans",
+  "plansCount_many": "{{count}} subscription plans",
+  "plansCount_other": "{{count}} subscription plans"
 }

@@ -1,5 +1,13 @@
 {
-  "title": "Źródła Danych i Metodologia",
-  "subtitle": "Dowiedz się, skąd pochodzą dane oraz jak obliczane są wskaźniki jakości i kosztów",
-  "comingSoon": "Strona Źródeł Danych będzie dostępna wkrótce."
+  "title": "Źródła danych i metodologia",
+  "subtitle": "Dowiedz się, skąd pochodzą dane oraz jak wyliczane są wskaźniki jakości i kosztów",
+  "comingSoon": "Strona źródeł danych będzie dostępna wkrótce.",
+  "statusHeader": "Stan potoku danych",
+  "source": "Źródło",
+  "status": "Stan",
+  "itemCount": "Liczba elementów",
+  "fetchedAt": "Pobrano o",
+  "statusOk": "OK",
+  "statusSkipped": "Pominięto",
+  "statusFailed": "Błąd"
 }
