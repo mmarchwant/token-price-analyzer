@@ -19,8 +19,10 @@ test.describe('App Shell E2E Smoke Tests', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'Model Explorer' })).toBeVisible();
 
     await page.goto('/#/budget');
-    await expect(page).toHaveTitle(/Budget Planner · Token Price Analyzer/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Budget Planner' })).toBeVisible();
+    await expect(page).toHaveTitle(/Budget reach calculator · Token Price Analyzer/);
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Budget reach calculator' }),
+    ).toBeVisible();
   });
 
   test('switches language to PL and persists on page reload', async ({ page }) => {

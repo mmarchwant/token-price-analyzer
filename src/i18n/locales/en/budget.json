@@ -1,5 +1,57 @@
 {
-  "title": "Budget Planner",
-  "subtitle": "Calculate expected costs based on monthly budget and usage volume",
-  "comingSoon": "Budget Planner feature is coming soon."
+  "title": "Budget reach calculator",
+  "subtitle": "How long can each model work for my money?",
+  "copyLink": "Copy link",
+  "linkCopied": "Link copied!",
+  "budgetLabel": "Monthly budget",
+  "currencyLabel": "Currency",
+  "profileLabel": "Usage profile",
+  "minTierLabel": "Min quality tier",
+  "includeFree": "Include free models",
+  "includeBatch": "Include batch prices",
+  "applyFees": "Account for top-up fees",
+  "metricLabel": "Display metric",
+  "metrics": {
+    "days": "Days of work",
+    "tasks": "Tasks",
+    "tokens": "Tokens"
+  },
+  "highlights": {
+    "bestQuality": "Best Quality (Full Month)",
+    "bestQualityDesc": "Lasts the whole month (≈ {{days}} work days) at quality tier {{tier}}.",
+    "cheapest": "Most Work Days",
+    "cheapestDesc": "Provides {{days}} work days of demand among models with tier ≥ {{tier}}.",
+    "bestValue": "Best Value",
+    "bestValueDesc": "Best efficiency on Pareto frontier covering {{coverage}}% of monthly demand at tier {{tier}}.",
+    "noModel": "No eligible model found"
+  },
+  "ladderTitle": "Work-Time Ladder",
+  "ladderSubtitle": "Comparative log scale of how long your budget lasts per model",
+  "ladderTicks": {
+    "hour": "1 hour",
+    "day": "1 day",
+    "week": "1 week",
+    "month": "1 month",
+    "year": "1 year",
+    "free": "∞ (free)"
+  },
+  "chartTitle": "Top 15 Models by Reach",
+  "refLineLabel": "Full month demand ({{value}})",
+  "tableTitle": "All Eligible Models",
+  "col": {
+    "model": "Model",
+    "channel": "Channel",
+    "credit": "Usable Credit",
+    "tasks": "Tasks",
+    "workDays": "Work Days",
+    "coverage": "Monthly Demand",
+    "tokens": "Tokens (In / Out)",
+    "genHours": "Gen Time",
+    "quality": "Quality (Tier)"
+  },
+  "belowMinTopUp": "Budget below min top-up ({{min}})",
+  "rateLimited": "Rate limited",
+  "hoursShort": "{{h}} h",
+  "freeInfinity": "∞ (Free)",
+  "subscriptionCallout": "There are {{count}} subscription plans within this budget → compare them in Subscriptions vs API"
 }

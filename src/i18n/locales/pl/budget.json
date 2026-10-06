@@ -1,5 +1,57 @@
 {
-  "title": "Planowanie Budżetu",
-  "subtitle": "Oblicz przewidywane koszty na podstawie miesięcznego budżetu i wolumenu użycia",
-  "comingSoon": "Funkcja Planowania Budżetu będzie dostępna wkrótce."
+  "title": "Kalkulator zasięgu budżetu",
+  "subtitle": "Jak długo poszczególne modele mogą pracować za Twoje pieniądze?",
+  "copyLink": "Kopiuj link",
+  "linkCopied": "Skopiowano link!",
+  "budgetLabel": "Budżet miesięczny",
+  "currencyLabel": "Waluta",
+  "profileLabel": "Profil użycia",
+  "minTierLabel": "Min. klasa jakości",
+  "includeFree": "Uwzględnij darmowe modele",
+  "includeBatch": "Uwzględnij ceny wsadowe (batch)",
+  "applyFees": "Uwzględnij opłaty za doładowania",
+  "metricLabel": "Wyświetlana metryka",
+  "metrics": {
+    "days": "Dni pracy",
+    "tasks": "Zadania",
+    "tokens": "Tokeny"
+  },
+  "highlights": {
+    "bestQuality": "Najwyższa jakość (Pełny miesiąc)",
+    "bestQualityDesc": "Wystarczy na cały miesiąc (≈ {{days}} dni roboczych) w klasie jakości {{tier}}.",
+    "cheapest": "Najwięcej dni pracy",
+    "cheapestDesc": "Zapewnia {{days}} dni roboczych zapotrzebowania wśród modeli z klasą ≥ {{tier}}.",
+    "bestValue": "Najlepszy stosunek jakości do ceny",
+    "bestValueDesc": "Najlepsza wydajność na granicy Pareto pokrywająca {{coverage}}% miesięcznego zapotrzebowania w klasie {{tier}}.",
+    "noModel": "Brak pasującego modelu"
+  },
+  "ladderTitle": "Drabina czasu pracy",
+  "ladderSubtitle": "Porównawcza skala logarytmiczna czasu pracy budżetu dla każdego modelu",
+  "ladderTicks": {
+    "hour": "1 godzina",
+    "day": "1 dzień",
+    "week": "1 tydzień",
+    "month": "1 miesiąc",
+    "year": "1 rok",
+    "free": "∞ (darmowe)"
+  },
+  "chartTitle": "15 najlepszych modeli według zasięgu",
+  "refLineLabel": "Miesięczne zapotrzebowanie ({{value}})",
+  "tableTitle": "Wszystkie kwalifikujące się modele",
+  "col": {
+    "model": "Model",
+    "channel": "Kanał",
+    "credit": "Kredyt do wykorzystania",
+    "tasks": "Zadania",
+    "workDays": "Dni pracy",
+    "coverage": "Miesięczne zapotrzebowanie",
+    "tokens": "Tokeny (Wej / Wyj)",
+    "genHours": "Czas generowania",
+    "quality": "Jakość (Klasa)"
+  },
+  "belowMinTopUp": "Budżet poniżej min. doładowania ({{min}})",
+  "rateLimited": "Limitowany",
+  "hoursShort": "{{h}} godz.",
+  "freeInfinity": "∞ (Darmowy)",
+  "subscriptionCallout": "W tym budżecie mieści się {{count}} planów subskrypcyjnych → porównaj je w Subskrypcje vs API"
 }
