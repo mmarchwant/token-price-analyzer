@@ -47,6 +47,9 @@ describe('ComparePage component', () => {
   it('renders two columns when opening #/compare?items=m:<id>,s:<id>', async () => {
     const firstModel = builtSnapshot.models[0];
     const firstPlan = builtSnapshot.subscriptions[0];
+    if (!firstModel || !firstPlan) {
+      throw new Error('Fixture missing model or plan');
+    }
 
     window.location.hash = `#/compare?items=m:${firstModel.id},s:${firstPlan.id}`;
     render(<App />);
@@ -71,6 +74,9 @@ describe('ComparePage component', () => {
   it('adds an item via combobox search and removes a chip', async () => {
     const user = userEvent.setup();
     const firstModel = builtSnapshot.models[0];
+    if (!firstModel) {
+      throw new Error('Fixture missing model');
+    }
 
     window.location.hash = '#/compare';
     render(<App />);
