@@ -7,9 +7,14 @@ test.describe('App Shell E2E Smoke Tests', () => {
     await page.goto('/');
 
     await expect(page).toHaveURL(/.*#\/advisor/);
-    await expect(page).toHaveTitle(/AI Advisor · Token Price Analyzer/);
+    await expect(page).toHaveTitle(
+      /(What should I buy this month\?|AI Advisor) · Token Price Analyzer/,
+    );
 
-    const heading = page.getByRole('heading', { level: 1, name: 'AI Advisor' });
+    const heading = page.getByRole('heading', {
+      level: 1,
+      name: /What should I buy this month\?|AI Advisor/,
+    });
     await expect(heading).toBeVisible();
   });
 
@@ -33,7 +38,7 @@ test.describe('App Shell E2E Smoke Tests', () => {
 
     await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Eksplorator' })).toBeVisible();
-    await expect(page).toHaveTitle(/Doradca AI · Token Price Analyzer/);
+    await expect(page).toHaveTitle(/(Co kupić w tym miesiącu\?|Doradca AI) · Token Price Analyzer/);
 
     // Reload page
     await page.reload();
