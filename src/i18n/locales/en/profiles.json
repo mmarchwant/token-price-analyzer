@@ -1,5 +1,6 @@
 {
   "title": "Usage Profiles",
-  "subtitle": "Manage custom usage profiles with specific token distributions",
-  "comingSoon": "Usage Profiles feature is coming soon."
+  "subtitle": "Manage usage patterns and task shapes for cost estimation",
+  "comingSoon": "Usage Profiles feature is coming soon.",
+  "selectLabel": "Usage Profile"
 }

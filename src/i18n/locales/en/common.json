@@ -13,6 +13,9 @@
   "settings": {
     "language": "Language",
     "currency": "Currency",
+    "vat": "VAT",
+    "vatOptionCustom": "Custom VAT",
+    "liveRefresh": "Live prices",
     "theme": "Theme",
     "themeSystem": "System",
     "themeLight": "Light",
@@ -28,6 +31,24 @@
     "copy": "Copy",
     "copied": "Copied!",
     "skipToContent": "Skip to content"
+  },
+  "errors": {
+    "snapshotFailed": "Failed to load snapshot dataset."
+  },
+  "dataStatus": {
+    "snapshotDate": "Data snapshot: {{date}}",
+    "snapshotOutdated": "Snapshot outdated (> 3 days old)",
+    "snapshotOutdatedShort": "! >3d",
+    "liveUpdated": "Live prices: updated {{time}} · {{changed}} price changes · {{newModels}} new models",
+    "liveUnavailable": "Live prices unavailable, using the snapshot",
+    "liveLoading": "Updating live prices...",
+    "liveDisabled": "Live prices disabled",
+    "refreshLive": "Refresh live prices",
+    "justNow": "just now",
+    "minsAgo_one": "{{count}} min ago",
+    "minsAgo_few": "{{count}} mins ago",
+    "minsAgo_many": "{{count}} mins ago",
+    "minsAgo_other": "{{count}} mins ago"
   },
   "footer": {
     "sourcesLink": "Data sources & methodology",

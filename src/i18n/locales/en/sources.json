@@ -1,5 +1,13 @@
 {
   "title": "Data Sources & Methodology",
   "subtitle": "Learn where data comes from and how quality and cost metrics are computed",
-  "comingSoon": "Data Sources page is coming soon."
+  "comingSoon": "Data Sources page is coming soon.",
+  "statusHeader": "Data Pipeline Status",
+  "source": "Source",
+  "status": "Status",
+  "itemCount": "Items",
+  "fetchedAt": "Fetched At",
+  "statusOk": "OK",
+  "statusSkipped": "Skipped",
+  "statusFailed": "Failed"
 }

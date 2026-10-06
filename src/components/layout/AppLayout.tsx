@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { routes } from '../../app/routes';
 import { useSettingsStore } from '../../state/settings';
 import { useApplyTheme } from '../../hooks/useApplyTheme';
+import { DataStatus } from './DataStatus';
+import { Toggle } from '../ui/Toggle';
+import { NumberInput } from '../ui/NumberInput';
 import type { Currency } from '../../domain/types';
 
 export function TokenIcon({ className = 'h-6 w-6' }: { className?: string }) {
@@ -25,6 +28,8 @@ export function TokenIcon({ className = 'h-6 w-6' }: { className?: string }) {
   );
 }
 
+const PRESET_VAT_RATES = [0, 23, 19, 20];
+
 export function AppLayout({ children }: { children: React.ReactNode }) {
   useApplyTheme();
   const { t, i18n } = useTranslation('common');
@@ -32,8 +37,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const currency = useSettingsStore((state) => state.currency);
   const theme = useSettingsStore((state) => state.theme);
+  const vatRatePct = useSettingsStore((state) => state.vatRatePct);
+  const liveRefresh = useSettingsStore((state) => state.liveRefresh);
+
   const setCurrency = useSettingsStore((state) => state.setCurrency);
   const setTheme = useSettingsStore((state) => state.setTheme);
+  const setVatRatePct = useSettingsStore((state) => state.setVatRatePct);
+  const setLiveRefresh = useSettingsStore((state) => state.setLiveRefresh);
+
+  const isCustomVat = !PRESET_VAT_RATES.includes(vatRatePct);
 
   // Close mobile menu on Escape key
   useEffect(() => {
@@ -60,6 +72,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     setTheme(e.target.value as 'system' | 'light' | 'dark');
   };
 
+  const handleVatSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    if (val === 'custom') {
+      if (PRESET_VAT_RATES.includes(vatRatePct)) {
+        setVatRatePct(15);
+      }
+    } else {
+      setVatRatePct(Number(val));
+    }
+  };
+
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
@@ -79,7 +102,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Header */}
       <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex h-16 items-center justify-between gap-3">
             {/* Logo */}
             <div className="flex items-center gap-3 shrink-0">
               <Link
@@ -94,13 +117,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+            <nav className="hidden lg:flex items-center gap-1">
               {routes.map((route) => (
                 <NavLink
                   key={route.path}
                   to={route.path}
                   className={({ isActive }) =>
-                    `px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                    `px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
                       isActive
                         ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-semibold'
                         : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60'
@@ -117,8 +140,52 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
 
-            {/* Settings & Mobile Menu Button */}
+            {/* Header Controls & Data Status */}
             <div className="flex items-center gap-2">
+              <DataStatus variant="compact" className="hidden sm:flex" />
+
+              {/* VAT Control */}
+              <div className="hidden sm:flex items-center gap-1">
+                <label htmlFor="header-vat-select" className="sr-only">
+                  {t('settings.vat', 'VAT')}
+                </label>
+                <select
+                  id="header-vat-select"
+                  value={isCustomVat ? 'custom' : String(vatRatePct)}
+                  onChange={handleVatSelectChange}
+                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+                  aria-label={t('settings.vat', 'VAT')}
+                >
+                  <option value="0">VAT 0%</option>
+                  <option value="23">VAT 23% (PL)</option>
+                  <option value="19">VAT 19% (DE)</option>
+                  <option value="20">VAT 20% (FR)</option>
+                  <option value="custom">{t('settings.vatOptionCustom', 'Custom VAT')}</option>
+                </select>
+                {isCustomVat && (
+                  <div className="w-16">
+                    <NumberInput
+                      value={vatRatePct}
+                      onChange={(v) => setVatRatePct(Math.max(0, Math.min(100, v ?? 0)))}
+                      min={0}
+                      max={100}
+                      step={1}
+                      suffix="%"
+                      className="text-xs py-0.5"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Live Refresh Toggle */}
+              <div className="hidden md:flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                <Toggle
+                  checked={liveRefresh}
+                  onChange={setLiveRefresh}
+                  label={t('settings.liveRefresh', 'Live prices')}
+                />
+              </div>
+
               {/* Language Selector */}
               <div className="relative">
                 <label htmlFor="header-lang-select" className="sr-only">
@@ -179,7 +246,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label={mobileMenuOpen ? t('settings.closeMenu') : t('settings.openMenu')}
-                className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
+                className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
               >
                 <svg
                   className="h-6 w-6"
@@ -208,29 +275,40 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         {mobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-1 shadow-lg"
+            className="lg:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
           >
-            {routes.map((route) => (
-              <NavLink
-                key={route.path}
-                to={route.path}
-                onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    isActive
-                      ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-semibold'
-                      : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800'
-                  }`
-                }
-                end
-              >
-                {({ isActive }) => (
-                  <span aria-current={isActive ? 'page' : undefined}>
-                    {t(`nav.${route.navKey}`)}
-                  </span>
-                )}
-              </NavLink>
-            ))}
+            <div className="space-y-1">
+              {routes.map((route) => (
+                <NavLink
+                  key={route.path}
+                  to={route.path}
+                  onClick={closeMobileMenu}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                      isActive
+                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-semibold'
+                        : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800'
+                    }`
+                  }
+                  end
+                >
+                  {({ isActive }) => (
+                    <span aria-current={isActive ? 'page' : undefined}>
+                      {t(`nav.${route.navKey}`)}
+                    </span>
+                  )}
+                </NavLink>
+              ))}
+            </div>
+
+            <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-2">
+              <Toggle
+                checked={liveRefresh}
+                onChange={setLiveRefresh}
+                label={t('settings.liveRefresh', 'Live prices')}
+              />
+              <DataStatus variant="compact" />
+            </div>
           </div>
         )}
       </header>
@@ -242,14 +320,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
       {/* Footer */}
       <footer className="w-full border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 py-6 text-sm text-zinc-500 dark:text-zinc-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link
-            to="/sources"
-            className="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm"
-          >
-            {t('footer.sourcesLink')}
-          </Link>
-          <p className="text-xs text-zinc-400 dark:text-zinc-500">{t('footer.attribution')}</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-4">
+          <DataStatus variant="full" />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+            <Link
+              to="/sources"
+              className="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm"
+            >
+              {t('footer.sourcesLink')}
+            </Link>
+            <p className="text-xs text-zinc-400 dark:text-zinc-500">{t('footer.attribution')}</p>
+          </div>
         </div>
       </footer>
     </div>

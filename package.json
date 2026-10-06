@@ -22,6 +22,7 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.104.1",
     "clsx": "^2.1.1",
     "i18next": "^26.4.2",
     "i18next-browser-languagedetector": "^8.2.1",
