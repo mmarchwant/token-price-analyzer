@@ -1,0 +1,51 @@
+name: Outdated or Incorrect Data
+description: Report outdated subscription plan limits, model prices, or channel fees
+title: '[Outdated Data]: '
+labels: ['data', 'triage']
+body:
+  - type: dropdown
+    id: item_type
+    attributes:
+      label: Item Type
+      options:
+        - Subscription plan
+        - Model price
+        - Channel fee
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: item_id
+    attributes:
+      label: Item ID / Name
+      placeholder: e.g. claude-pro or anthropic/claude-3-5-sonnet
+    validations:
+      required: true
+  - type: textarea
+    id: what_is_wrong
+    attributes:
+      label: What is wrong?
+      placeholder: Describe what information is outdated or incorrect
+    validations:
+      required: true
+  - type: textarea
+    id: correct_value
+    attributes:
+      label: Correct Value
+      placeholder: Provide the updated or correct values/limits
+    validations:
+      required: false
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      placeholder: Link to official pricing or documentation
+    validations:
+      required: true
+  - type: input
+    id: checked_on
+    attributes:
+      label: Checked On
+      placeholder: YYYY-MM-DD
+    validations:
+      required: false

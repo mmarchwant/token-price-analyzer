@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { routes } from '../../app/routes';
 import { useSettingsStore } from '../../state/settings';
 import { useApplyTheme } from '../../hooks/useApplyTheme';
@@ -329,7 +329,50 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             >
               {t('footer.sourcesLink')}
             </Link>
-            <p className="text-xs text-zinc-400 dark:text-zinc-500">{t('footer.attribution')}</p>
+            <p className="text-xs text-zinc-400 dark:text-zinc-500">
+              <Trans
+                i18nKey="footer.attribution"
+                ns="common"
+                components={[
+                  <a
+                    key="aa"
+                    href="https://artificialanalysis.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    Artificial Analysis
+                  </a>,
+                  <a
+                    key="openrouter"
+                    href="https://openrouter.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    OpenRouter
+                  </a>,
+                  <a
+                    key="litellm"
+                    href="https://github.com/BerriAI/litellm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    LiteLLM
+                  </a>,
+                  <a
+                    key="frankfurter"
+                    href="https://www.frankfurter.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    Frankfurter
+                  </a>,
+                ]}
+              />
+            </p>
           </div>
         </div>
       </footer>

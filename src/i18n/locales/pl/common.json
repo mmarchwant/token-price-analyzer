@@ -52,7 +52,7 @@
   },
   "footer": {
     "sourcesLink": "Źródła danych i metodologia",
-    "attribution": "Dane aktualizowane automatycznie każdego dnia."
+    "attribution": "Dane benchmarkowe: <0>Artificial Analysis</0> · Ceny: <1>OpenRouter</1>, <2>LiteLLM</2> · FX: EBC via <3>Frankfurter</3> · Szacunki, to nie jest porada finansowa"
   },
   "notFound": {
     "title": "Strona nie znaleziona",

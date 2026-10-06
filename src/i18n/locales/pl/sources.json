@@ -1,13 +1,143 @@
 {
   "title": "Źródła danych i metodologia",
-  "subtitle": "Dowiedz się, skąd pochodzą dane oraz jak wyliczane są wskaźniki jakości i kosztów",
-  "comingSoon": "Strona źródeł danych będzie dostępna wkrótce.",
+  "subtitle": "Dowiedz się, skąd pochodzą dane, jak śledzona jest ich świeżość oraz jak obliczane są wskaźniki jakości i kosztów",
   "statusHeader": "Stan potoku danych",
-  "source": "Źródło",
-  "status": "Stan",
-  "itemCount": "Liczba elementów",
-  "fetchedAt": "Pobrano o",
+  "table": {
+    "source": "Źródło",
+    "usage": "Zastosowanie w aplikacji",
+    "status": "Stan",
+    "itemCount": "Liczba elementów",
+    "fetchedAt": "Ostatnie pobranie",
+    "link": "Link",
+    "license": "Licencja / Atrybucja"
+  },
   "statusOk": "OK",
   "statusSkipped": "Pominięto",
-  "statusFailed": "Błąd"
+  "statusFailed": "Błąd",
+  "qualityNote": {
+    "prefix": "Wskaźniki jakości pochodzą z"
+  },
+  "sources": {
+    "openrouter": {
+      "name": "OpenRouter",
+      "usage": "Ceny API modeli, modalności, możliwości, ceny pamięci podręcznej i przetwarzania wsadowego",
+      "license": "Dynamiczny katalog API"
+    },
+    "litellm": {
+      "name": "LiteLLM",
+      "usage": "Bezpośrednie oficjalne ceny API u poszczególnych dostawców AI",
+      "license": "Licencja MIT"
+    },
+    "artificial-analysis": {
+      "name": "Artificial Analysis",
+      "usage": "Wskaźniki jakości (inteligencja, kodowanie, agentywność) oraz szybkość generowania",
+      "license": "Wymagana atrybucja"
+    },
+    "frankfurter": {
+      "name": "Frankfurter (EBC)",
+      "usage": "Referencyjne kursy walut z Europejskiego Banku Centralnego",
+      "license": "Otwarte dane EBC"
+    },
+    "curated": {
+      "name": "Ręcznie utrzymywane dane",
+      "usage": "Plany subskrypcyjne, profile użycia, opłaty kanałów płatności",
+      "license": "Utrzymywane w repozytorium"
+    }
+  },
+  "curatedHeader": "Świeżość danych ręcznych",
+  "curatedSubtitle": "Plany subskrypcyjne i opłaty kanałów są ręcznie utrzymywane i regularnie weryfikowane",
+  "reportOutdatedData": "Zgłoś nieaktualne dane",
+  "needsVerification": "Wymaga weryfikacji (>45 dni)",
+  "verifiedDate": "Zweryfikowano: {{date}}",
+  "plansTable": {
+    "title": "Plany subskrypcyjne",
+    "provider": "Dostawca",
+    "plan": "Plan",
+    "price": "Cena",
+    "confidence": "Pewność danych",
+    "lastVerified": "Ostatnio zweryfikowano",
+    "sources": "Źródła",
+    "actions": "Akcje"
+  },
+  "feesTable": {
+    "title": "Opłaty doładowania kanałów",
+    "vendor": "Dostawca / Kanał",
+    "feePct": "Opłata %",
+    "minFee": "Min. opłata",
+    "minTopUp": "Min. doładowanie",
+    "lastVerified": "Ostatnio zweryfikowano",
+    "actions": "Akcje"
+  },
+  "confidence": {
+    "official": "Oficjalny",
+    "reported": "Zgłoszony",
+    "estimated": "Szacowany"
+  },
+  "methodologyHeader": "Metodologia i obliczenia",
+  "methodologySubtitle": "Szczegółowe wyjaśnienia sposobu szacowania kosztów, poziomów jakości i wydajności subskrypcji",
+  "methodology": {
+    "costPerTask": {
+      "title": "1. Koszt na zadanie",
+      "p1": "Każde zadanie AI składa się z niebuforowanych tokenów wejściowych, buforowanych tokenów wejściowych oraz tokenów wyjściowych. Efektywny koszt na zadanie jest obliczany na podstawie stawek dostawców za 1 mln tokenów.",
+      "p2": "Wzór: Koszt zadania = (Nieużyty wejście × Stawka wejścia) + (Użyty odczyt × Stawka odczytu) + (Zapis bufora × Stawka zapisu) + (Tokeny wyjścia × Stawka wyjścia).",
+      "p3": "Progi cenowe dla długiego kontekstu są stosowane gdy wolumen tokenów wejściowych przekracza określony próg. Efektywne $/1M łączy proporcje wejścia i wyjścia w jedną cenę jednostkową."
+    },
+    "usageProfiles": {
+      "title": "2. Profile użycia",
+      "p1": "Profil użycia określa strukturę tokenów typowego zadania, dzienny wolumen zadań oraz liczbę dni pracy w miesiącu.",
+      "p2": "Ustawienia wstępne odzwierciedlają typowe scenariusze robocze, takie jak Czat/Pytań i Odpowiedzi, Agent kodujący, Głębokie badania i Masowe przetwarzanie wsadowe.",
+      "p3": "Użytkownicy mogą dostosować strukturę tokenów, wskaźnik trafień w pamięć podręczną, dni pracy oraz zezwolenia na przetwarzanie wsadowe do własnych potrzeb."
+    },
+    "quality": {
+      "title": "3. Wskaźniki jakości i granica Pareto",
+      "p1": "Wyniki jakości (0–100) pochodzą z benchmarków Artificial Analysis w kategoriach Inteligencja, Kodowanie i Agentywność.",
+      "p2": "Poziomy jakości kategoryzują modele według percentyli: Poziom S (top 5%), Poziom A (kolejne 15%), Poziom B (kolejne 30%), Poziom C (kolejne 30%) oraz Poziom D (pozostałe).",
+      "p3": "Ręczne nadpisania pozwalają obsłużyć nowo wydane modele. Granica Pareto identyfikuje modele oferujące najwyższą jakość na danym poziomie kosztów."
+    },
+    "budgetReach": {
+      "title": "4. Zasięg budżetu i opłaty doładowania",
+      "p1": "Zasięg budżetu określa, ile zadań lub dni pracy można sfinansować z miesięcznego budżetu.",
+      "p2": "Opłaty kanałów płatności (prowizje procentowe i minimalne opłaty doładowania) są odejmowane w pierwszej kolejności, wyznaczając dostępny kredyt API.",
+      "p3": "Dni pracy są szacowane poprzez podzielenie dostępnego wolumenu zadań przez dzienne zapotrzebowanie."
+    },
+    "subscriptions": {
+      "title": "5. Subskrypcje a wartość API",
+      "p1": "Plany subskrypcyjne nakładają limity użycia poprzez okna czasowe (np. okna 5-godzinne), miesięczne limity lub przydział kredytu USD.",
+      "p2": "Równoważna wartość API jest obliczana poprzez wycenę miesięcznej wydajności referencyjnej planu według bezpośrednich cen API dla głównego modelu.",
+      "p3": "Zakresy wydajności uwzględniają zmienność limitów dostawców, tygodniowe limity oraz dynamiczne ograniczenia w godzinach szczytu. Odznaki pewności odzwierciedlają jasność publikowanych danych."
+    },
+    "advisorScoring": {
+      "title": "6. Logika rekomendacji Doradcy",
+      "p1": "Doradca szereguje konfiguracje na podstawie zrównoważonej funkcji użyteczności łączącej Poziom Jakości, Efektywność Kosztową i Pokrycie Dni Pracy.",
+      "p2": "Zasady różnorodności eliminują duplikaty modeli w różnych kanałach, zapewniając obecność zarówno optymalnych subskrypcji, jak i opcji API."
+    },
+    "currencyVat": {
+      "title": "7. Przeliczanie walut i VAT",
+      "p1": "Wewnętrzne obliczenia używają USD za 1 mln tokenów. Wyświetlane wartości przeliczają waluty według kursów referencyjnych EBC z Frankfurter.",
+      "p2": "Gdy istnieje oficjalna cena w lokalnej walucie (np. subskrypcje PLN/EUR), ma ona pierwszeństwo przed przeliczeniem walutowym.",
+      "p3": "Przełącznik VAT nakłada skonfigurowaną stawkę podatkową (np. 23% VAT w PL) dynamicznie na wyświetlane ceny."
+    },
+    "disclaimer": {
+      "title": "8. Ograniczenia i zastrzeżenie finansowe",
+      "p1": "Wszystkie wskaźniki i wartości wydajności są szacunkami służącymi do celów porównawczych.",
+      "p2": "Ceny dostawców, warunki subskrypcji i limity użycia mogą ulec zmianie bez wcześniejszego powiadomienia.",
+      "p3": "Aplikacja nie stanowi porady finansowej ani prawnej. Darmowe pakiety API mogą podlegać limitom i opóźnieniom danych."
+    }
+  },
+  "diagnosticsHeader": "Diagnostyka dla utrzymujących",
+  "diagnosticsSubtitle": "Szczegóły potoku, nedopasowane identyfikatory encji i ostrzeżenia",
+  "diagnostics": {
+    "schemaVersion": "Wersja schematu migawki",
+    "generatedAt": "Wygenerowano",
+    "unmatchedTitle": "Niedopasowane identyfikatory modeli/encji",
+    "unmatchedCount": "{{count}} niedopasowanych ID z {{sourceCount}} źródeł",
+    "filterSource": "Filtruj źródło",
+    "filterPlaceholder": "Szukaj niedopasowanych ID...",
+    "warningsTitle": "Ostrzeżenia potoku",
+    "warningsCount": "{{count}} ostrzeżeń",
+    "noWarnings": "Brak ostrzeżeń potoku.",
+    "docsLinks": "Dokumentacja na GitHubie",
+    "pipelineDoc": "Dokumentacja potoku danych",
+    "curatedDoc": "Specyfikacja danych ręcznych"
+  }
 }
