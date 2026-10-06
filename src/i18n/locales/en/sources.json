@@ -1,13 +1,143 @@
 {
   "title": "Data Sources & Methodology",
-  "subtitle": "Learn where data comes from and how quality and cost metrics are computed",
-  "comingSoon": "Data Sources page is coming soon.",
+  "subtitle": "Learn where data comes from, how freshness is tracked, and how quality and cost metrics are calculated",
   "statusHeader": "Data Pipeline Status",
-  "source": "Source",
-  "status": "Status",
-  "itemCount": "Items",
-  "fetchedAt": "Fetched At",
+  "table": {
+    "source": "Source",
+    "usage": "Usage in App",
+    "status": "Status",
+    "itemCount": "Items",
+    "fetchedAt": "Last Fetched",
+    "link": "Link",
+    "license": "License / Attribution"
+  },
   "statusOk": "OK",
   "statusSkipped": "Skipped",
-  "statusFailed": "Failed"
+  "statusFailed": "Failed",
+  "qualityNote": {
+    "prefix": "Quality metrics sourced from"
+  },
+  "sources": {
+    "openrouter": {
+      "name": "OpenRouter",
+      "usage": "API model pricing, modalities, capabilities, cache & batch pricing",
+      "license": "Dynamic API Catalog"
+    },
+    "litellm": {
+      "name": "LiteLLM",
+      "usage": "Direct first-party API pricing specs across AI providers",
+      "license": "MIT License"
+    },
+    "artificial-analysis": {
+      "name": "Artificial Analysis",
+      "usage": "Quality indices (intelligence, coding, agentic) and generation speed",
+      "license": "Attribution Required"
+    },
+    "frankfurter": {
+      "name": "Frankfurter (ECB)",
+      "usage": "Reference foreign exchange rates from European Central Bank",
+      "license": "ECB Open Data"
+    },
+    "curated": {
+      "name": "Curated Data",
+      "usage": "Subscription plans, usage profiles, channel fees",
+      "license": "Maintained in Repository"
+    }
+  },
+  "curatedHeader": "Curated Data Freshness",
+  "curatedSubtitle": "Subscription plans and channel fees are manually maintained and verified regularly",
+  "reportOutdatedData": "Report outdated data",
+  "needsVerification": "Needs verification (>45 days)",
+  "verifiedDate": "Verified: {{date}}",
+  "plansTable": {
+    "title": "Subscription Plans",
+    "provider": "Provider",
+    "plan": "Plan",
+    "price": "Price",
+    "confidence": "Confidence",
+    "lastVerified": "Last Verified",
+    "sources": "Sources",
+    "actions": "Actions"
+  },
+  "feesTable": {
+    "title": "Channel Top-Up Fees",
+    "vendor": "Vendor / Channel",
+    "feePct": "Fee %",
+    "minFee": "Min Fee",
+    "minTopUp": "Min Top-Up",
+    "lastVerified": "Last Verified",
+    "actions": "Actions"
+  },
+  "confidence": {
+    "official": "Official",
+    "reported": "Reported",
+    "estimated": "Estimated"
+  },
+  "methodologyHeader": "Methodology & Calculations",
+  "methodologySubtitle": "Detailed explanations of how costs, quality tiers, and subscription capacity are estimated",
+  "methodology": {
+    "costPerTask": {
+      "title": "1. Cost Per Task",
+      "p1": "Every AI task consists of uncached input tokens, cached input tokens, and output tokens. Effective cost per task is calculated using vendor prices per 1M tokens.",
+      "p2": "Formula: Task Cost = (Uncached Inputs × Input Rate) + (Cached Inputs × Cache Read Rate) + (Cache Writes × Cache Write Rate) + (Output Tokens × Output Rate).",
+      "p3": "Long-context pricing tiers are applied when input token volume exceeds specified context thresholds. Effective $/1M combines input and output token ratios into a single unit price."
+    },
+    "usageProfiles": {
+      "title": "2. Usage Profiles",
+      "p1": "A usage profile defines the token shape of a typical task, daily task volume, and monthly work days.",
+      "p2": "Presets reflect common workflows such as Chat/Q&A, Coding Agent, Deep Research, and High-Volume Batch processing.",
+      "p3": "Users can customize task shapes, cache hit ratios, work days, and batch execution permissions to match exact requirements."
+    },
+    "quality": {
+      "title": "3. Quality Metrics & Frontiers",
+      "p1": "Quality scores (0–100) are sourced from Artificial Analysis benchmarks across Intelligence, Coding, and Agentic capabilities.",
+      "p2": "Quality tiers categorize models by percentile: S Tier (top 5%), A Tier (next 15%), B Tier (next 30%), C Tier (next 30%), and D Tier (remaining).",
+      "p3": "Manual overrides handle newly launched or unbenchmarked models. The Pareto frontier identifies models providing highest quality at any given cost level."
+    },
+    "budgetReach": {
+      "title": "4. Budget Reach & Top-up Fees",
+      "p1": "Budget reach calculates how many tasks or days of work a monthly budget buys.",
+      "p2": "Channel top-up fees (purchase percentage fees and minimum top-ups) are subtracted first to determine net usable API credit.",
+      "p3": "Work days are estimated by dividing usable task volume by daily task demand."
+    },
+    "subscriptions": {
+      "title": "5. Subscriptions vs API Value",
+      "p1": "Subscription plans enforce usage limits via rolling windows (e.g., 5-hour windows), monthly quotas, or USD credit allowances.",
+      "p2": "API-Equivalent Value is computed by evaluating the plan's reference monthly capacity against direct API pricing for the plan's primary model.",
+      "p3": "Capacity ranges accommodate provider rate-limit variations, weekly caps, and dynamic throttling during peak hours. Confidence badges reflect published clarity."
+    },
+    "advisorScoring": {
+      "title": "6. Advisor Recommendation Logic",
+      "p1": "The Advisor ranks setups based on a balanced utility function combining Quality Tier, Cost Efficiency, and Workday Coverage.",
+      "p2": "Diversity rules filter out duplicate models across channels, ensuring recommendations include both optimal subscription and API options."
+    },
+    "currencyVat": {
+      "title": "7. Currency & VAT Conversions",
+      "p1": "Internal computations use USD per 1M tokens. Display values convert currency using ECB reference rates from Frankfurter.",
+      "p2": "Where official local currency pricing exists (e.g. PLN/EUR subscription prices), it takes precedence over FX conversion.",
+      "p3": "The VAT toggle applies configured tax rates (e.g., 23% PL VAT) dynamically across displayed prices."
+    },
+    "disclaimer": {
+      "title": "8. Limitations & Financial Disclaimer",
+      "p1": "All metrics and capacity values are estimates for comparative analysis.",
+      "p2": "Provider prices, subscription terms, and rate limits change frequently without prior notice.",
+      "p3": "This application does not offer financial or legal advice. Free API tiers may be subject to rate limits and data delays."
+    }
+  },
+  "diagnosticsHeader": "Maintainer Diagnostics",
+  "diagnosticsSubtitle": "Pipeline details, unmatched entity IDs, and warnings",
+  "diagnostics": {
+    "schemaVersion": "Snapshot Schema Version",
+    "generatedAt": "Generated At",
+    "unmatchedTitle": "Unmatched Model/Entity IDs",
+    "unmatchedCount": "{{count}} unmatched IDs across {{sourceCount}} sources",
+    "filterSource": "Filter source",
+    "filterPlaceholder": "Search unmatched IDs...",
+    "warningsTitle": "Pipeline Warnings",
+    "warningsCount": "{{count}} warnings",
+    "noWarnings": "No pipeline warnings.",
+    "docsLinks": "Documentation on GitHub",
+    "pipelineDoc": "Data Pipeline Documentation",
+    "curatedDoc": "Curated Data Specifications"
+  }
 }

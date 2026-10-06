@@ -34,9 +34,9 @@ It answers questions like: _"I have $20 this month — should I pay for an API o
 2. Install dependencies: `npm ci`
 3. Start dev server: `npm run dev`
 
-## Data Pipeline & Architecture
+## Data Pipeline & Methodology
 
-For full details on data sources, precedence rules, model matching, and failure behavior, see [Data Pipeline Documentation](docs/data-pipeline.md).
+For full details on data sources, precedence rules, model matching, calculation formulas, and failure behavior, see [Data Pipeline Documentation](docs/data-pipeline.md) and [Methodology Documentation](docs/methodology.md).
 
 ## Data Refresh
 
@@ -57,3 +57,10 @@ The application is automatically built and deployed to GitHub Pages on pushes to
 - **Artificial Analysis:** Quality indices and speed benchmarks ([Artificial Analysis](https://artificialanalysis.ai)).
 - **Frankfurter (ECB):** Reference foreign exchange rates.
 - **Curated Data:** Hand-maintained subscription plan limits, usage profiles, and channel fees.
+
+## Attribution
+
+- **Artificial Analysis**: Benchmark quality scores and inference speed data ([artificialanalysis.ai](https://artificialanalysis.ai)).
+- **OpenRouter**: API model prices and endpoint metadata ([openrouter.ai](https://openrouter.ai)).
+- **LiteLLM**: Direct provider API pricing specifications ([github.com/BerriAI/litellm](https://github.com/BerriAI/litellm)).
+- **Frankfurter**: Foreign exchange reference rates from the European Central Bank ([frankfurter.app](https://www.frankfurter.app)).

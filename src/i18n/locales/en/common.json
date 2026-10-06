@@ -52,7 +52,7 @@
   },
   "footer": {
     "sourcesLink": "Data sources & methodology",
-    "attribution": "Data updated automatically daily."
+    "attribution": "Benchmark data: <0>Artificial Analysis</0> · Prices: <1>OpenRouter</1>, <2>LiteLLM</2> · FX: ECB via <3>Frankfurter</3> · Estimates, not financial advice"
   },
   "notFound": {
     "title": "Page Not Found",

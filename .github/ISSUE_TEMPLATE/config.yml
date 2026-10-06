@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Data Sources & Methodology
+    url: https://github.com/<owner>/token-price-analyzer/blob/main/docs/methodology.md
+    about: Read about data sources, freshness, and calculation methodologies before opening an issue
