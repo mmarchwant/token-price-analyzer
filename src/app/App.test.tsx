@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import i18n from '../i18n';
@@ -82,17 +82,42 @@ describe('App Shell', () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByRole('combobox', { name: 'Language' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Open main menu' })).toBeInTheDocument();
     });
 
-    const langSelect = screen.getByRole('combobox', { name: 'Language' });
+    await user.click(screen.getByRole('button', { name: 'Open main menu' }));
+    const menu = screen.getByRole('region', { name: 'Main menu' });
+    const langSelect = within(menu).getByRole('combobox', { name: 'Language' });
     await user.selectOptions(langSelect, 'pl');
 
     await waitFor(() => {
-      expect(screen.getByRole('link', { name: 'Doradca' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Eksplorator' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Budżet' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Subskrypcje' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Doradca' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Eksplorator' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Budżet' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Subskrypcje' })).toBeInTheDocument();
     });
+  });
+
+  it('keeps navigation and all settings in an accessible disclosure below the desktop breakpoint', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const menuButton = await screen.findByRole('button', { name: 'Open main menu' });
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+
+    await user.click(menuButton);
+    expect(menuButton).toHaveAccessibleName('Close main menu');
+    expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+
+    const menu = screen.getByRole('region', { name: 'Main menu' });
+    expect(within(menu).getByRole('combobox', { name: 'Language' })).toBeInTheDocument();
+    expect(within(menu).getByRole('combobox', { name: 'Currency' })).toBeInTheDocument();
+    expect(within(menu).getByRole('combobox', { name: 'Theme' })).toBeInTheDocument();
+    expect(within(menu).getByRole('combobox', { name: 'VAT' })).toBeInTheDocument();
+    expect(within(menu).getByRole('switch', { name: 'Live prices' })).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('region', { name: 'Main menu' })).not.toBeInTheDocument();
   });
 });

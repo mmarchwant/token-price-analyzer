@@ -89,6 +89,94 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const currentLang = i18n.language?.startsWith('pl') ? 'pl' : 'en';
 
+  const renderSettings = (idPrefix: string) => (
+    <>
+      <div className="flex items-center gap-1">
+        <label htmlFor={`${idPrefix}-vat-select`} className="sr-only">
+          {t('settings.vat')}
+        </label>
+        <select
+          id={`${idPrefix}-vat-select`}
+          value={isCustomVat ? 'custom' : String(vatRatePct)}
+          onChange={handleVatSelectChange}
+          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+          aria-label={t('settings.vat')}
+        >
+          <option value="0">{t('settings.vatOption0')}</option>
+          <option value="23">{t('settings.vatOption23')}</option>
+          <option value="19">{t('settings.vatOption19')}</option>
+          <option value="20">{t('settings.vatOption20')}</option>
+          <option value="custom">{t('settings.vatOptionCustom')}</option>
+        </select>
+        {isCustomVat && (
+          <div className="w-16">
+            <NumberInput
+              value={vatRatePct}
+              onChange={(v) => setVatRatePct(Math.max(0, Math.min(100, v ?? 0)))}
+              min={0}
+              max={100}
+              step={1}
+              suffix="%"
+              className="text-xs py-0.5"
+            />
+          </div>
+        )}
+      </div>
+
+      <Toggle checked={liveRefresh} onChange={setLiveRefresh} label={t('settings.liveRefresh')} />
+
+      <div className="relative">
+        <label htmlFor={`${idPrefix}-lang-select`} className="sr-only">
+          {t('settings.language')}
+        </label>
+        <select
+          id={`${idPrefix}-lang-select`}
+          value={currentLang}
+          onChange={handleLanguageChange}
+          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+          aria-label={t('settings.language')}
+        >
+          <option value="en">EN</option>
+          <option value="pl">PL</option>
+        </select>
+      </div>
+
+      <div className="relative">
+        <label htmlFor={`${idPrefix}-currency-select`} className="sr-only">
+          {t('settings.currency')}
+        </label>
+        <select
+          id={`${idPrefix}-currency-select`}
+          value={currency}
+          onChange={handleCurrencyChange}
+          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+          aria-label={t('settings.currency')}
+        >
+          <option value="USD">USD</option>
+          <option value="PLN">PLN</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+
+      <div className="relative">
+        <label htmlFor={`${idPrefix}-theme-select`} className="sr-only">
+          {t('settings.theme')}
+        </label>
+        <select
+          id={`${idPrefix}-theme-select`}
+          value={theme}
+          onChange={handleThemeChange}
+          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+          aria-label={t('settings.theme')}
+        >
+          <option value="system">{t('settings.themeSystem')}</option>
+          <option value="light">{t('settings.themeLight')}</option>
+          <option value="dark">{t('settings.themeDark')}</option>
+        </select>
+      </div>
+    </>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       {/* Skip to Content */}
@@ -117,7 +205,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden xl:flex items-center gap-1">
               {routes.map((route) => (
                 <NavLink
                   key={route.path}
@@ -142,101 +230,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
             {/* Header Controls & Data Status */}
             <div className="flex items-center gap-2">
-              <DataStatus variant="compact" className="hidden sm:flex" />
-
-              {/* VAT Control */}
-              <div className="hidden sm:flex items-center gap-1">
-                <label htmlFor="header-vat-select" className="sr-only">
-                  {t('settings.vat', 'VAT')}
-                </label>
-                <select
-                  id="header-vat-select"
-                  value={isCustomVat ? 'custom' : String(vatRatePct)}
-                  onChange={handleVatSelectChange}
-                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
-                  aria-label={t('settings.vat', 'VAT')}
-                >
-                  <option value="0">VAT 0%</option>
-                  <option value="23">VAT 23% (PL)</option>
-                  <option value="19">VAT 19% (DE)</option>
-                  <option value="20">VAT 20% (FR)</option>
-                  <option value="custom">{t('settings.vatOptionCustom', 'Custom VAT')}</option>
-                </select>
-                {isCustomVat && (
-                  <div className="w-16">
-                    <NumberInput
-                      value={vatRatePct}
-                      onChange={(v) => setVatRatePct(Math.max(0, Math.min(100, v ?? 0)))}
-                      min={0}
-                      max={100}
-                      step={1}
-                      suffix="%"
-                      className="text-xs py-0.5"
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* Live Refresh Toggle */}
-              <div className="hidden md:flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
-                <Toggle
-                  checked={liveRefresh}
-                  onChange={setLiveRefresh}
-                  label={t('settings.liveRefresh', 'Live prices')}
-                />
-              </div>
-
-              {/* Language Selector */}
-              <div className="relative">
-                <label htmlFor="header-lang-select" className="sr-only">
-                  {t('settings.language')}
-                </label>
-                <select
-                  id="header-lang-select"
-                  value={currentLang}
-                  onChange={handleLanguageChange}
-                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
-                  aria-label={t('settings.language')}
-                >
-                  <option value="en">EN</option>
-                  <option value="pl">PL</option>
-                </select>
-              </div>
-
-              {/* Currency Selector */}
-              <div className="relative">
-                <label htmlFor="header-currency-select" className="sr-only">
-                  {t('settings.currency')}
-                </label>
-                <select
-                  id="header-currency-select"
-                  value={currency}
-                  onChange={handleCurrencyChange}
-                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
-                  aria-label={t('settings.currency')}
-                >
-                  <option value="USD">USD</option>
-                  <option value="PLN">PLN</option>
-                  <option value="EUR">EUR</option>
-                </select>
-              </div>
-
-              {/* Theme Selector */}
-              <div className="relative">
-                <label htmlFor="header-theme-select" className="sr-only">
-                  {t('settings.theme')}
-                </label>
-                <select
-                  id="header-theme-select"
-                  value={theme}
-                  onChange={handleThemeChange}
-                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
-                  aria-label={t('settings.theme')}
-                >
-                  <option value="system">{t('settings.themeSystem')}</option>
-                  <option value="light">{t('settings.themeLight')}</option>
-                  <option value="dark">{t('settings.themeDark')}</option>
-                </select>
+              <div className="hidden xl:flex items-center gap-2">
+                <DataStatus variant="compact" />
+                {renderSettings('desktop')}
               </div>
 
               {/* Mobile Menu Button */}
@@ -246,7 +242,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label={mobileMenuOpen ? t('settings.closeMenu') : t('settings.openMenu')}
-                className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
+                className="xl:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
               >
                 <svg
                   className="h-6 w-6"
@@ -275,7 +271,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         {mobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="lg:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
+            role="region"
+            aria-label={t('settings.mainMenu')}
+            className="xl:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
           >
             <div className="space-y-1">
               {routes.map((route) => (
@@ -301,12 +299,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               ))}
             </div>
 
-            <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-2">
-              <Toggle
-                checked={liveRefresh}
-                onChange={setLiveRefresh}
-                label={t('settings.liveRefresh', 'Live prices')}
-              />
+            <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-3">
+              {renderSettings('menu')}
               <DataStatus variant="compact" />
             </div>
           </div>
