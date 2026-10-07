@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { ProfileSelect } from '../../components/ProfileSelect';
-import { Button, Card, CardContent, NumberInput, PageHeader, Toggle } from '../../components/ui';
+import { Card, CardContent, NumberInput, PageHeader, Toggle } from '../../components/ui';
+import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { costPerTask, selectOffer, taskFromProfile } from '../../domain/pricing';
@@ -11,7 +12,6 @@ import { compareVerdict, coverage, planPrice } from '../../domain/subscriptions'
 import type { ModelEntry, PriceOffer, SubscriptionPlan } from '../../domain/types';
 import {
   booleanCodec,
-  buildShareUrl,
   listCodec,
   numberCodec,
   stringCodec,
@@ -23,6 +23,7 @@ import { SubscriptionCard } from './SubscriptionCard';
 
 export default function SubscriptionsPage() {
   const { t, i18n } = useTranslation('subscriptions');
+  const lang = i18n.language?.startsWith('pl') ? 'pl' : 'en';
   const { subscriptions, models, fx } = useAppData();
   const profile = useActiveProfile();
   const { fmt, currency, isVatApplied } = useMoney();
@@ -31,8 +32,6 @@ export default function SubscriptionsPage() {
   const setActiveHoursPerDay = useSettingsStore((state) => state.setActiveHoursPerDay);
   const includeFree = useSettingsStore((state) => state.includeFreeModels);
   const includeBatch = useSettingsStore((state) => state.includeBatchOffers);
-
-  const lang = i18n.language?.startsWith('pl') ? 'pl' : 'en';
 
   // URL state
   const [maxPrice, setMaxPrice] = useUrlState('maxPrice', numberCodec({ min: 0 }), 0);
@@ -47,18 +46,6 @@ export default function SubscriptionsPage() {
   );
 
   const activeHours = hoursUrlParam ?? settingsActiveHours;
-
-  const [copiedLink, setCopiedLink] = useState(false);
-
-  const handleCopyLink = () => {
-    const url = buildShareUrl();
-    if (url && navigator.clipboard) {
-      void navigator.clipboard.writeText(url).then(() => {
-        setCopiedLink(true);
-        setTimeout(() => setCopiedLink(false), 2000);
-      });
-    }
-  };
 
   const handleActiveHoursChange = (val: number) => {
     const nextHours = val >= 1 && val <= 24 ? val : 8;
@@ -267,11 +254,7 @@ export default function SubscriptionsPage() {
       <PageHeader
         title={t('title')}
         subtitle={t('subtitle')}
-        actions={
-          <Button variant="secondary" size="sm" onClick={handleCopyLink}>
-            {copiedLink ? t('linkCopied') : t('copyLink')}
-          </Button>
-        }
+        actions={<ShareButton label={t('copyLink')} copiedLabel={t('linkCopied')} />}
       />
 
       {/* Verdict Box */}

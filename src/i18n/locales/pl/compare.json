@@ -1,5 +1,39 @@
 {
   "title": "Porównanie Modeli",
   "subtitle": "Porównanie obok siebie cen, wskaźników jakości oraz szybkości modeli",
-  "comingSoon": "Funkcja Porównania Modeli będzie dostępna wkrótce."
+  "comingSoon": "Funkcja Porównania Modeli będzie dostępna wkrótce.",
+  "pickerLabel": "Dodaj model lub plan subskrypcyjny",
+  "pickerPlaceholder": "Szukaj modeli lub planów wg nazwy lub dostawcy...",
+  "emptyTitle": "Brak wybranych elementów do porównania",
+  "emptySubtitle": "Dodaj modele lub plany subskrypcyjne korzystając z wyszukiwarki powyżej lub wybierz z popularnych propozycji:",
+  "popularTitle": "Popularne opcje na start:",
+  "maxItemsNotice": "Osiągnięto limit 4 elementów. Usuń jeden element, aby dodać kolejny.",
+  "notFound": "Nie znaleziono: {{id}}",
+  "tableTitle": "Szczegółowa tabela porównawcza",
+  "chartTitle": "Znormalizowane porównanie metryk (0–100)",
+  "speedNote": "Szybkość mierzona w tokenach wyjściowych/s. Elementy bez danych benchmarkowych są pokazywane jako 0.",
+  "groups": {
+    "models": "Modele (API)",
+    "plans": "Plany subskrypcyjne"
+  },
+  "metrics": {
+    "quality": "Jakość",
+    "coverage": "Pokrycie",
+    "value": "Opłacalność",
+    "speed": "Szybkość"
+  },
+  "rows": {
+    "type": "Typ",
+    "provider": "Dostawca",
+    "listPrice": "Cena katalogowa",
+    "costPerTask": "Koszt za zadanie",
+    "monthlyCost": "Koszt miesięczny",
+    "capacityCoverage": "Pojemność i pokrycie",
+    "quality": "Jakość i tier",
+    "contextWindow": "Okno kontekstowe",
+    "speed": "Szybkość generowania",
+    "features": "Funkcje",
+    "dataConfidence": "Pewność danych",
+    "lastUpdated": "Ostatnia aktualizacja"
+  }
 }

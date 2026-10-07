@@ -1,5 +1,39 @@
 {
   "title": "Model Comparison",
   "subtitle": "Side-by-side comparison of prices, quality scores, and speed",
-  "comingSoon": "Model Comparison feature is coming soon."
+  "comingSoon": "Model Comparison feature is coming soon.",
+  "pickerLabel": "Add model or subscription plan",
+  "pickerPlaceholder": "Search models or plans by name or provider...",
+  "emptyTitle": "No items selected for comparison",
+  "emptySubtitle": "Add models or subscription plans using the search input above, or pick from popular options below:",
+  "popularTitle": "Popular options to start with:",
+  "maxItemsNotice": "Maximum 4 items reached. Remove an item to add another.",
+  "notFound": "Not found: {{id}}",
+  "tableTitle": "Detailed Comparison Table",
+  "chartTitle": "Normalized Metrics Comparison (0–100)",
+  "speedNote": "Speed is measured in output tokens/sec. Items without speed benchmark data are shown as 0.",
+  "groups": {
+    "models": "Models (API)",
+    "plans": "Subscription Plans"
+  },
+  "metrics": {
+    "quality": "Quality",
+    "coverage": "Coverage",
+    "value": "Value",
+    "speed": "Speed"
+  },
+  "rows": {
+    "type": "Type",
+    "provider": "Provider",
+    "listPrice": "List Price",
+    "costPerTask": "Cost per Task",
+    "monthlyCost": "Monthly Cost",
+    "capacityCoverage": "Capacity & Coverage",
+    "quality": "Quality & Tier",
+    "contextWindow": "Context Window",
+    "speed": "Generation Speed",
+    "features": "Features",
+    "dataConfidence": "Data Confidence",
+    "lastUpdated": "Last Updated"
+  }
 }

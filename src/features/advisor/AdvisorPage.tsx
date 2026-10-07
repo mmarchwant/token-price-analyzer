@@ -4,18 +4,17 @@ import { Link } from 'react-router';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
-import { Button } from '../../components/ui/Button';
 import { Select } from '../../components/ui/Select';
 import { Toggle } from '../../components/ui/Toggle';
 import { Tooltip } from '../../components/ui/Tooltip';
 import { NumberInput } from '../../components/ui/NumberInput';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
 import {
   booleanCodec,
-  buildShareUrl,
   enumCodec,
   listCodec,
   numberCodec,
@@ -23,6 +22,12 @@ import {
   useUrlState,
 } from '../../state/urlState';
 import { advise } from '../../domain/advisor/engine';
+import {
+  buildCompareHref,
+  getStoredCompareRefs,
+  parseItems,
+  serializeItems,
+} from '../compare/compareItems';
 import type { AdvisorInput, Needs, Recommendation } from '../../domain/advisor/types';
 import type {
   Currency,
@@ -146,8 +151,6 @@ export default function AdvisorPage() {
   const [includeFree, setIncludeFree] = useUrlState('free', booleanCodec, true);
   const [preferFlexibility, setPreferFlexibility] = useUrlState('flex', booleanCodec, false);
 
-  const [copied, setCopied] = useState(false);
-
   // Convert active needs list to Needs object
   const needsObj: Needs = useMemo(() => {
     return {
@@ -231,16 +234,6 @@ export default function AdvisorPage() {
     subscriptions,
     fees,
   ]);
-
-  const handleCopyLink = () => {
-    const url = buildShareUrl();
-    if (url && navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      });
-    }
-  };
 
   const demandTasks = Math.round(
     (activeProfile.tasksPerDay || 50) * intensity * (activeProfile.workDaysPerMonth || 22),
@@ -446,9 +439,7 @@ export default function AdvisorPage() {
         <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
           {recommendations.length > 0 ? t('results.topPickBadge') : ''}
         </h2>
-        <Button variant="secondary" size="sm" onClick={handleCopyLink}>
-          {copied ? t('results.linkCopied') : t('results.copyLink')}
-        </Button>
+        <ShareButton label={t('results.copyLink')} copiedLabel={t('results.linkCopied')} />
       </div>
 
       {/* Recommendations Output */}
@@ -517,7 +508,8 @@ function RecommendationCard({
 
   // Build item names and links
   const itemElements: React.ReactNode[] = [];
-  const compareItems: string[] = [];
+
+  let compareRefs = getStoredCompareRefs();
 
   for (const pId of rec.planIds) {
     const plan = subscriptions.find((p) => p.id === pId);
@@ -531,7 +523,9 @@ function RecommendationCard({
           {plan.name} ({plan.providerName})
         </Link>,
       );
-      compareItems.push(`s:${pId}`);
+      const nextHref = buildCompareHref(compareRefs, { kind: 'plan', id: pId });
+      const itemsParam = new URLSearchParams(nextHref.split('?')[1]).get('items') || '';
+      compareRefs = parseItems([itemsParam]);
     }
   }
 
@@ -547,11 +541,13 @@ function RecommendationCard({
           {model.name} ({model.providerName})
         </Link>,
       );
-      compareItems.push(`m:${mId}`);
+      const nextHref = buildCompareHref(compareRefs, { kind: 'model', id: mId });
+      const itemsParam = new URLSearchParams(nextHref.split('?')[1]).get('items') || '';
+      compareRefs = parseItems([itemsParam]);
     }
   }
 
-  const compareUrl = `/compare?items=${encodeURIComponent(compareItems.join(','))}`;
+  const compareUrl = `/compare?items=${encodeURIComponent(serializeItems(compareRefs).join(','))}`;
 
   const covLowPct = rec.coverage ? Math.round(rec.coverage.low * 100) : null;
   const covHighPct = rec.coverage ? Math.round(rec.coverage.high * 100) : null;

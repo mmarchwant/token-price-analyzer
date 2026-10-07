@@ -30,6 +30,10 @@
     "close": "Zamknij",
     "copy": "Kopiuj",
     "copied": "Skopiowano!",
+    "copyLink": "Kopiuj link",
+    "shareUrl": "Udostępnij URL",
+    "manualCopyPrompt": "Skopiuj poniższy URL ręcznie:",
+    "addCompare": "Dodaj do porównania",
     "skipToContent": "Przejdź do treści"
   },
   "errors": {
