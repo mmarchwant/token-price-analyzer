@@ -123,11 +123,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         )}
       </div>
 
-      <Toggle
-        checked={liveRefresh}
-        onChange={setLiveRefresh}
-        label={t('settings.liveRefresh')}
-      />
+      <Toggle checked={liveRefresh} onChange={setLiveRefresh} label={t('settings.liveRefresh')} />
 
       <div className="relative">
         <label htmlFor={`${idPrefix}-lang-select`} className="sr-only">
