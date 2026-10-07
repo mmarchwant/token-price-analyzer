@@ -47,7 +47,9 @@ test.describe('App Shell E2E Smoke Tests', () => {
     await expect(page.getByRole('link', { name: 'Eksplorator' })).toBeVisible();
   });
 
-  test('header does not overflow and keeps controls reachable at supported widths', async ({ page }) => {
+  test('header does not overflow and keeps controls reachable at supported widths', async ({
+    page,
+  }) => {
     await page.addInitScript(() => localStorage.setItem('tpa-lang', 'en'));
 
     for (const width of [390, 768, 1024, 1440]) {
@@ -69,14 +71,18 @@ test.describe('App Shell E2E Smoke Tests', () => {
       }
 
       await expect
-        .poll(() => page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth))
+        .poll(() =>
+          page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth),
+        )
         .toBe(true);
 
       const language = page.getByRole('combobox', { name: 'Language' });
       await language.selectOption('pl');
       await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
       await expect
-        .poll(() => page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth))
+        .poll(() =>
+          page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth),
+        )
         .toBe(true);
     }
   });
