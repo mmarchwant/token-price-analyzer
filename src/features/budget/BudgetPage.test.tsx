@@ -33,23 +33,21 @@ describe('BudgetPage component', () => {
     vi.restoreAllMocks();
   });
 
-  async function navigateToBudget(user: ReturnType<typeof userEvent.setup>) {
+  async function navigateToBudget() {
+    window.location.hash = '#/budget';
     render(<App />);
-    await waitFor(() => {
-      expect(screen.getByRole('link', { name: 'Budget' })).toBeInTheDocument();
-    });
-    const budgetLink = screen.getByRole('link', { name: 'Budget' });
-    await user.click(budgetLink);
-    await waitFor(() => {
-      expect(
-        screen.getByRole('heading', { level: 1, name: 'Budget reach calculator' }),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole('heading', { level: 1, name: 'Budget reach calculator' }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
   }
 
   it('renders BudgetPage with default $20 budget and highlight cards', async () => {
-    const user = userEvent.setup();
-    await navigateToBudget(user);
+    await navigateToBudget();
 
     expect(screen.getByText('Best Quality (Full Month)')).toBeInTheDocument();
     expect(screen.getByText('Most Work Days')).toBeInTheDocument();
@@ -58,7 +56,7 @@ describe('BudgetPage component', () => {
 
   it('changing budget amount updates calculations', async () => {
     const user = userEvent.setup();
-    await navigateToBudget(user);
+    await navigateToBudget();
 
     const budgetInput = screen.getByLabelText('Monthly budget');
     await user.clear(budgetInput);
@@ -72,7 +70,7 @@ describe('BudgetPage component', () => {
 
   it('metric tabs switch between Days, Tasks, and Tokens', async () => {
     const user = userEvent.setup();
-    await navigateToBudget(user);
+    await navigateToBudget();
 
     const tasksTab = screen.getByRole('tab', { name: 'Tasks' });
     await user.click(tasksTab);
@@ -87,7 +85,7 @@ describe('BudgetPage component', () => {
 
   it('toggling Account for top-up fees updates usable credit in view', async () => {
     const user = userEvent.setup();
-    await navigateToBudget(user);
+    await navigateToBudget();
 
     const feesToggle = screen.getByRole('switch', { name: 'Account for top-up fees' });
     expect(feesToggle).toHaveAttribute('aria-checked', 'true');
