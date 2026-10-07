@@ -39,7 +39,10 @@ describe('BudgetPage component', () => {
     await waitFor(
       () => {
         expect(
-          screen.getByRole('heading', { level: 1, name: 'Budget reach calculator' }),
+          screen.getByRole('heading', {
+            level: 1,
+            name: /Budget reach calculator|Kalkulator zasięgu budżetu/,
+          }),
         ).toBeInTheDocument();
       },
       { timeout: 5000 },
@@ -93,5 +96,46 @@ describe('BudgetPage component', () => {
     await user.click(feesToggle);
 
     expect(feesToggle).toHaveAttribute('aria-checked', 'false');
+  });
+
+  it('sorts table headers with the keyboard and exposes the active direction', async () => {
+    const user = userEvent.setup();
+    await navigateToBudget();
+
+    const workDaysButton = screen.getByRole('button', { name: 'Sort Work Days ascending' });
+    const workDaysHeader = workDaysButton.closest('th');
+    expect(workDaysHeader).toHaveAttribute('aria-sort', 'descending');
+    expect(screen.getAllByRole('button', { name: /Sort / })).toHaveLength(8);
+    expect(document.querySelectorAll('th[aria-sort]').length).toBe(1);
+
+    await user.tab();
+    while (document.activeElement !== workDaysButton) {
+      await user.tab();
+    }
+    await user.keyboard('{Enter}');
+
+    expect(workDaysHeader).toHaveAttribute('aria-sort', 'ascending');
+    expect(workDaysButton).toHaveAccessibleName('Sort Work Days descending');
+
+    const tasksButton = screen.getByRole('button', { name: 'Sort Tasks ascending' });
+    await user.click(tasksButton);
+
+    expect(workDaysHeader).not.toHaveAttribute('aria-sort');
+    expect(tasksButton.closest('th')).toHaveAttribute('aria-sort', 'descending');
+    expect(document.querySelectorAll('th[aria-sort]').length).toBe(1);
+
+    tasksButton.focus();
+    await user.keyboard(' ');
+    expect(tasksButton.closest('th')).toHaveAttribute('aria-sort', 'ascending');
+  });
+
+  it('localizes the visible active sort direction and subscriptions CTA in Polish', async () => {
+    await i18n.changeLanguage('pl');
+    await navigateToBudget();
+
+    expect(
+      screen.getByRole('button', { name: 'Sortuj Dni pracy rosnąco' }).closest('th'),
+    ).toHaveTextContent('↓ malejąco');
+    expect(screen.getByRole('button', { name: 'Subskrypcje vs API' })).toBeInTheDocument();
   });
 });

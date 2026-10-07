@@ -152,12 +152,14 @@ export const WorkTimeLadder: React.FC<WorkTimeLadderProps> = ({
                     >
                       <span>{row.model.name}</span>
                       <span className="opacity-80">
-                        {row.workDays === Number.POSITIVE_INFINITY
-                          ? '∞'
-                          : row.workDays >= 10
-                            ? Math.round(row.workDays)
-                            : row.workDays.toFixed(1)}
-                        d
+                        {t('daysShort', {
+                          d:
+                            row.workDays === Number.POSITIVE_INFINITY
+                              ? '∞'
+                              : row.workDays >= 10
+                                ? Math.round(row.workDays)
+                                : row.workDays.toFixed(1),
+                        })}
                       </span>
                     </span>
                     <div className="w-0.5 h-2 bg-zinc-400 dark:bg-zinc-500" />
@@ -171,7 +173,7 @@ export const WorkTimeLadder: React.FC<WorkTimeLadderProps> = ({
         {/* Mobile / Vertical View (visible below md) */}
         <div className="block md:hidden space-y-2">
           <div className="flex justify-between text-xs text-zinc-500 dark:text-zinc-400 pb-2 border-b border-zinc-200 dark:border-zinc-800 font-semibold">
-            <span>Model</span>
+            <span>{t('col.model')}</span>
             <span>{t('metrics.days')}</span>
           </div>
           {top20.map((r) => (
@@ -188,7 +190,7 @@ export const WorkTimeLadder: React.FC<WorkTimeLadderProps> = ({
               <span className="font-semibold text-zinc-700 dark:text-zinc-300 shrink-0 tabular-nums">
                 {r.workDays === Number.POSITIVE_INFINITY
                   ? t('ladderTicks.free')
-                  : `${r.workDays.toFixed(1)} d`}
+                  : t('daysShort', { d: r.workDays.toFixed(1) })}
               </span>
             </div>
           ))}

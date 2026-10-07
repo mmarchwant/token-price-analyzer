@@ -7,6 +7,7 @@
   "currencyLabel": "Currency",
   "profileLabel": "Usage profile",
   "minTierLabel": "Min quality tier",
+  "tier": "Tier {{tier}}",
   "includeFree": "Include free models",
   "includeBatch": "Include batch prices",
   "applyFees": "Account for top-up fees",
@@ -50,8 +51,15 @@
     "quality": "Quality (Tier)"
   },
   "belowMinTopUp": "Budget below min top-up ({{min}})",
+  "sort": {
+    "ascending": "ascending",
+    "descending": "descending",
+    "buttonLabel": "Sort {{column}} {{direction}}"
+  },
   "rateLimited": "Rate limited",
   "hoursShort": "{{h}} h",
+  "daysShort": "{{d}} d",
   "freeInfinity": "∞ (Free)",
-  "subscriptionCallout": "There are {{count}} subscription plans within this budget → compare them in Subscriptions vs API"
+  "subscriptionCallout": "There are {{count}} subscription plans within this budget → compare them in Subscriptions vs API",
+  "subscriptionsCta": "Subscriptions vs API"
 }

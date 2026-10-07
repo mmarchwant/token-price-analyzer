@@ -98,7 +98,7 @@ export const BudgetBarChart: React.FC<BudgetBarChartProps> = ({
 
   const fmtValue = (val: number, isInfinite?: boolean): string => {
     if (isInfinite) return t('freeInfinity');
-    if (metric === 'days') return `${val.toFixed(1)} d`;
+    if (metric === 'days') return t('daysShort', { d: val.toFixed(1) });
     if (metric === 'tasks') return fmtTokens(Math.round(val));
     return fmtTokens(Math.round(val));
   };
@@ -123,7 +123,9 @@ export const BudgetBarChart: React.FC<BudgetBarChartProps> = ({
               >
                 <XAxis
                   type="number"
-                  tickFormatter={(v) => (metric === 'days' ? `${v}d` : fmtTokens(v))}
+                  tickFormatter={(v) =>
+                    metric === 'days' ? t('daysShort', { d: v }) : fmtTokens(v)
+                  }
                   stroke="#888888"
                   fontSize={11}
                 />
