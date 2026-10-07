@@ -1,5 +1,32 @@
 {
   "title": "Model Explorer",
-  "subtitle": "Explore and compare model prices across providers and channels",
-  "comingSoon": "Model Explorer feature is coming soon."
+  "subtitle": "Browse canonical models and their currently available offers",
+  "searchLabel": "Search models",
+  "searchPlaceholder": "Search by model or provider",
+  "searchHelp": "Your search is saved in the page URL.",
+  "loading": "Loading models…",
+  "errorTitle": "Could not load models",
+  "errorMessage": "The model dataset could not be loaded.",
+  "emptyTitle": "No models are available",
+  "emptyDescription": "Try again after the next data refresh.",
+  "noResultsTitle": "No matching models found",
+  "noResultsDescription": "No canonical model matches “{{search}}”.",
+  "resetSearch": "Reset search",
+  "resultCount": "{{count}} models available",
+  "resultCountFiltered": "{{count}} matching models",
+  "offersTitle_one": "{{count}} available offer",
+  "offersTitle_few": "{{count}} available offers",
+  "offersTitle_many": "{{count}} available offers",
+  "offersTitle_other": "{{count}} available offers",
+  "free": "Free",
+  "inputPrice": "Input",
+  "outputPrice": "Output",
+  "perMillionTokens": "per 1M tokens",
+  "openOffer": "Open offer",
+  "channels": {
+    "openrouter": "OpenRouter",
+    "openrouterFree": "OpenRouter free",
+    "openrouterBatch": "OpenRouter batch",
+    "direct": "Direct"
+  }
 }
