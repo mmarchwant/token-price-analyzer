@@ -1,5 +1,32 @@
 {
   "title": "Eksplorator Modeli",
-  "subtitle": "Przeglądaj i porównuj ceny modeli u różnych dostawców i w różnych kanałach",
-  "comingSoon": "Funkcja Eksploratora Modeli będzie dostępna wkrótce."
+  "subtitle": "Przeglądaj kanoniczne modele i ich aktualnie dostępne oferty",
+  "searchLabel": "Szukaj modeli",
+  "searchPlaceholder": "Szukaj po modelu lub dostawcy",
+  "searchHelp": "Wyszukiwanie jest zapisane w adresie strony.",
+  "loading": "Ładowanie modeli…",
+  "errorTitle": "Nie udało się załadować modeli",
+  "errorMessage": "Nie udało się załadować zbioru danych modeli.",
+  "emptyTitle": "Brak dostępnych modeli",
+  "emptyDescription": "Spróbuj ponownie po następnym odświeżeniu danych.",
+  "noResultsTitle": "Nie znaleziono pasujących modeli",
+  "noResultsDescription": "Żaden kanoniczny model nie pasuje do „{{search}}”.",
+  "resetSearch": "Wyczyść wyszukiwanie",
+  "resultCount": "Dostępne modele: {{count}}",
+  "resultCountFiltered": "Pasujące modele: {{count}}",
+  "offersTitle_one": "{{count}} dostępna oferta",
+  "offersTitle_few": "{{count}} dostępne oferty",
+  "offersTitle_many": "{{count}} dostępnych ofert",
+  "offersTitle_other": "{{count}} dostępnych ofert",
+  "free": "Bezpłatna",
+  "inputPrice": "Wejście",
+  "outputPrice": "Wyjście",
+  "perMillionTokens": "za 1 mln tokenów",
+  "openOffer": "Otwórz ofertę",
+  "channels": {
+    "openrouter": "OpenRouter",
+    "openrouterFree": "OpenRouter Free",
+    "openrouterBatch": "OpenRouter Batch",
+    "direct": "Bezpośrednio"
+  }
 }
