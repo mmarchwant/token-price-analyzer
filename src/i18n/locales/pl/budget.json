@@ -7,6 +7,7 @@
   "currencyLabel": "Waluta",
   "profileLabel": "Profil użycia",
   "minTierLabel": "Min. klasa jakości",
+  "tier": "Klasa {{tier}}",
   "includeFree": "Uwzględnij darmowe modele",
   "includeBatch": "Uwzględnij ceny wsadowe (batch)",
   "applyFees": "Uwzględnij opłaty za doładowania",
@@ -50,8 +51,15 @@
     "quality": "Jakość (Klasa)"
   },
   "belowMinTopUp": "Budżet poniżej min. doładowania ({{min}})",
+  "sort": {
+    "ascending": "rosnąco",
+    "descending": "malejąco",
+    "buttonLabel": "Sortuj {{column}} {{direction}}"
+  },
   "rateLimited": "Limitowany",
   "hoursShort": "{{h}} godz.",
+  "daysShort": "{{d}} dni",
   "freeInfinity": "∞ (Darmowy)",
-  "subscriptionCallout": "W tym budżecie mieści się {{count}} planów subskrypcyjnych → porównaj je w Subskrypcje vs API"
+  "subscriptionCallout": "W tym budżecie mieści się {{count}} planów subskrypcyjnych → porównaj je w Subskrypcje vs API",
+  "subscriptionsCta": "Subskrypcje vs API"
 }

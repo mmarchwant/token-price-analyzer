@@ -135,6 +135,32 @@ export default function BudgetPage() {
     }
   };
 
+  const getSortDirection = (key: keyof BudgetRow | 'modelName') =>
+    sortKey === key ? sortDir : undefined;
+
+  const getAriaSortDirection = (key: keyof BudgetRow | 'modelName') => {
+    const direction = getSortDirection(key);
+    return direction === 'asc' ? 'ascending' : direction === 'desc' ? 'descending' : undefined;
+  };
+
+  const getSortButtonLabel = (key: keyof BudgetRow | 'modelName', column: string) =>
+    t('sort.buttonLabel', {
+      column,
+      direction: t(`sort.${getSortDirection(key) === 'asc' ? 'descending' : 'ascending'}`),
+    });
+
+  const getSortIndicator = (key: keyof BudgetRow | 'modelName') => {
+    const direction = getSortDirection(key);
+    if (!direction) return <span aria-hidden="true">↕</span>;
+
+    return (
+      <span aria-hidden="true" className="normal-case text-[10px] tracking-normal">
+        {direction === 'asc' ? '↑' : '↓'}{' '}
+        {t(direction === 'asc' ? 'sort.ascending' : 'sort.descending')}
+      </span>
+    );
+  };
+
   return (
     <div className="space-y-8">
       <PageHeader
@@ -170,11 +196,11 @@ export default function BudgetPage() {
               value={tier}
               onChange={(e) => setTier(e.target.value as QualityTier)}
               options={[
-                { value: 'S', label: 'Tier S' },
-                { value: 'A', label: 'Tier A' },
-                { value: 'B', label: 'Tier B' },
-                { value: 'C', label: 'Tier C' },
-                { value: 'D', label: 'Tier D' },
+                { value: 'S', label: t('tier', { tier: 'S' }) },
+                { value: 'A', label: t('tier', { tier: 'A' }) },
+                { value: 'B', label: t('tier', { tier: 'B' }) },
+                { value: 'C', label: t('tier', { tier: 'C' }) },
+                { value: 'D', label: t('tier', { tier: 'D' }) },
               ]}
             />
           </div>
@@ -306,54 +332,86 @@ export default function BudgetPage() {
           <table className="w-full text-left text-xs">
             <thead className="bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800 font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider select-none">
               <tr>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('modelName')}
-                >
-                  {t('col.model')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('modelName')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('modelName')}
+                    aria-label={getSortButtonLabel('modelName', t('col.model'))}
+                  >
+                    {t('col.model')} {getSortIndicator('modelName')}
+                  </button>
                 </th>
                 <th className="px-4 py-3">{t('col.channel')}</th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('credit')}
-                >
-                  {t('col.credit')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('credit')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('credit')}
+                    aria-label={getSortButtonLabel('credit', t('col.credit'))}
+                  >
+                    {t('col.credit')} {getSortIndicator('credit')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('tasks')}
-                >
-                  {t('col.tasks')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('tasks')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('tasks')}
+                    aria-label={getSortButtonLabel('tasks', t('col.tasks'))}
+                  >
+                    {t('col.tasks')} {getSortIndicator('tasks')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('workDays')}
-                >
-                  {t('col.workDays')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('workDays')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('workDays')}
+                    aria-label={getSortButtonLabel('workDays', t('col.workDays'))}
+                  >
+                    {t('col.workDays')} {getSortIndicator('workDays')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('coverageOfMonth')}
-                >
-                  {t('col.coverage')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('coverageOfMonth')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('coverageOfMonth')}
+                    aria-label={getSortButtonLabel('coverageOfMonth', t('col.coverage'))}
+                  >
+                    {t('col.coverage')} {getSortIndicator('coverageOfMonth')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('tokens')}
-                >
-                  {t('col.tokens')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('tokens')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('tokens')}
+                    aria-label={getSortButtonLabel('tokens', t('col.tokens'))}
+                  >
+                    {t('col.tokens')} {getSortIndicator('tokens')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('generationHours')}
-                >
-                  {t('col.genHours')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('generationHours')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('generationHours')}
+                    aria-label={getSortButtonLabel('generationHours', t('col.genHours'))}
+                  >
+                    {t('col.genHours')} {getSortIndicator('generationHours')}
+                  </button>
                 </th>
-                <th
-                  className="px-4 py-3 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-100"
-                  onClick={() => handleSort('quality')}
-                >
-                  {t('col.quality')}
+                <th className="px-4 py-3" aria-sort={getAriaSortDirection('quality')}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-zinc-100"
+                    onClick={() => handleSort('quality')}
+                    aria-label={getSortButtonLabel('quality', t('col.quality'))}
+                  >
+                    {t('col.quality')} {getSortIndicator('quality')}
+                  </button>
                 </th>
               </tr>
             </thead>
@@ -387,7 +445,7 @@ export default function BudgetPage() {
                     {r.isFree ? t('freeInfinity') : fmtTokens(r.tasks)}
                   </td>
                   <td className="px-4 py-3 font-semibold tabular-nums">
-                    {r.isFree ? t('freeInfinity') : `${r.workDays.toFixed(1)} d`}
+                    {r.isFree ? t('freeInfinity') : t('daysShort', { d: r.workDays.toFixed(1) })}
                   </td>
                   <td className="px-4 py-3 tabular-nums">{Math.round(r.coverageOfMonth * 100)}%</td>
                   <td className="px-4 py-3 tabular-nums text-[11px]">
@@ -420,7 +478,7 @@ export default function BudgetPage() {
           </p>
           <Link to="/subscriptions" className="shrink-0">
             <Button variant="primary" size="sm">
-              Subskrypcje vs API
+              {t('subscriptionsCta')}
             </Button>
           </Link>
         </CardContent>
