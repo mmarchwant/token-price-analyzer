@@ -91,10 +91,10 @@ describe('App Shell', () => {
     await user.selectOptions(langSelect, 'pl');
 
     await waitFor(() => {
-      expect(screen.getByRole('link', { name: 'Doradca' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Eksplorator' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Budżet' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'Subskrypcje' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Doradca' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Eksplorator' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Budżet' })).toBeInTheDocument();
+      expect(within(menu).getByRole('link', { name: 'Subskrypcje' })).toBeInTheDocument();
     });
   });
 
