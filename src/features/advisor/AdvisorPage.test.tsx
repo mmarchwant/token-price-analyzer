@@ -93,5 +93,24 @@ describe('AdvisorPage component', () => {
         screen.getByRole('heading', { level: 1, name: 'Co kupić w tym miesiącu?' }),
       ).toBeInTheDocument();
     });
+
+    expect(screen.getByRole('combobox', { name: 'Waluta budżetu' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('slider', { name: 'Dzienne natężenie zadań: 1×' }),
+    ).toBeInTheDocument();
+  });
+
+  it('provides accessible labels for currency and intensity controls', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const currencySelect = await screen.findByRole('combobox', { name: 'Budget currency' });
+    const intensitySlider = screen.getByRole('slider', { name: 'Daily task intensity: 1×' });
+
+    await user.selectOptions(currencySelect, 'EUR');
+    expect(currencySelect).toHaveValue('EUR');
+
+    fireEvent.change(intensitySlider, { target: { value: '1.5' } });
+    expect(screen.getByRole('slider', { name: 'Daily task intensity: 1.5×' })).toHaveValue('1.5');
   });
 });
