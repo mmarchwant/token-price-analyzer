@@ -251,7 +251,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
             {/* Header Controls & Data Status */}
             <div className="flex items-center gap-2">
-              <div className="hidden xl:flex items-center gap-2">
+              <div className="hidden 2xl:flex items-center gap-2">
                 <DataStatus variant="compact" />
                 {renderSettings('desktop')}
               </div>
@@ -270,7 +270,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label={mobileMenuOpen ? t('settings.closeMenu') : t('settings.openMenu')}
-                className="xl:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
+                className="2xl:hidden inline-flex items-center justify-center p-2 rounded-md text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
               >
                 <svg
                   className="h-6 w-6"
@@ -302,9 +302,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             ref={mobileMenuRef}
             role="region"
             aria-label={t('settings.mainMenu')}
-            className="xl:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
+            className="2xl:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
           >
-            <div className="space-y-1">
+            <div className="space-y-1 xl:hidden">
               {routes.map((route) => (
                 <NavLink
                   key={route.path}
