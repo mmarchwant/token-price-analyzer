@@ -11,6 +11,19 @@
   "plansCount_few": "{{count}} plany subskrypcyjne",
   "plansCount_many": "{{count}} planów subskrypcyjnych",
   "plansCount_other": "{{count}} planów subskrypcyjnych",
+  "configuration": {
+    "title": "Ustaw rekomendację",
+    "seeResults": "Zobacz wyniki",
+    "summaries": {
+      "budget": "{{amount}} {{currency}} miesięcznie",
+      "intensity": "Intensywność {{intensity}}× · {{hours}} h/dzień",
+      "needs_one": "Wybrano 1 wymaganie",
+      "needs_few": "Wybrano {{count}} wymagania",
+      "needs_many": "Wybrano {{count}} wymagań",
+      "needs_other": "Wybrano {{count}} wymagań",
+      "quality": "Minimalna klasa: {{tier}}"
+    }
+  },
   "steps": {
     "budget": {
       "title": "1. Budżet",
