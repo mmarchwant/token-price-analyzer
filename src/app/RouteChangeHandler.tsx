@@ -16,7 +16,9 @@ export function RouteChangeHandler() {
       const notFoundTitle = t('common:notFound.title');
       document.title = `${notFoundTitle} · Token Price Analyzer`;
     }
+  }, [pathname, t, i18n.language]);
 
+  useEffect(() => {
     // Let explicit in-page links retain their native scroll and focus behavior.
     if (hash) return;
 
@@ -36,7 +38,7 @@ export function RouteChangeHandler() {
 
     const timer = window.setTimeout(focusRouteContent, 0);
     return () => window.clearTimeout(timer);
-  }, [pathname, hash, t, i18n.language]);
+  }, [pathname, hash]);
 
   return null;
 }

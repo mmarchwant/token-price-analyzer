@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { NavLink, Link } from 'react-router';
 import { Trans, useTranslation } from 'react-i18next';
 import { routes } from '../../app/routes';
@@ -34,6 +34,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   useApplyTheme();
   const { t, i18n } = useTranslation('common');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const shouldRestoreMobileMenuFocusRef = useRef(false);
 
   const currency = useSettingsStore((state) => state.currency);
   const theme = useSettingsStore((state) => state.theme);
@@ -47,16 +50,38 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const isCustomVat = !PRESET_VAT_RATES.includes(vatRatePct);
 
-  // Close mobile menu on Escape key
+  const closeMobileMenu = useCallback(() => {
+    if (!mobileMenuOpen) return;
+
+    shouldRestoreMobileMenuFocusRef.current = true;
+    setMobileMenuOpen(false);
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu on Escape key.
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setMobileMenuOpen(false);
+        closeMobileMenu();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [closeMobileMenu]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const firstControl = mobileMenuRef.current?.querySelector<HTMLElement>(
+        'a[href], button:not([disabled]), select:not([disabled]), input:not([disabled])',
+      );
+      firstControl?.focus();
+      return;
+    }
+
+    if (shouldRestoreMobileMenuFocusRef.current) {
+      mobileMenuTriggerRef.current?.focus();
+      shouldRestoreMobileMenuFocusRef.current = false;
+    }
+  }, [mobileMenuOpen]);
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
@@ -81,10 +106,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     } else {
       setVatRatePct(Number(val));
     }
-  };
-
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
   };
 
   const currentLang = i18n.language?.startsWith('pl') ? 'pl' : 'en';
@@ -238,7 +259,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               {/* Mobile Menu Button */}
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                ref={mobileMenuTriggerRef}
+                onClick={() => {
+                  if (mobileMenuOpen) {
+                    closeMobileMenu();
+                  } else {
+                    setMobileMenuOpen(true);
+                  }
+                }}
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label={mobileMenuOpen ? t('settings.closeMenu') : t('settings.openMenu')}
@@ -271,6 +299,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         {mobileMenuOpen && (
           <div
             id="mobile-menu"
+            ref={mobileMenuRef}
             role="region"
             aria-label={t('settings.mainMenu')}
             className="xl:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 pt-2 pb-4 space-y-3 shadow-lg"
