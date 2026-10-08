@@ -42,7 +42,9 @@
     "skipToContent": "Skip to content"
   },
   "errors": {
-    "snapshotFailed": "Failed to load snapshot dataset."
+    "snapshotFailed": "Failed to load snapshot dataset.",
+    "genericTitle": "An error occurred",
+    "genericMessage": "Please try again later."
   },
   "dataStatus": {
     "snapshotDate": "Data snapshot: {{date}}",
@@ -51,6 +53,7 @@
     "liveUpdated": "Live prices: updated {{time}} · {{changed}} price changes · {{newModels}} new models",
     "liveUnavailable": "Live prices unavailable, using the snapshot",
     "liveLoading": "Updating live prices...",
+    "liveRefreshComplete": "Live prices updated: {{changed}} price changes and {{newModels}} new models",
     "liveDisabled": "Live prices disabled",
     "refreshLive": "Refresh live prices",
     "justNow": "just now",

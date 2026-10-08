@@ -42,7 +42,9 @@
     "skipToContent": "Przejdź do treści"
   },
   "errors": {
-    "snapshotFailed": "Nie udało się załadować migawki danych."
+    "snapshotFailed": "Nie udało się załadować migawki danych.",
+    "genericTitle": "Wystąpił błąd",
+    "genericMessage": "Spróbuj ponownie później."
   },
   "dataStatus": {
     "snapshotDate": "Migawka danych: {{date}}",
@@ -51,6 +53,7 @@
     "liveUpdated": "Ceny na żywo: zaktualizowano {{time}} · {{changed}} zmian cen · {{newModels}} nowych modeli",
     "liveUnavailable": "Ceny na żywo niedostępne, używana jest migawka",
     "liveLoading": "Aktualizacja cen na żywo...",
+    "liveRefreshComplete": "Ceny na żywo zaktualizowane: {{changed}} zmian cen i {{newModels}} nowych modeli",
     "liveDisabled": "Ceny na żywo wyłączone",
     "refreshLive": "Odśwież ceny na żywo",
     "justNow": "przed chwilą",
