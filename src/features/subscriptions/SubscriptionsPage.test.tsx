@@ -115,8 +115,9 @@ describe('SubscriptionsPage component', () => {
     expect(checkboxes[1]!).toBeChecked();
     expect(checkboxes[2]!).toBeChecked();
     expect(checkboxes[3]!).not.toBeChecked();
-    expect(screen.getByRole('status')).toHaveTextContent(
-      'You can compare up to three plans at a time.',
+    expect(screen.getByText('You can compare up to three plans at a time.')).toHaveAttribute(
+      'role',
+      'status',
     );
   });
 

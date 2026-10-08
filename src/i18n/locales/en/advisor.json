@@ -18,6 +18,8 @@
       "budget": "{{amount}} {{currency}} per month",
       "intensity": "{{intensity}}× intensity · {{hours}}h/day",
       "needs_one": "1 requirement selected",
+      "needs_few": "{{count}} requirements selected",
+      "needs_many": "{{count}} requirements selected",
       "needs_other": "{{count}} requirements selected",
       "quality": "Minimum tier: {{tier}}"
     }
