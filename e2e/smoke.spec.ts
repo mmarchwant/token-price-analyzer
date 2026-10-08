@@ -33,6 +33,7 @@ test.describe('App Shell E2E Smoke Tests', () => {
   test('switches language to PL and persists on page reload', async ({ page }) => {
     await page.goto('/');
 
+    await page.getByRole('button', { name: 'Open main menu' }).click();
     const langSelect = page.getByRole('combobox', { name: 'Language' });
     await langSelect.selectOption('pl');
 
@@ -50,21 +51,30 @@ test.describe('App Shell E2E Smoke Tests', () => {
   test('header does not overflow and keeps controls reachable at supported widths', async ({
     page,
   }) => {
-    await page.addInitScript(() => localStorage.setItem('tpa-lang', 'en'));
-
     for (const width of [390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/#/advisor');
+      await page.evaluate(() => localStorage.setItem('tpa-lang', 'en'));
+      await page.reload();
+      await expect(
+        page.getByRole('heading', { level: 1, name: 'What should I buy this month?' }),
+      ).toBeVisible();
 
-      if (width < 1280) {
+      if (width < 1536) {
         const menuButton = page.getByRole('button', { name: 'Open main menu' });
         await menuButton.click();
-        await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+        await expect(page.getByRole('button', { name: 'Close main menu' })).toHaveAttribute(
+          'aria-expanded',
+          'true',
+        );
         await expect(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
         await expect(page.getByRole('combobox', { name: 'Currency' })).toBeVisible();
         await expect(page.getByRole('combobox', { name: 'Theme' })).toBeVisible();
         await expect(page.getByRole('combobox', { name: 'VAT' })).toBeVisible();
         await expect(page.getByRole('switch', { name: 'Live prices' })).toBeVisible();
+        if (width >= 1280) {
+          await expect(page.getByRole('link', { name: 'Advisor' })).toBeVisible();
+        }
       } else {
         await expect(page.getByRole('link', { name: 'Advisor' })).toBeVisible();
         await expect(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
