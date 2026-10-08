@@ -68,6 +68,7 @@ export default function ComparePage() {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(0);
   const comboboxRef = useRef<HTMLDivElement>(null);
+  const listboxId = 'compare-picker-listbox';
 
   // Filter search candidates
   const candidates = useMemo(() => {
@@ -113,6 +114,14 @@ export default function ComparePage() {
     return options;
   }, [candidates]);
 
+  const highlightedIndex = Math.min(highlightIndex, Math.max(0, allCandidateOptions.length - 1));
+  const highlightedOption = isOpen ? allCandidateOptions[highlightedIndex] : undefined;
+  const highlightedOptionId = highlightedOption
+    ? `compare-picker-option-${encodeURIComponent(
+        `${highlightedOption.ref.kind}:${highlightedOption.ref.id}`,
+      )}`
+    : undefined;
+
   // Click outside listener for combobox
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -126,6 +135,7 @@ export default function ComparePage() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      e.preventDefault();
       setIsOpen(true);
       return;
     }
@@ -139,9 +149,9 @@ export default function ComparePage() {
         (prev) => (prev - 1 + allCandidateOptions.length) % Math.max(1, allCandidateOptions.length),
       );
     } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (allCandidateOptions[highlightIndex]) {
-        handleAdd(allCandidateOptions[highlightIndex].ref);
+      if (highlightedOption) {
+        e.preventDefault();
+        handleAdd(highlightedOption.ref);
         setQuery('');
         setIsOpen(false);
       }
@@ -183,6 +193,7 @@ export default function ComparePage() {
         snapshotDate: snapshot?.generatedAt ? snapshot.generatedAt.split('T')[0] : undefined,
       },
       lang,
+      (key, options) => t(key, options),
     );
   }, [
     refs,
@@ -196,6 +207,7 @@ export default function ComparePage() {
     settingsActiveHours,
     snapshot,
     lang,
+    t,
   ]);
 
   // Chart normalized data
@@ -336,7 +348,8 @@ export default function ComparePage() {
                   aria-expanded={isOpen}
                   aria-haspopup="listbox"
                   aria-autocomplete="list"
-                  aria-controls="compare-picker-listbox"
+                  aria-controls={isOpen ? listboxId : undefined}
+                  aria-activedescendant={highlightedOptionId}
                   value={query}
                   disabled={refs.length >= 4}
                   onChange={(e) => {
@@ -352,17 +365,21 @@ export default function ComparePage() {
               </div>
 
               {/* Dropdown Listbox */}
-              {isOpen && allCandidateOptions.length > 0 && (
+              {isOpen && (allCandidateOptions.length > 0 || query.trim()) && (
                 <ul
-                  id="compare-picker-listbox"
+                  id={listboxId}
                   role="listbox"
                   className="absolute left-0 right-0 top-full mt-1 z-50 max-h-60 overflow-y-auto bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg text-xs divide-y divide-zinc-100 dark:divide-zinc-800"
                 >
                   {allCandidateOptions.map((opt, idx) => {
-                    const isHighlighted = idx === highlightIndex;
+                    const isHighlighted = idx === highlightedIndex;
+                    const optionId = `compare-picker-option-${encodeURIComponent(
+                      `${opt.ref.kind}:${opt.ref.id}`,
+                    )}`;
                     return (
                       <li
                         key={`${opt.ref.kind}:${opt.ref.id}`}
+                        id={optionId}
                         role="option"
                         aria-selected={isHighlighted}
                         onClick={() => {
@@ -384,6 +401,15 @@ export default function ComparePage() {
                       </li>
                     );
                   })}
+                  {query.trim() && allCandidateOptions.length === 0 && (
+                    <li
+                      role="option"
+                      aria-disabled="true"
+                      className="px-3 py-2 text-zinc-500 dark:text-zinc-400"
+                    >
+                      {t('noResults')}
+                    </li>
+                  )}
                 </ul>
               )}
             </div>
@@ -407,7 +433,7 @@ export default function ComparePage() {
                           type="button"
                           onClick={() => handleRemove(ref)}
                           className="hover:text-zinc-800 dark:hover:text-zinc-200 font-bold"
-                          aria-label={`Remove ${ref.id}`}
+                          aria-label={t('removeItem', { name: ref.id })}
                         >
                           ×
                         </button>
@@ -426,7 +452,7 @@ export default function ComparePage() {
                         type="button"
                         onClick={() => handleRemove(ref)}
                         className="hover:text-indigo-600 dark:hover:text-indigo-300 font-bold ml-1"
-                        aria-label={`Remove ${m.name}`}
+                        aria-label={t('removeItem', { name: m.name })}
                       >
                         ×
                       </button>
@@ -445,7 +471,7 @@ export default function ComparePage() {
                           type="button"
                           onClick={() => handleRemove(ref)}
                           className="hover:text-zinc-800 dark:hover:text-zinc-200 font-bold"
-                          aria-label={`Remove ${ref.id}`}
+                          aria-label={t('removeItem', { name: ref.id })}
                         >
                           ×
                         </button>
@@ -464,7 +490,7 @@ export default function ComparePage() {
                         type="button"
                         onClick={() => handleRemove(ref)}
                         className="hover:text-emerald-600 dark:hover:text-emerald-300 font-bold ml-1"
-                        aria-label={`Remove ${p.name}`}
+                        aria-label={t('removeItem', { name: p.name })}
                       >
                         ×
                       </button>
@@ -506,7 +532,7 @@ export default function ComparePage() {
                       <div className="font-bold text-zinc-900 dark:text-zinc-100">{m.name}</div>
                       <div className="text-[11px] text-zinc-500">{m.providerName}</div>
                     </div>
-                    <Badge variant="info">Quality</Badge>
+                    <Badge variant="info">{t('badges.quality')}</Badge>
                   </button>
                 ))}
 
@@ -520,10 +546,10 @@ export default function ComparePage() {
                     <div>
                       <div className="font-bold text-zinc-900 dark:text-zinc-100">{p.name}</div>
                       <div className="text-[11px] text-zinc-500">
-                        {p.providerName} (${p.priceUsdMonthly}/mo)
+                        {t('planPrice', { provider: p.providerName, price: p.priceUsdMonthly })}
                       </div>
                     </div>
-                    <Badge variant="accent">Plan</Badge>
+                    <Badge variant="accent">{t('badges.plan')}</Badge>
                   </button>
                 ))}
               </div>
@@ -545,7 +571,7 @@ export default function ComparePage() {
                   <thead>
                     <tr className="bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
                       <th className="sticky left-0 bg-zinc-50 dark:bg-zinc-800/60 z-20 px-4 py-3 font-bold text-zinc-700 dark:text-zinc-300 min-w-[160px] border-r border-zinc-200 dark:border-zinc-800">
-                        Feature / Metric
+                        {t('featureMetric')}
                       </th>
                       {refs.map((ref) => {
                         const itemKey = `${ref.kind}:${ref.id}`;
@@ -590,7 +616,7 @@ export default function ComparePage() {
                                 type="button"
                                 onClick={() => handleRemove(ref)}
                                 className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 font-bold p-1"
-                                aria-label={`Remove ${name}`}
+                                aria-label={t('removeItem', { name })}
                               >
                                 ×
                               </button>
@@ -681,7 +707,7 @@ export default function ComparePage() {
                                   style={{ color: entry.color }}
                                   className="font-medium"
                                 >
-                                  {name}: {entry.value} / 100
+                                  {t('chartTooltipValue', { name, value: entry.value })}
                                 </p>
                               );
                             })}

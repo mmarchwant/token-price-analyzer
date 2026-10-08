@@ -165,12 +165,15 @@ export interface CompareSettingsInput {
   snapshotDate?: string;
 }
 
+type CompareTranslator = (key: string, options?: Record<string, string | number>) => string;
+
 export function buildCompareRows(
   refs: CompareRef[],
   data: CompareDataInput,
   profile: UsageProfile,
   settings: CompareSettingsInput,
   locale = 'en',
+  translate: CompareTranslator = (key) => key,
 ): CompareRow[] {
   const task = taskFromProfile(profile);
   const workDays = profile.workDaysPerMonth || 20;
@@ -189,6 +192,8 @@ export function buildCompareRows(
     const localVal = toLocalMoney(amountUsd);
     return formatMoney(localVal, settings.currency, locale);
   };
+  const text = (key: string, options?: Record<string, string | number>) =>
+    translate(`values.${key}`, options);
 
   const rows: {
     key: string;
@@ -230,7 +235,7 @@ export function buildCompareRows(
 
       // Type
       rowMap.get('type')!.cells[itemKey] = {
-        value: 'Model (API)',
+        value: text('modelApi'),
         rawValue: 'model',
       };
 
@@ -243,8 +248,11 @@ export function buildCompareRows(
       // List price
       if (offer) {
         const listStr = offer.isFree
-          ? 'Free'
-          : `In: ${fmtMoney(offer.inputPerMTok)} / Out: ${fmtMoney(offer.outputPerMTok)} per 1M`;
+          ? text('free')
+          : text('apiListPrice', {
+              input: fmtMoney(offer.inputPerMTok),
+              output: fmtMoney(offer.outputPerMTok),
+            });
         rowMap.get('listPrice')!.cells[itemKey] = { value: listStr, rawValue: offer };
       } else {
         rowMap.get('listPrice')!.cells[itemKey] = { value: '—' };
@@ -272,13 +280,15 @@ export function buildCompareRows(
 
       // Capacity / coverage
       rowMap.get('capacityCoverage')!.cells[itemKey] = {
-        value: 'Unlimited (API) · 100%',
+        value: text('unlimitedApi'),
         numericValue: 100,
       };
 
       // Quality & Tier
-      const tierStr = model.quality.tier ? `Tier ${model.quality.tier}` : '';
-      const qualityStr = `${tierStr ? `${tierStr} · ` : ''}${qVal ? Math.round(qVal) : '—'} pts`;
+      const tierPrefix = model.quality.tier
+        ? `${text('tier', { tier: model.quality.tier })} · `
+        : '';
+      const qualityStr = qVal ? text('quality', { tierPrefix, points: Math.round(qVal) }) : '—';
       rowMap.get('quality')!.cells[itemKey] = {
         value: qualityStr,
         numericValue: qVal,
@@ -286,7 +296,9 @@ export function buildCompareRows(
 
       // Context window
       const ctxTok = model.contextLength;
-      const ctxStr = ctxTok ? `${(ctxTok / 1000).toLocaleString(locale)}k tokens` : '—';
+      const ctxStr = ctxTok
+        ? text('contextWindow', { value: (ctxTok / 1000).toLocaleString(locale) })
+        : '—';
       rowMap.get('contextWindow')!.cells[itemKey] = {
         value: ctxStr,
         numericValue: ctxTok,
@@ -296,7 +308,10 @@ export function buildCompareRows(
       const speedVal = model.speed?.outputTokensPerSecond;
       const ttftVal = model.speed?.timeToFirstTokenSeconds;
       const speedStr = speedVal
-        ? `${Math.round(speedVal)} tok/s${ttftVal !== undefined ? ` (TTFT ${ttftVal.toFixed(2)}s)` : ''}`
+        ? text(ttftVal !== undefined ? 'speedWithTtft' : 'speed', {
+            value: Math.round(speedVal),
+            ...(ttftVal !== undefined ? { ttft: ttftVal.toFixed(2) } : {}),
+          })
         : '—';
       rowMap.get('speed')!.cells[itemKey] = {
         value: speedStr,
@@ -305,22 +320,22 @@ export function buildCompareRows(
 
       // Features
       const featureList: string[] = [];
-      if (model.openWeights) featureList.push('Open weights');
-      if (model.capabilities?.imageInput) featureList.push('Image input');
-      if (model.capabilities?.tools) featureList.push('Tools');
+      if (model.openWeights) featureList.push(text('openWeights'));
+      if (model.capabilities?.imageInput) featureList.push(text('imageInput'));
+      if (model.capabilities?.tools) featureList.push(text('tools'));
       rowMap.get('features')!.cells[itemKey] = {
         value: featureList.length > 0 ? featureList.join(', ') : '—',
       };
 
       // Data confidence & source
-      const confStr = 'Official (OpenRouter)';
+      const confStr = text('officialOpenRouter');
       rowMap.get('dataConfidence')!.cells[itemKey] = {
         value: confStr,
       };
 
       // Last updated
       rowMap.get('lastUpdated')!.cells[itemKey] = {
-        value: settings.snapshotDate || 'Latest',
+        value: settings.snapshotDate || text('latest'),
       };
     } else {
       // Plan
@@ -346,7 +361,7 @@ export function buildCompareRows(
 
       // Type
       rowMap.get('type')!.cells[itemKey] = {
-        value: 'Subscription plan',
+        value: text('subscriptionPlan'),
         rawValue: 'plan',
       };
 
@@ -356,7 +371,9 @@ export function buildCompareRows(
       };
 
       // List price
-      const priceStr = `${formatMoney(pPrice.amount, settings.currency, locale)} / mo`;
+      const priceStr = text('monthlyPrice', {
+        price: formatMoney(pPrice.amount, settings.currency, locale),
+      });
       rowMap.get('listPrice')!.cells[itemKey] = {
         value: priceStr,
       };
@@ -388,7 +405,12 @@ export function buildCompareRows(
       if (cap && cov) {
         const covLowPct = Math.round(cov.low * 100);
         const covHighPct = Math.round(cov.high * 100);
-        const covStr = `${cap.low.toLocaleString(locale)} – ${cap.high.toLocaleString(locale)} tasks (${covLowPct}%${covHighPct > covLowPct ? `–${covHighPct}%` : ''})`;
+        const covStr = text('capacityCoverage', {
+          low: cap.low.toLocaleString(locale),
+          high: cap.high.toLocaleString(locale),
+          lowPct: covLowPct,
+          highPct: covHighPct > covLowPct ? `–${covHighPct}%` : '',
+        });
         rowMap.get('capacityCoverage')!.cells[itemKey] = {
           value: covStr,
           numericValue: (cov.low + cov.high) * 50,
@@ -402,9 +424,11 @@ export function buildCompareRows(
         ? (qualityScore(primaryModel, profile.qualityDimension) ??
           primaryModel.quality.intelligence)
         : undefined;
-      const tierStr = primaryModel?.quality.tier ? `Tier ${primaryModel.quality.tier}` : '';
+      const tierPrefix = primaryModel?.quality.tier
+        ? `${text('tier', { tier: primaryModel.quality.tier })} · `
+        : '';
       const qualityStr = primaryQ
-        ? `${tierStr ? `${tierStr} · ` : ''}${Math.round(primaryQ)} pts`
+        ? text('quality', { tierPrefix, points: Math.round(primaryQ) })
         : '—';
       rowMap.get('quality')!.cells[itemKey] = {
         value: qualityStr,
@@ -413,7 +437,9 @@ export function buildCompareRows(
 
       // Context window
       const ctxTok = primaryModel?.contextLength || plan.features.longContextTokens;
-      const ctxStr = ctxTok ? `${(ctxTok / 1000).toLocaleString(locale)}k tokens` : '—';
+      const ctxStr = ctxTok
+        ? text('contextWindow', { value: (ctxTok / 1000).toLocaleString(locale) })
+        : '—';
       rowMap.get('contextWindow')!.cells[itemKey] = {
         value: ctxStr,
         numericValue: ctxTok,
@@ -423,7 +449,10 @@ export function buildCompareRows(
       const speedVal = primaryModel?.speed?.outputTokensPerSecond;
       const ttftVal = primaryModel?.speed?.timeToFirstTokenSeconds;
       const speedStr = speedVal
-        ? `${Math.round(speedVal)} tok/s${ttftVal !== undefined ? ` (TTFT ${ttftVal.toFixed(2)}s)` : ''}`
+        ? text(ttftVal !== undefined ? 'speedWithTtft' : 'speed', {
+            value: Math.round(speedVal),
+            ...(ttftVal !== undefined ? { ttft: ttftVal.toFixed(2) } : {}),
+          })
         : '—';
       rowMap.get('speed')!.cells[itemKey] = {
         value: speedStr,
@@ -433,10 +462,10 @@ export function buildCompareRows(
       // Features
       const featureList: string[] = [];
       if (plan.features.codingAgents.length > 0)
-        featureList.push(`Agents: ${plan.features.codingAgents.join(', ')}`);
-      if (plan.features.imageGeneration) featureList.push('Image gen');
-      if (plan.features.deepResearch) featureList.push('Deep research');
-      if (plan.features.apiAccess) featureList.push('API access');
+        featureList.push(text('agents', { names: plan.features.codingAgents.join(', ') }));
+      if (plan.features.imageGeneration) featureList.push(text('imageGeneration'));
+      if (plan.features.deepResearch) featureList.push(text('deepResearch'));
+      if (plan.features.apiAccess) featureList.push(text('apiAccess'));
       rowMap.get('features')!.cells[itemKey] = {
         value: featureList.length > 0 ? featureList.join(', ') : '—',
       };
@@ -444,12 +473,12 @@ export function buildCompareRows(
       // Data confidence & source
       const confLabel =
         plan.confidence === 'official'
-          ? 'Official'
+          ? text('official')
           : plan.confidence === 'reported'
-            ? 'Reported'
-            : 'Estimated';
+            ? text('reported')
+            : text('estimated');
       rowMap.get('dataConfidence')!.cells[itemKey] = {
-        value: `${confLabel} (${plan.sources.length} sources)`,
+        value: text('confidenceSources', { confidence: confLabel, count: plan.sources.length }),
       };
 
       // Last updated
