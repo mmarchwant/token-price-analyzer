@@ -321,8 +321,103 @@ export default function BudgetPage() {
       {/* Bar Chart */}
       <BudgetBarChart rows={rows} profile={profile} metric={metric} minTier={tier} />
 
-      {/* Full Table */}
-      <Card>
+      {/* Mobile results prioritize the information needed to choose a model without table scrolling. */}
+      <section className="lg:hidden" aria-labelledby="budget-results-heading">
+        <div className="mb-3">
+          <h2
+            id="budget-results-heading"
+            className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-display"
+          >
+            {t('tableTitle')}
+          </h2>
+        </div>
+        <ol className="space-y-3">
+          {sortedRows.map((r) => (
+            <li key={`${r.model.id}-${r.offer.channel}`}>
+              <article className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                <header className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <h3 className="truncate font-bold text-zinc-900 dark:text-zinc-100">
+                        {r.model.name}
+                      </h3>
+                      <Badge variant="accent">{r.tier}</Badge>
+                    </div>
+                    <p className="mt-0.5 text-xs text-zinc-500">{r.model.provider}</p>
+                    {r.belowMinTopUp && (
+                      <div className="pt-2">
+                        <Badge variant="warning">
+                          {t('belowMinTopUp', { min: r.fee ? fmt(r.fee.minTopUpUsd) : '$10' })}
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                  <div className="shrink-0 rounded-md bg-indigo-50 px-2 py-1 text-right text-indigo-800 dark:bg-indigo-950/50 dark:text-indigo-200">
+                    <span className="block text-[10px] font-medium">{t('col.workDays')}</span>
+                    <span className="text-xs font-semibold tabular-nums">
+                      {r.isFree ? t('freeInfinity') : t('daysShort', { d: r.workDays.toFixed(1) })}
+                    </span>
+                  </div>
+                </header>
+
+                <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-zinc-100 pt-3 text-xs dark:border-zinc-800">
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.channel')}</dt>
+                    <dd className="mt-0.5 font-mono text-[11px] text-zinc-900 dark:text-zinc-100">
+                      {r.offer.channel}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.coverage')}</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {Math.round(r.coverageOfMonth * 100)}%
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.credit')}</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {fmt(r.credit)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.tasks')}</dt>
+                    <dd className="mt-0.5 tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {r.isFree ? t('freeInfinity') : fmtTokens(r.tasks)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.tokens')}</dt>
+                    <dd className="mt-0.5 tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {r.isFree
+                        ? t('freeInfinity')
+                        : `${fmtTokens(r.tokens.inputTokens)} / ${fmtTokens(r.tokens.outputTokens)}`}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.genHours')}</dt>
+                    <dd className="mt-0.5 tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {r.generationHours !== null
+                        ? r.generationHours === Number.POSITIVE_INFINITY
+                          ? '∞'
+                          : t('hoursShort', { h: r.generationHours.toFixed(1) })
+                        : '—'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-zinc-500 dark:text-zinc-400">{t('col.quality')}</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900 dark:text-zinc-100">
+                      {r.quality !== undefined ? r.quality.toFixed(1) : '—'}
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Full table remains the efficient, sortable desktop presentation. */}
+      <Card className="hidden lg:block">
         <CardHeader>
           <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-display">
             {t('tableTitle')}

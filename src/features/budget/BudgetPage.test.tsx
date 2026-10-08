@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import i18n from '../../i18n';
@@ -96,6 +96,22 @@ describe('BudgetPage component', () => {
     await user.click(feesToggle);
 
     expect(feesToggle).toHaveAttribute('aria-checked', 'false');
+  });
+
+  it('uses labeled result cards below the desktop table breakpoint', async () => {
+    await navigateToBudget();
+
+    const mobileResults = screen.getByRole('region', { name: 'All Eligible Models' });
+    const cards = within(mobileResults).getAllByRole('listitem');
+    expect(cards.length).toBeGreaterThan(0);
+
+    const firstCard = cards[0]!;
+    expect(within(firstCard).getByText('Work Days')).toBeInTheDocument();
+    expect(within(firstCard).getByText('Monthly Demand')).toBeInTheDocument();
+    expect(within(firstCard).getByText('Usable Credit')).toBeInTheDocument();
+
+    const desktopTable = document.querySelector('table');
+    expect(desktopTable?.closest('.hidden')).toHaveClass('lg:block');
   });
 
   it('sorts table headers with the keyboard and exposes the active direction', async () => {
