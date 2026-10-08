@@ -121,9 +121,32 @@ describe('ProfilesPage', () => {
     await user.click(saveButton);
 
     // Verify validation error
+    const errorMessage = await screen.findByText(/output tokens per task must be greater than 0/i);
+    const invalidInput = screen.getByRole('spinbutton', { name: /output tokens per task/i });
+
+    expect(invalidInput).toHaveAttribute('aria-invalid', 'true');
+    expect(invalidInput).toHaveAttribute('aria-describedby', errorMessage.id);
+  });
+
+  it('associates profile editor labels with their controls', async () => {
+    const user = userEvent.setup();
+    renderWithProviders();
+
+    expect(await screen.findByRole('textbox', { name: /profile name/i })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /input tokens per task/i })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /output tokens per task/i })).toBeInTheDocument();
+    expect(screen.getByRole('slider', { name: /cached input share/i })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /tasks per day/i })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /work days per month/i })).toBeInTheDocument();
     expect(
-      await screen.findByText(/output tokens per task must be greater than 0/i),
+      screen.getByRole('radiogroup', { name: /target quality dimension/i }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: /allow batch api offers/i })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /show/i }));
+
+    expect(screen.getByRole('textbox', { name: /typical prompt/i })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /typical response/i })).toBeInTheDocument();
   });
 
   it('imports profile via URL parameter', async () => {
