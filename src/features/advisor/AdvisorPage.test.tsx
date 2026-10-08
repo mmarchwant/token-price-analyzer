@@ -113,4 +113,34 @@ describe('AdvisorPage component', () => {
     fireEvent.change(intensitySlider, { target: { value: '1.5' } });
     expect(screen.getByRole('slider', { name: 'Daily task intensity: 1.5×' })).toHaveValue('1.5');
   });
+
+  it('progressively expands configuration steps while keeping each step keyboard reachable', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: '1. Budget' })).toHaveAttribute(
+        'aria-expanded',
+        'true',
+      );
+    });
+
+    const profileStep = screen.getByRole('button', { name: '2. What do you do?' });
+    expect(profileStep).toHaveAttribute('aria-expanded', 'false');
+
+    profileStep.focus();
+    await user.keyboard('{Enter}');
+
+    expect(profileStep).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('button', { name: '1. Budget' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    expect(screen.getByText('Coding Agent')).toBeInTheDocument();
+
+    const qualityStep = screen.getByRole('button', { name: '5. Minimum quality' });
+    await user.click(qualityStep);
+    expect(qualityStep).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('button', { name: 'Any' })).toBeInTheDocument();
+  });
 });

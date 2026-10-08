@@ -48,6 +48,55 @@ const NEED_KEYS: (keyof Needs)[] = [
 
 const TIER_OPTIONS: (QualityTier | 'any')[] = ['any', 'D', 'C', 'B', 'A', 'S'];
 
+function ConfigurationStep({
+  id,
+  title,
+  summary,
+  isOpen,
+  onToggle,
+  children,
+}: {
+  id: string;
+  title: string;
+  summary: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  const contentId = `advisor-step-${id}`;
+
+  return (
+    <Card className="flex flex-col gap-3 p-4">
+      <h3>
+        <button
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+          onClick={onToggle}
+          className="flex w-full items-center justify-between gap-3 text-left lg:cursor-default"
+        >
+          <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+            {title}
+          </span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className={`h-4 w-4 shrink-0 text-zinc-500 transition-transform lg:hidden ${
+              isOpen ? 'rotate-180' : ''
+            }`}
+          >
+            <path d="m5 7 5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          </svg>
+        </button>
+      </h3>
+      <p className="-mt-2 text-xs text-zinc-500 dark:text-zinc-400 lg:hidden">{summary}</p>
+      <div id={contentId} className={isOpen ? 'block' : 'hidden lg:block'}>
+        {children}
+      </div>
+    </Card>
+  );
+}
+
 function PresetIcon({ id }: { id: string }) {
   if (id.includes('coding') || id.includes('dev')) {
     return (
@@ -150,6 +199,20 @@ export default function AdvisorPage() {
   );
   const [includeFree, setIncludeFree] = useUrlState('free', booleanCodec, true);
   const [preferFlexibility, setPreferFlexibility] = useUrlState('flex', booleanCodec, false);
+  const [openStep, setOpenStep] = useState(1);
+  const [isDesktop, setIsDesktop] = useState(
+    () => window.matchMedia?.('(min-width: 1024px)').matches ?? false,
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(min-width: 1024px)');
+    if (!mediaQuery) return undefined;
+
+    const updateDesktopState = () => setIsDesktop(mediaQuery.matches);
+    updateDesktopState();
+    mediaQuery.addEventListener('change', updateDesktopState);
+    return () => mediaQuery.removeEventListener('change', updateDesktopState);
+  }, []);
 
   // Convert active needs list to Needs object
   const needsObj: Needs = useMemo(() => {
@@ -239,17 +302,35 @@ export default function AdvisorPage() {
     (activeProfile.tasksPerDay || 50) * intensity * (activeProfile.workDaysPerMonth || 22),
   );
 
+  const selectedNeedsCount = activeNeedsList.length;
+  const profileName = activeProfile.name[lang] || activeProfile.name.en;
+
   return (
     <div className="space-y-8 pb-12">
       <PageHeader title={t('title')} subtitle={t('subtitle')} />
 
-      {/* 5-Step Interactive Wizard */}
+      <div className="flex items-center justify-between gap-4 lg:hidden">
+        <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+          {t('configuration.title')}
+        </h2>
+        <a
+          href="#advisor-results"
+          className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+        >
+          {t('configuration.seeResults')}
+        </a>
+      </div>
+
+      {/* On mobile, one configuration step is expanded at a time. Desktop keeps the full overview. */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Step 1: Budget */}
-        <Card className="flex flex-col gap-3 p-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            {t('steps.budget.title')}
-          </h3>
+        <ConfigurationStep
+          id="budget"
+          title={t('steps.budget.title')}
+          summary={t('configuration.summaries.budget', { amount: budgetUsd, currency })}
+          isOpen={isDesktop || openStep === 1}
+          onToggle={() => setOpenStep(1)}
+        >
           <div className="space-y-2">
             <label
               htmlFor="advisor-budget"
@@ -278,14 +359,17 @@ export default function AdvisorPage() {
               />
             </div>
           </div>
-        </Card>
+        </ConfigurationStep>
 
         {/* Step 2: What do you do? */}
-        <Card className="flex flex-col gap-3 p-4">
+        <ConfigurationStep
+          id="profile"
+          title={t('steps.profile.title')}
+          summary={profileName}
+          isOpen={isDesktop || openStep === 2}
+          onToggle={() => setOpenStep(2)}
+        >
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-              {t('steps.profile.title')}
-            </h3>
             <Link
               to="/profiles"
               className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
@@ -314,13 +398,16 @@ export default function AdvisorPage() {
               );
             })}
           </div>
-        </Card>
+        </ConfigurationStep>
 
         {/* Step 3: How much? */}
-        <Card className="flex flex-col gap-3 p-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            {t('steps.intensity.title')}
-          </h3>
+        <ConfigurationStep
+          id="intensity"
+          title={t('steps.intensity.title')}
+          summary={t('configuration.summaries.intensity', { intensity, hours: activeHours })}
+          isOpen={isDesktop || openStep === 3}
+          onToggle={() => setOpenStep(3)}
+        >
           <div className="space-y-3">
             <div>
               <div className="flex justify-between items-center text-xs mb-1">
@@ -361,13 +448,16 @@ export default function AdvisorPage() {
               />
             </div>
           </div>
-        </Card>
+        </ConfigurationStep>
 
         {/* Step 4: Must-haves */}
-        <Card className="flex flex-col gap-3 p-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            {t('steps.needs.title')}
-          </h3>
+        <ConfigurationStep
+          id="needs"
+          title={t('steps.needs.title')}
+          summary={t('configuration.summaries.needs', { count: selectedNeedsCount })}
+          isOpen={isDesktop || openStep === 4}
+          onToggle={() => setOpenStep(4)}
+        >
           <div className="grid grid-cols-1 gap-1.5">
             {NEED_KEYS.map((needKey) => {
               const checked = needsObj[needKey];
@@ -389,14 +479,19 @@ export default function AdvisorPage() {
               );
             })}
           </div>
-        </Card>
+        </ConfigurationStep>
 
         {/* Step 5: Minimum Quality & Options */}
-        <Card className="flex flex-col gap-3 p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-              {t('steps.quality.title')}
-            </h3>
+        <ConfigurationStep
+          id="quality"
+          title={t('steps.quality.title')}
+          summary={t('configuration.summaries.quality', {
+            tier: minTier === 'any' ? t('steps.quality.anyTier') : minTier,
+          })}
+          isOpen={isDesktop || openStep === 5}
+          onToggle={() => setOpenStep(5)}
+        >
+          <div className="flex items-center justify-end">
             <Tooltip content={t('steps.quality.tierTooltip')}>
               <span className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-help text-xs">
                 ⓘ
@@ -433,11 +528,11 @@ export default function AdvisorPage() {
               />
             </div>
           </div>
-        </Card>
+        </ConfigurationStep>
       </div>
 
       {/* Share / Results header actions */}
-      <div className="flex items-center justify-between pt-2">
+      <div id="advisor-results" className="flex items-center justify-between pt-2 scroll-mt-4">
         <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
           {recommendations.length > 0 ? t('results.topPickBadge') : ''}
         </h2>

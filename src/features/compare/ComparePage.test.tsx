@@ -6,12 +6,14 @@ import App from '../../app/App';
 import { useSettingsStore } from '../../state/settings';
 import { queryClient } from '../../data/queryClient';
 import builtSnapshot from '../../domain/__fixtures__/built-snapshot.json';
+import { clearStoredCompareRefs } from './compareItems';
 
 const originalFetch = globalThis.fetch;
 
 describe('ComparePage component', () => {
   beforeEach(async () => {
     window.location.hash = '#/compare';
+    clearStoredCompareRefs();
     useSettingsStore.getState().resetSettings();
     queryClient.clear();
     queryClient.setDefaultOptions({
@@ -58,8 +60,40 @@ describe('ComparePage component', () => {
       expect(screen.getByText('Detailed Comparison Table')).toBeInTheDocument();
     });
 
-    expect(screen.getByText(firstModel.name)).toBeInTheDocument();
-    expect(screen.getByText(firstPlan.name)).toBeInTheDocument();
+    expect(screen.getAllByText(firstModel.name)).toHaveLength(2);
+    expect(screen.getAllByText(firstPlan.name)).toHaveLength(2);
+  });
+
+  it('renders each selected item as a readable metric list below the desktop breakpoint', async () => {
+    const firstModel = builtSnapshot.models[0];
+    const firstPlan = builtSnapshot.subscriptions[0];
+    if (!firstModel || !firstPlan) {
+      throw new Error('Fixture missing comparison items');
+    }
+
+    window.location.hash = `#/compare?items=m:${firstModel.id},s:${firstPlan.id}`;
+    render(<App />);
+
+    const mobileComparison = await screen.findByRole('region', {
+      name: 'Comparison details',
+    });
+    expect(
+      within(mobileComparison).getByRole('heading', { name: firstModel.name }),
+    ).toBeInTheDocument();
+    expect(
+      within(mobileComparison).getByRole('heading', { name: firstPlan.name }),
+    ).toBeInTheDocument();
+    const modelCard = within(mobileComparison)
+      .getByRole('heading', { name: firstModel.name })
+      .closest('article');
+    expect(modelCard).not.toBeNull();
+    expect(within(modelCard as HTMLElement).getByText('List Price')).toBeInTheDocument();
+    expect(
+      within(mobileComparison).getByRole('button', { name: `Remove ${firstModel.name}` }),
+    ).toBeInTheDocument();
+
+    const desktopTable = screen.getByRole('table');
+    expect(desktopTable.parentElement).toHaveClass('hidden', 'lg:block');
   });
 
   it('displays unknown items as Not found chips', async () => {
