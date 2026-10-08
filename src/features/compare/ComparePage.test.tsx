@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import i18n from '../../i18n';
@@ -71,7 +71,7 @@ describe('ComparePage component', () => {
     });
   });
 
-  it('adds an item via combobox search and removes a chip', async () => {
+  it('exposes the highlighted option and adds it with the keyboard', async () => {
     const user = userEvent.setup();
     const firstModel = builtSnapshot.models[0];
     if (!firstModel) {
@@ -88,16 +88,24 @@ describe('ComparePage component', () => {
     });
 
     const combobox = screen.getByRole('combobox', { name: /add model or subscription plan/i });
-    await user.type(combobox, firstModel.name);
+    await user.type(combobox, firstModel.providerName);
 
     await waitFor(() => {
-      expect(
-        screen.getByRole('option', { name: new RegExp(firstModel.name, 'i') }),
-      ).toBeInTheDocument();
+      expect(within(screen.getByRole('listbox')).getAllByRole('option').length).toBeGreaterThan(1);
     });
 
-    const option = screen.getByRole('option', { name: new RegExp(firstModel.name, 'i') });
-    await user.click(option);
+    const options = within(screen.getByRole('listbox')).getAllByRole('option');
+    const option = options[0]!;
+    expect(combobox).toHaveAttribute('aria-expanded', 'true');
+    expect(combobox).toHaveAttribute('aria-controls', 'compare-picker-listbox');
+    expect(option).toHaveAttribute('id');
+    expect(combobox).toHaveAttribute('aria-activedescendant', option.id);
+
+    await user.keyboard('{ArrowDown}');
+    expect(combobox).toHaveAttribute('aria-activedescendant', options[1]!.id);
+    await user.keyboard('{ArrowUp}');
+    expect(combobox).toHaveAttribute('aria-activedescendant', option.id);
+    await user.keyboard('{Enter}');
 
     await waitFor(() => {
       expect(screen.getByText('Detailed Comparison Table')).toBeInTheDocument();
@@ -111,5 +119,22 @@ describe('ComparePage component', () => {
     await waitFor(() => {
       expect(screen.getByText('No items selected for comparison')).toBeInTheDocument();
     });
+  });
+
+  it('shows localized feedback for a query with no eligible results', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const combobox = await screen.findByRole('combobox', {
+      name: /add model or subscription plan/i,
+    });
+    await user.type(combobox, 'no-match-expected');
+
+    expect(await screen.findByText('No eligible models or plans found.')).toBeInTheDocument();
+    expect(combobox).not.toHaveAttribute('aria-activedescendant');
+
+    await user.keyboard('{Escape}');
+    expect(combobox).toHaveAttribute('aria-expanded', 'false');
+    expect(combobox).not.toHaveAttribute('aria-controls');
   });
 });
