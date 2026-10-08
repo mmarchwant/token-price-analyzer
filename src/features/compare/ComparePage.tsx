@@ -310,6 +310,25 @@ export default function ComparePage() {
     });
   }, [refs, models]);
 
+  const comparisonItems = useMemo(
+    () =>
+      refs.map((ref) => {
+        const itemKey = `${ref.kind}:${ref.id}`;
+        const item =
+          ref.kind === 'model'
+            ? models.find((model) => model.id === ref.id)
+            : subscriptions.find((plan) => plan.id === ref.id);
+
+        return {
+          ref,
+          itemKey,
+          name: item?.name ?? ref.id,
+          provider: item?.providerName ?? '',
+        };
+      }),
+    [refs, models, subscriptions],
+  );
+
   return (
     <div className="space-y-8 pb-12">
       <PageHeader title={t('title')} subtitle={t('subtitle')} actions={<ShareButton />} />
@@ -407,7 +426,7 @@ export default function ComparePage() {
                           type="button"
                           onClick={() => handleRemove(ref)}
                           className="hover:text-zinc-800 dark:hover:text-zinc-200 font-bold"
-                          aria-label={`Remove ${ref.id}`}
+                          aria-label={t('removeItem', { name: ref.id })}
                         >
                           ×
                         </button>
@@ -426,7 +445,7 @@ export default function ComparePage() {
                         type="button"
                         onClick={() => handleRemove(ref)}
                         className="hover:text-indigo-600 dark:hover:text-indigo-300 font-bold ml-1"
-                        aria-label={`Remove ${m.name}`}
+                        aria-label={t('removeItem', { name: m.name })}
                       >
                         ×
                       </button>
@@ -445,7 +464,7 @@ export default function ComparePage() {
                           type="button"
                           onClick={() => handleRemove(ref)}
                           className="hover:text-zinc-800 dark:hover:text-zinc-200 font-bold"
-                          aria-label={`Remove ${ref.id}`}
+                          aria-label={t('removeItem', { name: ref.id })}
                         >
                           ×
                         </button>
@@ -464,7 +483,7 @@ export default function ComparePage() {
                         type="button"
                         onClick={() => handleRemove(ref)}
                         className="hover:text-emerald-600 dark:hover:text-emerald-300 font-bold ml-1"
-                        aria-label={`Remove ${p.name}`}
+                        aria-label={t('removeItem', { name: p.name })}
                       >
                         ×
                       </button>
@@ -506,7 +525,7 @@ export default function ComparePage() {
                       <div className="font-bold text-zinc-900 dark:text-zinc-100">{m.name}</div>
                       <div className="text-[11px] text-zinc-500">{m.providerName}</div>
                     </div>
-                    <Badge variant="info">Quality</Badge>
+                    <Badge variant="info">{t('qualityBadge')}</Badge>
                   </button>
                 ))}
 
@@ -520,10 +539,11 @@ export default function ComparePage() {
                     <div>
                       <div className="font-bold text-zinc-900 dark:text-zinc-100">{p.name}</div>
                       <div className="text-[11px] text-zinc-500">
-                        {p.providerName} (${p.priceUsdMonthly}/mo)
+                        {p.providerName} (${p.priceUsdMonthly}
+                        {t('perMonth')})
                       </div>
                     </div>
-                    <Badge variant="accent">Plan</Badge>
+                    <Badge variant="accent">{t('groups.plans')}</Badge>
                   </button>
                 ))}
               </div>
@@ -540,33 +560,67 @@ export default function ComparePage() {
               </h2>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="overflow-x-auto">
+              <section
+                className="divide-y divide-zinc-200 dark:divide-zinc-800 lg:hidden"
+                aria-label={t('mobileComparisonTitle')}
+              >
+                {comparisonItems.map(({ ref, itemKey, name, provider }) => (
+                  <article key={itemKey} className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <Badge variant={ref.kind === 'plan' ? 'accent' : 'info'} className="mb-1">
+                          {ref.kind === 'plan' ? t('groups.plans') : t('groups.models')}
+                        </Badge>
+                        <h3 className="break-words text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                          {name}
+                        </h3>
+                        {provider && (
+                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{provider}</p>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRemove(ref)}
+                        className="shrink-0 p-1 font-bold text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+                        aria-label={t('removeItem', { name })}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <dl className="mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] gap-x-3 gap-y-2 text-xs">
+                      {tableRows.map((row) => {
+                        const cell = row.cells[itemKey];
+                        const valueClass = cell?.isBest
+                          ? 'font-semibold text-emerald-700 dark:text-emerald-300'
+                          : cell?.isWorst
+                            ? 'text-rose-700 dark:text-rose-300'
+                            : 'text-zinc-900 dark:text-zinc-100';
+
+                        return (
+                          <React.Fragment key={row.key}>
+                            <dt className="text-zinc-500 dark:text-zinc-400">
+                              {t(`rows.${row.key}` as keyof typeof t)}
+                            </dt>
+                            <dd className={`break-words text-right ${valueClass}`}>
+                              {cell?.value ?? '—'}
+                            </dd>
+                          </React.Fragment>
+                        );
+                      })}
+                    </dl>
+                  </article>
+                ))}
+              </section>
+
+              <div className="hidden overflow-x-auto lg:block">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="bg-zinc-50 dark:bg-zinc-800/60 border-b border-zinc-200 dark:border-zinc-800">
                       <th className="sticky left-0 bg-zinc-50 dark:bg-zinc-800/60 z-20 px-4 py-3 font-bold text-zinc-700 dark:text-zinc-300 min-w-[160px] border-r border-zinc-200 dark:border-zinc-800">
-                        Feature / Metric
+                        {t('featureMetric')}
                       </th>
-                      {refs.map((ref) => {
-                        const itemKey = `${ref.kind}:${ref.id}`;
-                        let name = ref.id;
-                        let provider = '';
+                      {comparisonItems.map(({ ref, itemKey, name, provider }) => {
                         const isPlan = ref.kind === 'plan';
-
-                        if (ref.kind === 'model') {
-                          const m = models.find((item) => item.id === ref.id);
-                          if (m) {
-                            name = m.name;
-                            provider = m.providerName;
-                          }
-                        } else {
-                          const p = subscriptions.find((item) => item.id === ref.id);
-                          if (p) {
-                            name = p.name;
-                            provider = p.providerName;
-                          }
-                        }
-
                         return (
                           <th
                             key={itemKey}
@@ -590,7 +644,7 @@ export default function ComparePage() {
                                 type="button"
                                 onClick={() => handleRemove(ref)}
                                 className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 font-bold p-1"
-                                aria-label={`Remove ${name}`}
+                                aria-label={t('removeItem', { name })}
                               >
                                 ×
                               </button>
@@ -609,8 +663,7 @@ export default function ComparePage() {
                         <td className="sticky left-0 bg-white dark:bg-zinc-900 z-10 px-4 py-3 font-semibold text-zinc-900 dark:text-zinc-100 border-r border-zinc-200 dark:border-zinc-800">
                           {t(`rows.${row.key}` as keyof typeof t)}
                         </td>
-                        {refs.map((ref) => {
-                          const itemKey = `${ref.kind}:${ref.id}`;
+                        {comparisonItems.map(({ itemKey }) => {
                           const cell = row.cells[itemKey];
                           if (!cell)
                             return (
@@ -681,7 +734,7 @@ export default function ComparePage() {
                                   style={{ color: entry.color }}
                                   className="font-medium"
                                 >
-                                  {name}: {entry.value} / 100
+                                  {name}: {entry.value} {t('outOf100')}
                                 </p>
                               );
                             })}
