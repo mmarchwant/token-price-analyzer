@@ -355,6 +355,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
             type="checkbox"
             checked={isSelectedForChart}
             onChange={() => onToggleChartSelect(plan.id)}
+            aria-label={t('card.selectChartPlan', { plan: `${plan.providerName} ${plan.name}` })}
             className="rounded border-zinc-300 dark:border-zinc-700 text-indigo-600 focus:ring-indigo-500"
           />
           <span>{t('card.selectChart')}</span>

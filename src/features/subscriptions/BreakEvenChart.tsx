@@ -38,8 +38,8 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({
   const { models, fx } = useAppData();
   const { fmt, currency, isVatApplied, fmtTokens } = useMoney();
   const [showSummary, setShowSummary] = useState(false);
-
   const lang = i18n.language?.startsWith('pl') ? 'pl' : 'en';
+
   const workDaysPerMonth = profile.workDaysPerMonth || 20;
   const demandTasks = profile.tasksPerDay * workDaysPerMonth;
   const task = taskFromProfile(profile);
@@ -238,11 +238,7 @@ export const BreakEvenChart: React.FC<BreakEvenChartProps> = ({
 
       <CardContent className="space-y-6">
         {selectedPlans.length === 0 ? (
-          <p className="text-xs text-zinc-500 py-8 text-center">
-            {lang === 'pl'
-              ? 'Wybierz co najmniej jeden plan z kart powyżej, aby zobaczyć wykres.'
-              : 'Select at least one plan from the cards above to render the break-even chart.'}
-          </p>
+          <p className="text-xs text-zinc-500 py-8 text-center">{t('chart.empty')}</p>
         ) : (
           <div className="w-full h-96">
             <ResponsiveContainer width="100%" height="100%">

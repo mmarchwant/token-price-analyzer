@@ -86,10 +86,70 @@ describe('SubscriptionsPage component', () => {
     const user = userEvent.setup();
     await navigateToSubscriptions();
 
+    expect(
+      screen.getByText(
+        'Select at least one plan from the cards above to render the break-even chart.',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getAllByRole('checkbox')[0]!);
     const toggleSummaryBtn = screen.getByRole('button', { name: 'Show summary table' });
     await user.click(toggleSummaryBtn);
 
     expect(screen.getByText('Break-even Analysis Table')).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
+  });
+
+  it('keeps the existing three selections and explains the fourth-selection limit', async () => {
+    const user = userEvent.setup();
+    await navigateToSubscriptions();
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    expect(checkboxes).toHaveLength(20);
+    await user.click(checkboxes[0]!);
+    await user.click(checkboxes[1]!);
+    await user.click(checkboxes[2]!);
+    await user.click(checkboxes[3]!);
+
+    expect(checkboxes[0]!).toBeChecked();
+    expect(checkboxes[1]!).toBeChecked();
+    expect(checkboxes[2]!).toBeChecked();
+    expect(checkboxes[3]!).not.toBeChecked();
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'You can compare up to three plans at a time.',
+    );
+  });
+
+  it('uses the active filters for the chart and lets the user recover from zero results', async () => {
+    const user = userEvent.setup();
+    await navigateToSubscriptions();
+
+    const claudeCheckbox = screen.getByRole('checkbox', {
+      name: 'Select Anthropic Claude Pro for chart',
+    });
+    await user.click(claudeCheckbox);
+    expect(claudeCheckbox).toBeChecked();
+
+    await user.click(screen.getByRole('button', { name: 'OpenAI' }));
+    expect(
+      screen.getByText(
+        'Select at least one plan from the cards above to render the break-even chart.',
+      ),
+    ).toBeInTheDocument();
+
+    const maxPrice = screen.getByLabelText('Max price (USD)');
+    await user.clear(maxPrice);
+    await user.type(maxPrice, '1');
+    await user.tab();
+
+    expect(screen.getByText('No plans match these filters.')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Reset filters' }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Claude Pro')).toBeInTheDocument();
+    });
+    expect(
+      screen.getByRole('checkbox', { name: 'Select Anthropic Claude Pro for chart' }),
+    ).toBeChecked();
   });
 });

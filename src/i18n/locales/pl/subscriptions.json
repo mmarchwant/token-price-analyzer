@@ -49,7 +49,18 @@
     "sameMoneyVal": "{{primaryTasks}} zadań na {{primaryModel}}, {{bestTasks}} zadań na {{bestModel}}",
     "missingPrimary": "Brak danych cenowych dla głównego modelu",
     "selectChart": "Wybierz do wykresu",
+    "selectChartPlan": "Wybierz {{plan}} do wykresu",
     "compareLink": "Dodaj do porównania"
+  },
+  "selection": {
+    "summary": "Wybrano {{count}} z {{max}} planów do wykresu.",
+    "filterNote": "Wykres porównuje wybrane plany, które spełniają aktywne filtry.",
+    "limitReached": "Możesz porównać jednocześnie maksymalnie trzy plany."
+  },
+  "empty": {
+    "title": "Żaden plan nie spełnia tych filtrów.",
+    "body": "Zresetuj filtry, aby zobaczyć wszystkie dostępne plany.",
+    "resetFilters": "Zresetuj filtry"
   },
   "confidence": {
     "official": "Oficjalna",
@@ -84,7 +95,8 @@
     "colApiModel": "Model API",
     "colCostPerTask": "Koszt / Zadanie",
     "colBreakEven": "Zadania do rentowności",
-    "colVsDemand": "vs Twoje zapotrzebowanie"
+    "colVsDemand": "vs Twoje zapotrzebowanie",
+    "empty": "Wybierz co najmniej jeden plan z kart powyżej, aby wyświetlić wykres punktu rentowności."
   },
   "disclaimer": "Limity są szacunkami opartymi na publicznych oświadczeniach i zgłoszeniach społeczności; często ulegają zmianom. Zobacz Źródła, aby poznać metodologię."
 }
