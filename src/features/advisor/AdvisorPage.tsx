@@ -266,6 +266,7 @@ export default function AdvisorPage() {
                 className="w-full"
               />
               <Select
+                aria-label={t('steps.budget.currencyLabel')}
                 value={currency}
                 onChange={(e) => handleCurrencyChange(e.target.value as Currency)}
                 options={[
@@ -332,6 +333,7 @@ export default function AdvisorPage() {
               </div>
               <input
                 type="range"
+                aria-label={t('steps.intensity.intensityLabel', { value: intensity })}
                 min={0.25}
                 max={4.0}
                 step={0.25}

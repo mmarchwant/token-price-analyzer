@@ -14,7 +14,8 @@
   "steps": {
     "budget": {
       "title": "1. Budget",
-      "label": "Monthly budget"
+      "label": "Monthly budget",
+      "currencyLabel": "Budget currency"
     },
     "profile": {
       "title": "2. What do you do?",
@@ -23,6 +24,7 @@
     "intensity": {
       "title": "3. How much?",
       "tasksPerMonth": "≈ {{count}} tasks/month",
+      "intensityLabel": "Daily task intensity: {{value}}×",
       "hoursLabel": "Active hours per day"
     },
     "needs": {
