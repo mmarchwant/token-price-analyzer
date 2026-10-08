@@ -11,6 +11,17 @@
   "plansCount_few": "{{count}} subscription plans",
   "plansCount_many": "{{count}} subscription plans",
   "plansCount_other": "{{count}} subscription plans",
+  "configuration": {
+    "title": "Configure your recommendation",
+    "seeResults": "See results",
+    "summaries": {
+      "budget": "{{amount}} {{currency}} per month",
+      "intensity": "{{intensity}}× intensity · {{hours}}h/day",
+      "needs_one": "1 requirement selected",
+      "needs_other": "{{count}} requirements selected",
+      "quality": "Minimum tier: {{tier}}"
+    }
+  },
   "steps": {
     "budget": {
       "title": "1. Budget",
