@@ -387,7 +387,11 @@ export default function SourcesPage() {
                   {t('diagnostics.unmatchedTitle')}
                 </h3>
                 <div className="flex items-center gap-2">
+                  <label className="sr-only" htmlFor="unmatched-source-filter">
+                    {t('diagnostics.filterSource')}
+                  </label>
                   <select
+                    id="unmatched-source-filter"
                     value={unmatchedSourceFilter}
                     onChange={(e) => setUnmatchedSourceFilter(e.target.value)}
                     className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs text-zinc-800 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
@@ -399,7 +403,11 @@ export default function SourcesPage() {
                       </option>
                     ))}
                   </select>
+                  <label className="sr-only" htmlFor="unmatched-id-filter">
+                    {t('diagnostics.filterIds')}
+                  </label>
                   <input
+                    id="unmatched-id-filter"
                     type="text"
                     value={unmatchedSearch}
                     onChange={(e) => setUnmatchedSearch(e.target.value)}
