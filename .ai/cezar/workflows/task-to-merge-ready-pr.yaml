@@ -1,0 +1,40 @@
+name: task-to-merge-ready-pr
+steps:
+  - id: assess-and-plan
+    name: assess-and-plan
+    prompt: >-
+      Task: {{task}}
+
+
+      First assess the task's complexity (small / medium / large) and state
+      which agent model fits each later stage (planning, implementation,
+      review/fix): use a light model for trivial changes, a stronger model for
+      multi-file or architectural work. Then write a concise implementation
+      plan: files to touch, approach, tests to add. Follow AGENTS.md conventions
+      (zod schemas in src/domain, i18n en+pl for UI strings, no network in
+      tests, don't edit public/data or tools/). Do not implement yet.
+  - id: implement
+    name: implement
+    prompt: >-
+      Implement the task using the plan from the previous step, using the model
+      tier chosen for implementation. Task: {{task}}
+
+
+      Work on a fresh branch (not main). Add or update tests. Run npm run lint,
+      npm run typecheck, npm run test and npm run build and fix failures. Commit
+      with a clear message.
+  - id: review-and-fix
+    name: review-and-fix
+    prompt: "Review the changes on the current branch against main for task:
+      {{task}}. Use the model tier chosen for review. Apply fixes for every
+      confirmed finding (use --fix), then re-run lint, typecheck, test and build
+      until they pass, and commit the fixes."
+  - id: pr-ci-and-conflicts
+    name: pr-ci-and-conflicts
+    prompt: "Push the branch and open a ready (non-draft) pull request against main
+      for task: {{task}}. Then drive it to merge-ready: wait for CI checks (gh
+      pr checks --watch), fix any CI failures, merge latest main and resolve
+      conflicts if needed, push, and repeat until CI is green and the PR is
+      mergeable. Do not merge it. Report the PR URL and final status to the
+      user."
+    skill: om-auto-fix-pr

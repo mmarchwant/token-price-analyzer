@@ -249,9 +249,28 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ---------- commands ----------
 
-async function cmdTasks() {
+async function cmdTasks(opts = {}) {
   const tasks = loadTasks();
   const state = loadState();
+  if (opts.json) {
+    const rows = [...tasks.values()].map((t) => {
+      const entry = taskState(state, t.id);
+      const merged = isMerged(entry);
+      return {
+        id: t.id,
+        title: t.title,
+        deps: DEPENDENCIES[t.id] ?? [],
+        started: Boolean(entry?.sessionId),
+        merged,
+        state: entry?.lastState ?? null,
+        prUrl: entry?.prUrl ?? null,
+        url: entry?.url ?? null,
+        ready: !entry && unmetDependencies(state, t.id).length === 0,
+      };
+    });
+    console.log(JSON.stringify(rows));
+    return;
+  }
   for (const task of tasks.values()) {
     const entry = taskState(state, task.id);
     let status = 'not started';
@@ -484,6 +503,7 @@ async function main() {
       'dry-run': { type: 'boolean' },
       limit: { type: 'string' },
       interval: { type: 'string' },
+      json: { type: 'boolean' },
     },
   });
   const [command, arg, ...rest] = positionals;
@@ -493,7 +513,7 @@ async function main() {
   }
   switch (command) {
     case 'tasks':
-      return cmdTasks();
+      return cmdTasks(opts);
     case 'next':
       return cmdNext();
     case 'prompt':
