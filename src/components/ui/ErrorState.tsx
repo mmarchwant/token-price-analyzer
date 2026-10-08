@@ -1,22 +1,34 @@
 import React from 'react';
 import { clsx } from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { Button } from './Button';
 
 export interface ErrorStateProps {
-  message: string;
+  message?: string;
   title?: string;
+  retryLabel?: string;
   onRetry?: () => void;
   className?: string;
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({
   message,
-  title = 'An error occurred',
+  title,
+  retryLabel,
   onRetry,
   className,
 }) => {
+  const { t } = useTranslation('common');
+  const resolvedTitle = title ?? t('errors.genericTitle', 'An error occurred');
+  const resolvedMessage = message ?? t('errors.genericMessage', 'Please try again later.');
+  const resolvedRetryLabel = retryLabel ?? t('actions.retry', 'Retry');
+
   return (
     <div
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      aria-relevant="additions text"
       className={clsx(
         'flex flex-col items-center justify-center p-6 text-center rounded-xl border border-red-200 bg-red-50 dark:border-red-900/50 dark:bg-red-950/20 my-6',
         className,
@@ -38,12 +50,12 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
           />
         </svg>
       </div>
-      <h3 className="text-base font-semibold text-red-900 dark:text-red-200">{title}</h3>
-      <p className="mt-1 text-sm text-red-700 dark:text-red-300 max-w-md">{message}</p>
+      <h3 className="text-base font-semibold text-red-900 dark:text-red-200">{resolvedTitle}</h3>
+      <p className="mt-1 text-sm text-red-700 dark:text-red-300 max-w-md">{resolvedMessage}</p>
       {onRetry && (
         <div className="mt-4">
           <Button variant="danger" size="sm" onClick={onRetry}>
-            Retry
+            {resolvedRetryLabel}
           </Button>
         </div>
       )}

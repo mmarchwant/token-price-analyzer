@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
-import { Tabs, Toggle, NumberInput, Tooltip } from './index';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import i18n from '../../i18n';
+import { ErrorState, Tabs, Toggle, NumberInput, Tooltip } from './index';
+
+afterEach(async () => {
+  await i18n.changeLanguage('en');
+});
 
 describe('UI Primitives', () => {
   describe('Tabs keyboard navigation', () => {
@@ -131,6 +136,45 @@ describe('UI Primitives', () => {
       // Mouse leave
       fireEvent.mouseLeave(button);
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('ErrorState', () => {
+    it.each([
+      ['en', 'An error occurred', 'Please try again later.', 'Retry'],
+      ['pl', 'Wystąpił błąd', 'Spróbuj ponownie później.', 'Spróbuj ponownie'],
+    ])('uses localized %s defaults', async (language, title, message, retryLabel) => {
+      await i18n.changeLanguage(language);
+      render(<ErrorState onRetry={vi.fn()} />);
+
+      const alert = screen.getByRole('alert');
+      expect(alert).toHaveTextContent(title);
+      expect(alert).toHaveTextContent(message);
+      expect(screen.getByRole('button', { name: retryLabel })).toBeInTheDocument();
+    });
+
+    it('uses assertive, atomic error announcements', () => {
+      render(<ErrorState />);
+
+      const alert = screen.getByRole('alert');
+      expect(alert).toHaveAttribute('aria-live', 'assertive');
+      expect(alert).toHaveAttribute('aria-atomic', 'true');
+      expect(alert).toHaveAttribute('aria-relevant', 'additions text');
+    });
+
+    it('allows callers to override every displayed label', () => {
+      render(
+        <ErrorState
+          title="Custom title"
+          message="Custom message"
+          retryLabel="Try again"
+          onRetry={vi.fn()}
+        />,
+      );
+
+      expect(screen.getByRole('alert')).toHaveTextContent('Custom title');
+      expect(screen.getByRole('alert')).toHaveTextContent('Custom message');
+      expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
     });
   });
 });

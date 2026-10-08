@@ -46,6 +46,19 @@ export function DataStatus({ variant = 'full', className = '' }: DataStatusProps
     }
   }
 
+  const liveAnnouncement =
+    live.status === 'loading'
+      ? t('dataStatus.liveLoading', 'Updating live prices...')
+      : live.status === 'error'
+        ? t('dataStatus.liveUnavailable', 'Live prices unavailable, using the snapshot')
+        : live.status === 'ok'
+          ? t('dataStatus.liveRefreshComplete', {
+              changed: live.changedCount,
+              newModels: live.newCount,
+              defaultValue: `Live prices updated: ${live.changedCount} price changes and ${live.newCount} new models`,
+            })
+          : '';
+
   if (variant === 'compact') {
     return (
       <div
@@ -123,6 +136,17 @@ export function DataStatus({ variant = 'full', className = '' }: DataStatusProps
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
+        {live.enabled && (
+          <span
+            className="sr-only"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            aria-relevant="text"
+          >
+            {liveAnnouncement}
+          </span>
+        )}
         {live.enabled ? (
           live.status === 'ok' ? (
             <span>
