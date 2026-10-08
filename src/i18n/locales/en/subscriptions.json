@@ -49,7 +49,18 @@
     "sameMoneyVal": "{{primaryTasks}} tasks on {{primaryModel}}, {{bestTasks}} tasks on {{bestModel}}",
     "missingPrimary": "Primary model price data unavailable",
     "selectChart": "Select for chart",
+    "selectChartPlan": "Select {{plan}} for chart",
     "compareLink": "Add to compare"
+  },
+  "selection": {
+    "summary": "{{count}} of {{max}} plans selected for the chart.",
+    "filterNote": "The chart compares selected plans that match the active filters.",
+    "limitReached": "You can compare up to three plans at a time."
+  },
+  "empty": {
+    "title": "No plans match these filters.",
+    "body": "Reset the filters to see all available plans.",
+    "resetFilters": "Reset filters"
   },
   "confidence": {
     "official": "Official",
@@ -84,7 +95,8 @@
     "colApiModel": "API Model",
     "colCostPerTask": "Cost / Task",
     "colBreakEven": "Break-even Tasks",
-    "colVsDemand": "vs Your Demand"
+    "colVsDemand": "vs Your Demand",
+    "empty": "Select at least one plan from the cards above to render the break-even chart."
   },
   "disclaimer": "Limits are estimates based on public statements and community reports; they change often. See Sources for methodology."
 }

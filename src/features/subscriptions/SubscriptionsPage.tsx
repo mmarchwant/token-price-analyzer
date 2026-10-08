@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { ProfileSelect } from '../../components/ProfileSelect';
 import { Card, CardContent, NumberInput, PageHeader, Toggle } from '../../components/ui';
 import { ShareButton } from '../../components/ShareButton';
@@ -44,6 +44,8 @@ export default function SubscriptionsPage() {
     numberCodec({ min: 1, max: 24 }),
     settingsActiveHours,
   );
+  const [selectionFeedback, setSelectionFeedback] = useState<string | null>(null);
+  const [, setSearchParams] = useSearchParams();
 
   const activeHours = hoursUrlParam ?? settingsActiveHours;
 
@@ -187,28 +189,36 @@ export default function SubscriptionsPage() {
     return bands;
   }, [filteredPlans]);
 
-  // Selected plans for chart (default: top 3 best coverage <= $25 if empty)
+  // The chart is an explicit comparison of checked cards, limited to the active filter results.
   const effectiveSelectedPlans = useMemo(() => {
-    if (selectedPlanIds.length > 0) {
-      return subscriptions.filter((p) => selectedPlanIds.includes(p.id));
-    }
-
-    // Default top 3 plans <= $25
-    const candidates = subscriptions.filter((p) => p.priceUsdMonthly <= 25);
-    return candidates.slice(0, 3);
-  }, [selectedPlanIds, subscriptions]);
+    return filteredPlans.filter((plan) => selectedPlanIds.includes(plan.id));
+  }, [filteredPlans, selectedPlanIds]);
 
   const toggleChartSelect = (planId: string) => {
     if (selectedPlanIds.includes(planId)) {
       setSelectedPlanIds(selectedPlanIds.filter((id) => id !== planId));
+      setSelectionFeedback(null);
     } else {
       if (selectedPlanIds.length >= 3) {
-        // Keep max 3
-        setSelectedPlanIds([...selectedPlanIds.slice(1), planId]);
+        setSelectionFeedback(t('selection.limitReached'));
       } else {
         setSelectedPlanIds([...selectedPlanIds, planId]);
+        setSelectionFeedback(null);
       }
     }
+  };
+
+  const resetFilters = () => {
+    setSearchParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        for (const key of ['maxPrice', 'providers', 'agent', 'published']) {
+          next.delete(key);
+        }
+        return next;
+      },
+      { replace: true },
+    );
   };
 
   // Best covered plan for Verdict
@@ -390,6 +400,38 @@ export default function SubscriptionsPage() {
 
       {/* Plan Cards in Price Bands */}
       <div className="space-y-8">
+        <div
+          className="flex flex-col gap-1 text-sm text-zinc-600 dark:text-zinc-400"
+          aria-live="polite"
+        >
+          <p>{t('selection.summary', { count: selectedPlanIds.length, max: 3 })}</p>
+          <p className="text-xs">{t('selection.filterNote')}</p>
+          {selectionFeedback && (
+            <p role="status" className="font-medium text-amber-700 dark:text-amber-300">
+              {selectionFeedback}
+            </p>
+          )}
+        </div>
+
+        {filteredPlans.length === 0 && (
+          <Card className="border-dashed border-zinc-300 dark:border-zinc-700">
+            <CardContent className="flex flex-col items-start gap-3 p-6">
+              <div>
+                <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+                  {t('empty.title')}
+                </h2>
+                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{t('empty.body')}</p>
+              </div>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                {t('empty.resetFilters')}
+              </button>
+            </CardContent>
+          </Card>
+        )}
         {(['budget', 'about20', 'power', 'max'] as const).map((band) => {
           const bandPlans = priceBands[band];
           if (bandPlans.length === 0) return null;
