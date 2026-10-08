@@ -73,7 +73,9 @@ describe('App Shell', () => {
     await user.click(explorerLink);
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 1, name: 'Model Explorer' })).toBeInTheDocument();
+      const heading = screen.getByRole('heading', { level: 1, name: 'Model Explorer' });
+      expect(heading).toBeInTheDocument();
+      expect(heading).toHaveFocus();
     });
   });
 
