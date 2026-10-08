@@ -106,6 +106,16 @@ describe('SourcesPage', () => {
     expect(screen.queryByText('Report outdated data')).not.toBeInTheDocument();
   });
 
+  it('provides accessible names for diagnostic filters', async () => {
+    const user = userEvent.setup();
+    await navigateToSources(user);
+
+    await user.click(screen.getByText('Maintainer Diagnostics'));
+
+    expect(screen.getByRole('combobox', { name: 'Filter source' })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Search unmatched IDs' })).toBeInTheDocument();
+  });
+
   it('renders report outdated data links with correct href when REPO_URL is set', async () => {
     const originalNewIssueUrl = configModule.newIssueUrl;
     vi.spyOn(configModule, 'newIssueUrl').mockImplementation((params) =>

@@ -14,7 +14,8 @@
   "steps": {
     "budget": {
       "title": "1. Budżet",
-      "label": "Budżet miesięczny"
+      "label": "Budżet miesięczny",
+      "currencyLabel": "Waluta budżetu"
     },
     "profile": {
       "title": "2. Co robisz?",
@@ -23,6 +24,7 @@
     "intensity": {
       "title": "3. Jak dużo?",
       "tasksPerMonth": "≈ {{count}} zadań/miesiąc",
+      "intensityLabel": "Dzienne natężenie zadań: {{value}}×",
       "hoursLabel": "Aktywne godziny dziennie"
     },
     "needs": {

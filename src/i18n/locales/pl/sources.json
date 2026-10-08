@@ -132,6 +132,7 @@
     "unmatchedTitle": "Niedopasowane identyfikatory modeli/encji",
     "unmatchedCount": "{{count}} niedopasowanych ID z {{sourceCount}} źródeł",
     "filterSource": "Filtruj źródło",
+    "filterIds": "Szukaj niedopasowanych ID",
     "filterPlaceholder": "Szukaj niedopasowanych ID...",
     "warningsTitle": "Ostrzeżenia potoku",
     "warningsCount": "{{count}} ostrzeżeń",

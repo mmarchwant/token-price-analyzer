@@ -96,6 +96,17 @@ export default function ProfilesPage() {
   const [promptText, setPromptText] = useState<string>('');
   const [responseText, setResponseText] = useState<string>('');
 
+  const fieldIds = {
+    name: 'profile-name',
+    inputTokensPerTask: 'profile-input-tokens-per-task',
+    outputTokensPerTask: 'profile-output-tokens-per-task',
+    cachedInputShare: 'profile-cached-input-share',
+    tasksPerDay: 'profile-tasks-per-day',
+    workDaysPerMonth: 'profile-work-days-per-month',
+    promptText: 'profile-estimator-prompt',
+    responseText: 'profile-estimator-response',
+  };
+
   const presetProfiles = useMemo(() => profiles.filter((p) => p.isPreset), [profiles]);
 
   const generateUniqueCustomId = (name: string, ignoreId?: string): string => {
@@ -524,10 +535,14 @@ export default function ProfilesPage() {
 
               {/* Profile Name */}
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <label
+                  htmlFor={fieldIds.name}
+                  className="text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                >
                   {t('editor.nameLabel')}
                 </label>
                 <input
+                  id={fieldIds.name}
                   type="text"
                   value={
                     typeof formData.name === 'string'
@@ -542,15 +557,22 @@ export default function ProfilesPage() {
                     }));
                   }}
                   placeholder={t('editor.namePlaceholder')}
+                  aria-invalid={Boolean(errors['name'])}
+                  aria-describedby={errors['name'] ? `${fieldIds.name}-error` : undefined}
                   className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
                 />
-                {errors['name'] && <p className="text-xs text-rose-500">{errors['name']}</p>}
+                {errors['name'] && (
+                  <p id={`${fieldIds.name}-error`} className="text-xs text-rose-500">
+                    {errors['name']}
+                  </p>
+                )}
               </div>
 
               {/* Token Inputs */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <NumberInput
+                    id={fieldIds.inputTokensPerTask}
                     label={t('editor.inputTokensLabel')}
                     value={formData.inputTokensPerTask}
                     onChange={(val) =>
@@ -558,14 +580,26 @@ export default function ProfilesPage() {
                     }
                     min={0}
                     step={500}
+                    aria-invalid={Boolean(errors['inputTokensPerTask'])}
+                    aria-describedby={
+                      errors['inputTokensPerTask']
+                        ? `${fieldIds.inputTokensPerTask}-error`
+                        : undefined
+                    }
                   />
                   {errors['inputTokensPerTask'] && (
-                    <p className="text-xs text-rose-500 mt-1">{errors['inputTokensPerTask']}</p>
+                    <p
+                      id={`${fieldIds.inputTokensPerTask}-error`}
+                      className="text-xs text-rose-500 mt-1"
+                    >
+                      {errors['inputTokensPerTask']}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <NumberInput
+                    id={fieldIds.outputTokensPerTask}
                     label={t('editor.outputTokensLabel')}
                     value={formData.outputTokensPerTask}
                     onChange={(val) =>
@@ -573,9 +607,20 @@ export default function ProfilesPage() {
                     }
                     min={0}
                     step={100}
+                    aria-invalid={Boolean(errors['outputTokensPerTask'])}
+                    aria-describedby={
+                      errors['outputTokensPerTask']
+                        ? `${fieldIds.outputTokensPerTask}-error`
+                        : undefined
+                    }
                   />
                   {errors['outputTokensPerTask'] && (
-                    <p className="text-xs text-rose-500 mt-1">{errors['outputTokensPerTask']}</p>
+                    <p
+                      id={`${fieldIds.outputTokensPerTask}-error`}
+                      className="text-xs text-rose-500 mt-1"
+                    >
+                      {errors['outputTokensPerTask']}
+                    </p>
                   )}
                 </div>
               </div>
@@ -583,13 +628,17 @@ export default function ProfilesPage() {
               {/* Cached Input Share Slider */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label
+                    htmlFor={fieldIds.cachedInputShare}
+                    className="text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                  >
                     {t('editor.cachedInputShareLabel', {
                       pct: Math.round(formData.cachedInputShare * 100),
                     })}
                   </label>
                 </div>
                 <input
+                  id={fieldIds.cachedInputShare}
                   type="range"
                   min={0}
                   max={100}
@@ -609,44 +658,70 @@ export default function ProfilesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <NumberInput
+                    id={fieldIds.tasksPerDay}
                     label={t('editor.tasksPerDayLabel')}
                     value={formData.tasksPerDay}
                     onChange={(val) => setFormData((prev) => ({ ...prev, tasksPerDay: val }))}
                     min={0}
                     step={5}
+                    aria-invalid={Boolean(errors['tasksPerDay'])}
+                    aria-describedby={
+                      errors['tasksPerDay'] ? `${fieldIds.tasksPerDay}-error` : undefined
+                    }
                   />
                   {errors['tasksPerDay'] && (
-                    <p className="text-xs text-rose-500 mt-1">{errors['tasksPerDay']}</p>
+                    <p id={`${fieldIds.tasksPerDay}-error`} className="text-xs text-rose-500 mt-1">
+                      {errors['tasksPerDay']}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <NumberInput
+                    id={fieldIds.workDaysPerMonth}
                     label={t('editor.workDaysPerMonthLabel')}
                     value={formData.workDaysPerMonth}
                     onChange={(val) => setFormData((prev) => ({ ...prev, workDaysPerMonth: val }))}
                     min={1}
                     max={31}
                     step={1}
+                    aria-invalid={Boolean(errors['workDaysPerMonth'])}
+                    aria-describedby={
+                      errors['workDaysPerMonth'] ? `${fieldIds.workDaysPerMonth}-error` : undefined
+                    }
                   />
                   {errors['workDaysPerMonth'] && (
-                    <p className="text-xs text-rose-500 mt-1">{errors['workDaysPerMonth']}</p>
+                    <p
+                      id={`${fieldIds.workDaysPerMonth}-error`}
+                      className="text-xs text-rose-500 mt-1"
+                    >
+                      {errors['workDaysPerMonth']}
+                    </p>
                   )}
                 </div>
               </div>
 
               {/* Quality Dimension Selector */}
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                <span
+                  id="profile-quality-dimension-label"
+                  className="text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                >
                   {t('editor.qualityDimensionLabel')}
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                </span>
+                <div
+                  role="radiogroup"
+                  aria-labelledby="profile-quality-dimension-label"
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-2"
+                >
                   {(['intelligence', 'coding', 'agentic'] as QualityDimension[]).map((dim) => {
                     const isSelected = formData.qualityDimension === dim;
                     return (
                       <button
                         key={dim}
                         type="button"
+                        role="radio"
+                        aria-checked={isSelected}
                         onClick={() => setFormData((prev) => ({ ...prev, qualityDimension: dim }))}
                         className={`p-3 rounded-lg border text-left transition-colors ${
                           isSelected
@@ -711,10 +786,14 @@ export default function ProfilesPage() {
             {isEstimatorOpen && (
               <CardContent className="space-y-4 pt-2">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label
+                    htmlFor={fieldIds.promptText}
+                    className="text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                  >
                     {t('estimator.promptLabel')}
                   </label>
                   <textarea
+                    id={fieldIds.promptText}
                     rows={3}
                     value={promptText}
                     onChange={(e) => setPromptText(e.target.value)}
@@ -727,10 +806,14 @@ export default function ProfilesPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label
+                    htmlFor={fieldIds.responseText}
+                    className="text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                  >
                     {t('estimator.responseLabel')}
                   </label>
                   <textarea
+                    id={fieldIds.responseText}
                     rows={3}
                     value={responseText}
                     onChange={(e) => setResponseText(e.target.value)}
