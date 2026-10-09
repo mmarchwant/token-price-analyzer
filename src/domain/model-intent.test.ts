@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { filterModelsByIntent, matchesModelIntent } from './model-intent';
-import type { ModelEntry } from './types';
+import { filterModelsByIntent, matchesModelIntent, matchesPlanIntent } from './model-intent';
+import type { ModelEntry, SubscriptionPlan } from './types';
 
 const model = (overrides: Partial<ModelEntry>): ModelEntry => ({
   id: 'test/model',
@@ -55,5 +55,14 @@ describe('model intent', () => {
         'agents',
       ),
     ).toBe(false);
+  });
+
+  it('keeps coding-agent plans visible for coding and agent intents', () => {
+    const codingAgentPlan = {
+      features: { codingAgents: ['copilot'], imageGeneration: false },
+    } as SubscriptionPlan;
+
+    expect(matchesPlanIntent(codingAgentPlan, [], 'coding')).toBe(true);
+    expect(matchesPlanIntent(codingAgentPlan, [], 'agents')).toBe(true);
   });
 });

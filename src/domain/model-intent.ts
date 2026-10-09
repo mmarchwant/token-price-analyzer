@@ -30,7 +30,9 @@ export function matchesPlanIntent(
   intent: ModelIntent,
 ): boolean {
   if (intent === 'all') return true;
-  if (intent === 'agents' && plan.features.codingAgents.length > 0) return true;
+  if ((intent === 'coding' || intent === 'agents') && plan.features.codingAgents.length > 0) {
+    return true;
+  }
   if (intent === 'image-generation' && plan.features.imageGeneration) return true;
   const includedIds = new Set([plan.primaryModelId, ...plan.includedModelIds]);
   return models.some((model) => includedIds.has(model.id) && matchesModelIntent(model, intent));

@@ -171,4 +171,18 @@ describe('ComparePage component', () => {
     expect(combobox).toHaveAttribute('aria-expanded', 'false');
     expect(combobox).not.toHaveAttribute('aria-controls');
   });
+
+  it('filters subscription suggestions by the global model intent', async () => {
+    const user = userEvent.setup();
+    useSettingsStore.getState().setModelIntent('coding');
+    render(<App />);
+
+    const combobox = await screen.findByRole('combobox', {
+      name: /add model or subscription plan/i,
+    });
+    await user.type(combobox, 'ChatGPT Go');
+
+    expect(await screen.findByText('No eligible models or plans found.')).toBeInTheDocument();
+    expect(screen.queryByText('ChatGPT Go')).not.toBeInTheDocument();
+  });
 });

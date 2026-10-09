@@ -8,7 +8,7 @@ import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
-import { filterModelsByIntent } from '../../domain/model-intent';
+import { filterModelsByIntent, matchesPlanIntent } from '../../domain/model-intent';
 import { listCodec, stringCodec, useUrlState } from '../../state/urlState';
 import {
   buildCompareHref,
@@ -36,6 +36,10 @@ export default function ComparePage() {
   const visibleModels = useMemo(
     () => filterModelsByIntent(models, modelIntent),
     [models, modelIntent],
+  );
+  const visibleSubscriptions = useMemo(
+    () => subscriptions.filter((plan) => matchesPlanIntent(plan, models, modelIntent)),
+    [subscriptions, models, modelIntent],
   );
 
   const activeFx = useMemo(() => {
@@ -103,7 +107,7 @@ export default function ComparePage() {
       })
       .slice(0, 5);
 
-    const candidatePlans = subscriptions
+    const candidatePlans = visibleSubscriptions
       .filter((p) => {
         const isAlreadyIn = refs.some((r) => r.kind === 'plan' && r.id === p.id);
         if (isAlreadyIn) return false;
@@ -112,7 +116,7 @@ export default function ComparePage() {
       .slice(0, 5);
 
     return { candidateModels, candidatePlans };
-  }, [visibleModels, subscriptions, refs, query]);
+  }, [visibleModels, visibleSubscriptions, refs, query]);
 
   const allCandidateOptions = useMemo(() => {
     const options: { ref: CompareRef; label: string; group: 'model' | 'plan' }[] = [];
@@ -190,13 +194,13 @@ export default function ComparePage() {
     const topModels = sortedModels.slice(0, 2);
 
     // Top 2 cheapest plans <= $25
-    const cheapPlans = subscriptions
+    const cheapPlans = visibleSubscriptions
       .filter((p) => p.priceUsdMonthly <= 25)
       .sort((a, b) => a.priceUsdMonthly - b.priceUsdMonthly)
       .slice(0, 2);
 
     return { topModels, cheapPlans };
-  }, [visibleModels, subscriptions, profile]);
+  }, [visibleModels, visibleSubscriptions, profile]);
 
   // Table rows
   const tableRows = useMemo(() => {
