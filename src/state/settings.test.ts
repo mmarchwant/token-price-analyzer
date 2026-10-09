@@ -17,6 +17,7 @@ describe('settings store', () => {
     expect(state.includeFreeModels).toBe(true);
     expect(state.includeBatchOffers).toBe(false);
     expect(state.liveRefresh).toBe(true);
+    expect(state.modelIntent).toBe('all');
   });
 
   it('updates state via setters', () => {
@@ -29,6 +30,7 @@ describe('settings store', () => {
     store.setIncludeFreeModels(false);
     store.setIncludeBatchOffers(true);
     store.setLiveRefresh(false);
+    store.setModelIntent('coding');
 
     const updated = useSettingsStore.getState();
     expect(updated.currency).toBe('EUR');
@@ -39,6 +41,7 @@ describe('settings store', () => {
     expect(updated.includeFreeModels).toBe(false);
     expect(updated.includeBatchOffers).toBe(true);
     expect(updated.liveRefresh).toBe(false);
+    expect(updated.modelIntent).toBe('coding');
   });
 
   it('upserts and deletes custom profiles', () => {

@@ -59,4 +59,20 @@ describe('AppLayout mobile menu focus', () => {
 
     await waitFor(() => expect(trigger).toHaveFocus());
   });
+
+  it('updates the global model intent from the settings control', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <AppLayout>
+          <h1>Page title</h1>
+        </AppLayout>
+      </MemoryRouter>,
+    );
+
+    const intentSelect = screen.getAllByLabelText('Show models for')[0]!;
+    await user.selectOptions(intentSelect, 'coding');
+
+    expect(useSettingsStore.getState().modelIntent).toBe('coding');
+  });
 });

@@ -85,6 +85,18 @@ export const ModelEntrySchema = z.object({
 
 export const QualityDimensionSchema = z.enum(['intelligence', 'coding', 'agentic']);
 
+// A user-facing scope for model discovery. It is deliberately independent from
+// usage profiles: profiles describe demand, while this describes which models
+// belong in the candidate set.
+export const ModelIntentSchema = z.enum([
+  'all',
+  'text-reasoning',
+  'coding',
+  'agents',
+  'image-generation',
+  'video-generation',
+]);
+
 export const UsageProfileSchema = z.object({
   id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   name: LocalizedTextSchema,

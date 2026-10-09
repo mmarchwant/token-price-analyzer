@@ -22,6 +22,7 @@ import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
 import { booleanCodec, enumCodec, numberCodec, useUrlState } from '../../state/urlState';
 import { buildBudgetRows, pickHighlights, type BudgetRow } from './budgetRows';
+import { filterModelsByIntent } from '../../domain/model-intent';
 import { WorkTimeLadder } from './WorkTimeLadder';
 import { BudgetBarChart } from './BudgetBarChart';
 import type { Currency, QualityTier } from '../../domain/types';
@@ -33,6 +34,7 @@ export default function BudgetPage() {
   const { fmt, fmtTokens, toUsd } = useMoney();
 
   const settingsBudget = useSettingsStore((state) => state.budget);
+  const modelIntent = useSettingsStore((state) => state.modelIntent);
   const setSettingsBudget = useSettingsStore((state) => state.setBudget);
   const includeFreeModels = useSettingsStore((state) => state.includeFreeModels);
   const setIncludeFreeModels = useSettingsStore((state) => state.setIncludeFreeModels);
@@ -77,7 +79,7 @@ export default function BudgetPage() {
   const rows = useMemo(() => {
     if (status !== 'ready') return [];
     return buildBudgetRows({
-      models,
+      models: filterModelsByIntent(models, modelIntent),
       profile,
       budgetUsd,
       fees,
@@ -85,7 +87,17 @@ export default function BudgetPage() {
       includeBatch: includeBatchOffers,
       applyFees: feesToggle,
     });
-  }, [models, profile, budgetUsd, fees, includeFreeModels, includeBatchOffers, feesToggle, status]);
+  }, [
+    models,
+    modelIntent,
+    profile,
+    budgetUsd,
+    fees,
+    includeFreeModels,
+    includeBatchOffers,
+    feesToggle,
+    status,
+  ]);
 
   const highlights = useMemo(() => pickHighlights(rows, tier), [rows, tier]);
 
