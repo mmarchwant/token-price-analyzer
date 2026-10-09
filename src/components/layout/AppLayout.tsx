@@ -11,20 +11,12 @@ import type { Currency } from '../../domain/types';
 
 export function TokenIcon({ className = 'h-6 w-6' }: { className?: string }) {
   return (
-    <svg
+    <img
       className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      src={`${import.meta.env.BASE_URL}favicon.svg`}
+      alt=""
       aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 6v12" />
-      <path d="M15 9.5a2.5 2.5 0 0 0-5 0c0 1.5 2 2.5 3 3.5s2 2 2 3.5a2.5 2.5 0 0 1-5 0" />
-    </svg>
+    />
   );
 }
 

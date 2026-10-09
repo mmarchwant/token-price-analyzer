@@ -78,4 +78,17 @@ describe('AppLayout mobile menu focus', () => {
     expect(navigationRows[0]).toHaveClass('2xl:hidden');
     expect(navigationRows[1]).toHaveClass('border-t', '2xl:flex');
   });
+
+  it('uses the browser favicon as the app title mark', () => {
+    render(
+      <MemoryRouter>
+        <AppLayout>
+          <h1>Page title</h1>
+        </AppLayout>
+      </MemoryRouter>,
+    );
+
+    const appTitle = screen.getByRole('link', { name: 'Token Price Analyzer' });
+    expect(appTitle.querySelector('img')).toHaveAttribute('src', '/favicon.svg');
+  });
 });
