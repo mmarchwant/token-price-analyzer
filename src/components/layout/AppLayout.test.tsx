@@ -59,4 +59,23 @@ describe('AppLayout mobile menu focus', () => {
 
     await waitFor(() => expect(trigger).toHaveFocus());
   });
+
+  it('puts wide-screen destinations in a separate navigation row', () => {
+    render(
+      <MemoryRouter>
+        <AppLayout>
+          <h1>Page title</h1>
+        </AppLayout>
+      </MemoryRouter>,
+    );
+
+    const navigationRows = screen.getAllByRole('navigation', {
+      name: 'Primary navigation',
+      hidden: true,
+    });
+
+    expect(navigationRows).toHaveLength(2);
+    expect(navigationRows[0]).toHaveClass('2xl:hidden');
+    expect(navigationRows[1]).toHaveClass('border-t', '2xl:flex');
+  });
 });

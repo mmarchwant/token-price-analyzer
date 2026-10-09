@@ -9,6 +9,12 @@ import builtSnapshot from '../domain/__fixtures__/built-snapshot.json';
 
 const originalFetch = globalThis.fetch;
 
+function getCompactDesktopNavigation() {
+  const navigation = screen.getAllByRole('navigation', { name: 'Primary navigation' })[0];
+  if (!navigation) throw new Error('Expected compact desktop navigation to be rendered');
+  return navigation;
+}
+
 describe('App Shell', () => {
   beforeEach(async () => {
     window.location.hash = '#/';
@@ -44,14 +50,31 @@ describe('App Shell', () => {
     expect(screen.getByText('Skip to content')).toBeInTheDocument();
 
     // Nav links exist
-    expect(screen.getByRole('link', { name: 'Advisor' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Explorer' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Budget' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Subscriptions' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Compare' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'History' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Profiles' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Sources' })).toBeInTheDocument();
+    const compactDesktopNavigation = getCompactDesktopNavigation();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Advisor' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Explorer' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Budget' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Subscriptions' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Compare' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'History' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Profiles' }),
+    ).toBeInTheDocument();
+    expect(
+      within(compactDesktopNavigation).getByRole('link', { name: 'Sources' }),
+    ).toBeInTheDocument();
 
     // Default route redirects to Advisor page
     await waitFor(() => {
@@ -66,10 +89,14 @@ describe('App Shell', () => {
     render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByRole('link', { name: 'Explorer' })).toBeInTheDocument();
+      expect(
+        within(getCompactDesktopNavigation()).getByRole('link', { name: 'Explorer' }),
+      ).toBeInTheDocument();
     });
 
-    const explorerLink = screen.getByRole('link', { name: 'Explorer' });
+    const explorerLink = within(getCompactDesktopNavigation()).getByRole('link', {
+      name: 'Explorer',
+    });
     await user.click(explorerLink);
 
     await waitFor(() => {
