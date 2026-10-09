@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T11:25:07.368Z",
+  "generatedAt": "2026-10-09T11:22:01.298Z",
   "schemaVersion": 1,
   "modelCount": 358,
   "subscriptionCount": 20,
@@ -8,35 +8,35 @@
       "id": "openrouter",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-08T11:25:07.368Z",
+      "fetchedAt": "2026-10-09T11:22:01.298Z",
       "itemCount": 358
     },
     {
       "id": "litellm",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-08T11:25:07.368Z",
+      "fetchedAt": "2026-10-09T11:22:01.298Z",
       "itemCount": 112
     },
     {
       "id": "artificial-analysis",
       "ok": false,
       "skipped": true,
-      "fetchedAt": "2026-10-08T11:25:07.368Z",
+      "fetchedAt": "2026-10-09T11:22:01.298Z",
       "itemCount": 0
     },
     {
       "id": "frankfurter",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-08T11:25:07.368Z",
+      "fetchedAt": "2026-10-09T11:22:01.298Z",
       "itemCount": 3
     },
     {
       "id": "curated",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-08T11:25:07.368Z",
+      "fetchedAt": "2026-10-09T11:22:01.298Z",
       "itemCount": 30
     }
   ]
