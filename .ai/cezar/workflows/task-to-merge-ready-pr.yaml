@@ -25,16 +25,16 @@ steps:
       with a clear message.
   - id: review-and-fix
     name: review-and-fix
-    prompt: "Review the changes on the current branch against main for task:
+    prompt: 'Review the changes on the current branch against main for task:
       {{task}}. Use the model tier chosen for review. Apply fixes for every
       confirmed finding (use --fix), then re-run lint, typecheck, test and build
-      until they pass, and commit the fixes."
+      until they pass, and commit the fixes.'
   - id: pr-ci-and-conflicts
     name: pr-ci-and-conflicts
-    prompt: "Push the branch and open a ready (non-draft) pull request against main
+    prompt: 'Push the branch and open a ready (non-draft) pull request against main
       for task: {{task}}. Then drive it to merge-ready: wait for CI checks (gh
       pr checks --watch), fix any CI failures, merge latest main and resolve
       conflicts if needed, push, and repeat until CI is green and the PR is
       mergeable. Do not merge it. Report the PR URL and final status to the
-      user."
+      user.'
     skill: om-auto-fix-pr

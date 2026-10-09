@@ -95,9 +95,7 @@ describe('AdvisorPage component', () => {
     });
 
     expect(screen.getByRole('combobox', { name: 'Waluta budżetu' })).toBeInTheDocument();
-    expect(
-      screen.getByRole('slider', { name: 'Dzienne natężenie zadań: 1×' }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('slider', { name: 'Dzienne natężenie zadań: 1×' })).toBeInTheDocument();
   });
 
   it('provides accessible labels for currency and intensity controls', async () => {
