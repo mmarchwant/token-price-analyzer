@@ -11,20 +11,12 @@ import type { Currency } from '../../domain/types';
 
 export function TokenIcon({ className = 'h-6 w-6' }: { className?: string }) {
   return (
-    <svg
+    <img
       className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      src={`${import.meta.env.BASE_URL}favicon.svg`}
+      alt=""
       aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 6v12" />
-      <path d="M15 9.5a2.5 2.5 0 0 0-5 0c0 1.5 2 2.5 3 3.5s2 2 2 3.5a2.5 2.5 0 0 1-5 0" />
-    </svg>
+    />
   );
 }
 
@@ -198,6 +190,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     </>
   );
 
+  const renderNavigation = (className: string) => (
+    <nav aria-label={t('navigation.primary')} className={className}>
+      {routes.map((route) => (
+        <NavLink
+          key={route.path}
+          to={route.path}
+          className={({ isActive }) =>
+            `px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+              isActive
+                ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-semibold'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60'
+            }`
+          }
+          end
+        >
+          {({ isActive }) => (
+            <span aria-current={isActive ? 'page' : undefined}>{t(`nav.${route.navKey}`)}</span>
+          )}
+        </NavLink>
+      ))}
+    </nav>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       {/* Skip to Content */}
@@ -225,29 +240,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden xl:flex items-center gap-1">
-              {routes.map((route) => (
-                <NavLink
-                  key={route.path}
-                  to={route.path}
-                  className={({ isActive }) =>
-                    `px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
-                      isActive
-                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 font-semibold'
-                        : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/60'
-                    }`
-                  }
-                  end
-                >
-                  {({ isActive }) => (
-                    <span aria-current={isActive ? 'page' : undefined}>
-                      {t(`nav.${route.navKey}`)}
-                    </span>
-                  )}
-                </NavLink>
-              ))}
-            </nav>
+            {/* Desktop navigation remains visible at xl; utility controls stay in the menu. */}
+            {renderNavigation('hidden xl:flex 2xl:hidden items-center gap-1')}
 
             {/* Header Controls & Data Status */}
             <div className="flex items-center gap-2">
@@ -293,6 +287,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </button>
             </div>
           </div>
+
+          {/* At wide widths, destinations get their own row instead of competing with settings. */}
+          {renderNavigation(
+            'hidden 2xl:flex items-center gap-1 border-t border-zinc-200 py-2 dark:border-zinc-800',
+          )}
         </div>
 
         {/* Mobile Disclosure Panel */}
