@@ -62,6 +62,7 @@ describe('AppLayout mobile menu focus', () => {
 
   it('updates the global model intent from the settings control', async () => {
     const user = userEvent.setup();
+
     render(
       <MemoryRouter>
         <AppLayout>
@@ -74,5 +75,37 @@ describe('AppLayout mobile menu focus', () => {
     await user.selectOptions(intentSelect, 'coding');
 
     expect(useSettingsStore.getState().modelIntent).toBe('coding');
+  });
+
+  it('puts wide-screen destinations in a separate navigation row', () => {
+    render(
+      <MemoryRouter>
+        <AppLayout>
+          <h1>Page title</h1>
+        </AppLayout>
+      </MemoryRouter>,
+    );
+
+    const navigationRows = screen.getAllByRole('navigation', {
+      name: 'Primary navigation',
+      hidden: true,
+    });
+
+    expect(navigationRows).toHaveLength(2);
+    expect(navigationRows[0]).toHaveClass('2xl:hidden');
+    expect(navigationRows[1]).toHaveClass('border-t', '2xl:flex');
+  });
+
+  it('uses the browser favicon as the app title mark', () => {
+    render(
+      <MemoryRouter>
+        <AppLayout>
+          <h1>Page title</h1>
+        </AppLayout>
+      </MemoryRouter>,
+    );
+
+    const appTitle = screen.getByRole('link', { name: 'Token Price Analyzer' });
+    expect(appTitle.querySelector('img')).toHaveAttribute('src', '/favicon.svg');
   });
 });

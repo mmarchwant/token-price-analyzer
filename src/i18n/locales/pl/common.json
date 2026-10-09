@@ -10,6 +10,9 @@
     "profiles": "Profile",
     "sources": "Źródła"
   },
+  "navigation": {
+    "primary": "Główna nawigacja"
+  },
   "settings": {
     "language": "Język",
     "currency": "Waluta",

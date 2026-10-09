@@ -10,6 +10,9 @@
     "profiles": "Profiles",
     "sources": "Sources"
   },
+  "navigation": {
+    "primary": "Primary navigation"
+  },
   "settings": {
     "language": "Language",
     "currency": "Currency",
