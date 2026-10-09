@@ -12,10 +12,12 @@ import {
 } from 'recharts';
 import { Card, CardContent, ErrorState, PageHeader, Skeleton } from '../../components/ui';
 import { useHistoryIndexQuery, usePriceHistoryQuery } from '../../data/history';
+import { useMoney } from '../../data/hooks';
 import { historyChartPoints, historyItems, percentChange, type HistoryKind } from './historyView';
 
 export default function HistoryPage() {
-  const { t, i18n } = useTranslation('history');
+  const { t } = useTranslation('history');
+  const { currency, fmtPerMTok } = useMoney();
   const indexQuery = useHistoryIndexQuery();
   const years = indexQuery.data?.years ?? [];
   const [year, setYear] = useState<number>();
@@ -36,8 +38,6 @@ export default function HistoryPage() {
   );
   const first = chartPoints[0];
   const last = chartPoints.at(-1);
-  const locale = i18n.language?.startsWith('pl') ? 'pl-PL' : 'en-US';
-  const number = (value: number) => value.toLocaleString(locale, { maximumFractionDigits: 4 });
   const change =
     kind === 'models'
       ? percentChange(first?.input, last?.input)
@@ -153,10 +153,14 @@ export default function HistoryPage() {
                     >
                       <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                       <XAxis dataKey="date" fontSize={11} />
-                      <YAxis fontSize={11} tickFormatter={number} width={70} />
+                      <YAxis
+                        fontSize={11}
+                        tickFormatter={(value) => fmtPerMTok(Number(value))}
+                        width={70}
+                      />
                       <Tooltip
                         formatter={(value: unknown) =>
-                          typeof value === 'number' ? number(value) : '—'
+                          typeof value === 'number' ? fmtPerMTok(value) : '—'
                         }
                       />
                       <Legend />
@@ -192,7 +196,9 @@ export default function HistoryPage() {
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">{t('unitNote')}</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                  {t('unitNote', { currency })}
+                </p>
               </>
             ) : null}
           </CardContent>

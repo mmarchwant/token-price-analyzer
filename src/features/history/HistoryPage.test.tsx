@@ -4,6 +4,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import i18n from '../../i18n';
 import HistoryPage from './HistoryPage';
 
+const fmtPerMTok = vi.fn((value: number) => `formatted:${value}`);
+
+vi.mock('../../data/hooks', () => ({
+  useMoney: () => ({ currency: 'PLN', fmtPerMTok }),
+}));
+
 const originalFetch = globalThis.fetch;
 
 function renderPage() {
@@ -32,6 +38,7 @@ afterEach(() => {
 
 beforeEach(async () => {
   await i18n.changeLanguage('en');
+  fmtPerMTok.mockClear();
 });
 
 describe('HistoryPage', () => {
@@ -80,6 +87,7 @@ describe('HistoryPage', () => {
 
     expect(await screen.findByRole('option', { name: 'acme/model' })).toBeInTheDocument();
     expect(screen.getByText('-50.0%')).toBeInTheDocument();
+    expect(screen.getByText(/Prices are displayed in PLN/)).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText('Category'), { target: { value: 'subscriptions' } });
 

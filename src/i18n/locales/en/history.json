@@ -21,7 +21,7 @@
     "output": "Output / 1M tokens",
     "subscription": "Monthly price"
   },
-  "unitNote": "Prices are shown in USD. API prices are per 1M tokens.",
+  "unitNote": "Prices are displayed in {{currency}} using current exchange rates and your selected VAT. API prices are per 1M tokens.",
   "empty": "No price history has been recorded yet.",
   "emptyCategory": "No entries were recorded for this category and year.",
   "errors": {

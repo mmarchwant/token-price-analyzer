@@ -21,7 +21,7 @@
     "output": "Wyjście / 1 mln tokenów",
     "subscription": "Cena miesięczna"
   },
-  "unitNote": "Ceny są podane w USD. Ceny API dotyczą 1 mln tokenów.",
+  "unitNote": "Ceny są wyświetlane w walucie {{currency}} z użyciem bieżących kursów i wybranego VAT. Ceny API dotyczą 1 mln tokenów.",
   "empty": "Nie zarejestrowano jeszcze historii cen.",
   "emptyCategory": "Brak zapisów dla tej kategorii i roku.",
   "errors": {
