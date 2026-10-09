@@ -3,6 +3,10 @@
   "subtitle": "Porównaj miesięczne pakiety subskrypcyjne z opłatami za API",
   "copyLink": "Kopiuj link",
   "linkCopied": "Skopiowano link!",
+  "copyModelName": "Kopiuj nazwę modelu {{name}}",
+  "modelNameCopied": "Nazwa modelu skopiowana",
+  "copyPlanName": "Kopiuj nazwę pakietu {{name}}",
+  "planNameCopied": "Nazwa pakietu skopiowana",
   "filter": {
     "activeHours": "Aktywne godziny pracy / dzień",
     "maxPrice": "Maksymalna cena ({{currency}})",

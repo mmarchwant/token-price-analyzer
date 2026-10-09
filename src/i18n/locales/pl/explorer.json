@@ -1,6 +1,8 @@
 {
   "title": "Eksplorator Modeli",
   "subtitle": "Przeglądaj kanoniczne modele i ich aktualnie dostępne oferty",
+  "copyModelName": "Kopiuj nazwę modelu {{name}}",
+  "modelNameCopied": "Nazwa modelu skopiowana",
   "searchLabel": "Szukaj modeli",
   "searchPlaceholder": "Szukaj po modelu lub dostawcy",
   "searchHelp": "Wyszukiwanie jest zapisane w adresie strony.",

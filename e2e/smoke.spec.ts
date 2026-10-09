@@ -34,18 +34,19 @@ test.describe('App Shell E2E Smoke Tests', () => {
     await page.goto('/');
 
     await page.getByRole('button', { name: 'Open main menu' }).click();
-    const langSelect = page.getByRole('combobox', { name: 'Language' });
+    const menu = page.getByRole('region', { name: 'Main menu' });
+    const langSelect = menu.getByRole('combobox', { name: 'Language' });
     await langSelect.selectOption('pl');
 
-    await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Eksplorator' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Doradca', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Eksplorator', exact: true })).toBeVisible();
     await expect(page).toHaveTitle(/(Co kupić w tym miesiącu\?|Doradca AI) · Token Price Analyzer/);
 
     // Reload page
     await page.reload();
 
-    await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Eksplorator' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Doradca', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Eksplorator', exact: true })).toBeVisible();
   });
 
   test('header does not overflow and keeps controls reachable at supported widths', async ({
@@ -63,15 +64,16 @@ test.describe('App Shell E2E Smoke Tests', () => {
       if (width < 1536) {
         const menuButton = page.getByRole('button', { name: 'Open main menu' });
         await menuButton.click();
+        const menu = page.getByRole('region', { name: 'Main menu' });
         await expect(page.getByRole('button', { name: 'Close main menu' })).toHaveAttribute(
           'aria-expanded',
           'true',
         );
-        await expect(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
-        await expect(page.getByRole('combobox', { name: 'Currency' })).toBeVisible();
-        await expect(page.getByRole('combobox', { name: 'Theme' })).toBeVisible();
-        await expect(page.getByRole('combobox', { name: 'VAT' })).toBeVisible();
-        await expect(page.getByRole('switch', { name: 'Live prices' })).toBeVisible();
+        await expect(menu.getByRole('combobox', { name: 'Language' })).toBeVisible();
+        await expect(menu.getByRole('combobox', { name: 'Currency' })).toBeVisible();
+        await expect(menu.getByRole('combobox', { name: 'Theme' })).toBeVisible();
+        await expect(menu.getByRole('combobox', { name: 'VAT' })).toBeVisible();
+        await expect(menu.getByRole('switch', { name: 'Live prices' })).toBeVisible();
         if (width >= 1280) {
           await expect(page.getByRole('link', { name: 'Advisor' })).toBeVisible();
         }
@@ -86,7 +88,9 @@ test.describe('App Shell E2E Smoke Tests', () => {
         )
         .toBe(true);
 
-      const language = page.getByRole('combobox', { name: 'Language' });
+      const language = page
+        .getByRole('region', { name: 'Main menu' })
+        .getByRole('combobox', { name: 'Language' });
       await language.selectOption('pl');
       await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
       await expect

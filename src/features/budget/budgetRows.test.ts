@@ -188,6 +188,29 @@ describe('buildBudgetRows', () => {
     expect(freeRow?.workDays).toBe(Number.POSITIVE_INFINITY);
     expect(freeRow?.coverageOfMonth).toBe(1);
   });
+
+  it('only includes models scored for the active profile dimension', () => {
+    const rows = buildBudgetRows({
+      models: [
+        sampleModels[0]!,
+        {
+          ...sampleModels[1]!,
+          id: 'coding-model',
+          quality: { intelligence: 40, coding: 91, tier: 'A', source: 'manual' },
+        },
+      ],
+      profile: { ...sampleProfile, qualityDimension: 'coding' },
+      budgetUsd: 20,
+      fees: sampleFees,
+      includeFree: false,
+      includeBatch: false,
+      applyFees: true,
+    });
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0]?.model.id).toBe('coding-model');
+    expect(rows[0]?.quality).toBe(91);
+  });
 });
 
 describe('pickHighlights', () => {

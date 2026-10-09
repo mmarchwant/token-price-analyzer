@@ -8,6 +8,7 @@ import { queryClient } from '../../data/queryClient';
 import builtSnapshot from '../../domain/__fixtures__/built-snapshot.json';
 
 const originalFetch = globalThis.fetch;
+const originalClipboard = navigator.clipboard;
 
 describe('BudgetPage component', () => {
   beforeEach(async () => {
@@ -30,6 +31,10 @@ describe('BudgetPage component', () => {
 
   afterEach(() => {
     globalThis.fetch = originalFetch;
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: originalClipboard,
+    });
     vi.restoreAllMocks();
   });
 
@@ -124,10 +129,8 @@ describe('BudgetPage component', () => {
     expect(screen.getAllByRole('button', { name: /Sort / })).toHaveLength(8);
     expect(document.querySelectorAll('th[aria-sort]').length).toBe(1);
 
-    await user.tab();
-    while (document.activeElement !== workDaysButton) {
-      await user.tab();
-    }
+    workDaysButton.focus();
+    expect(workDaysButton).toHaveFocus();
     await user.keyboard('{Enter}');
 
     expect(workDaysHeader).toHaveAttribute('aria-sort', 'ascending');
@@ -153,5 +156,23 @@ describe('BudgetPage component', () => {
       screen.getByRole('button', { name: 'Sortuj Dni pracy rosnąco' }).closest('th'),
     ).toHaveTextContent('↓ malejąco');
     expect(screen.getByRole('button', { name: 'Subskrypcje vs API' })).toBeInTheDocument();
+  });
+
+  it('offers an accessible copy control next to visible model names', async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText },
+    });
+
+    await navigateToBudget();
+
+    const copyButtons = screen.getAllByRole('button', { name: /Copy .+ model name/ });
+    expect(copyButtons.length).toBeGreaterThan(0);
+    await user.click(copyButtons[0]!);
+
+    expect(writeText).toHaveBeenCalledWith(expect.any(String));
+    expect(screen.getByText('Model name copied')).toBeInTheDocument();
   });
 });

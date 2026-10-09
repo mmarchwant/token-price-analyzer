@@ -14,6 +14,7 @@ import {
   ErrorState,
 } from '../../components/ui';
 import { ShareButton } from '../../components/ShareButton';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
@@ -24,7 +25,7 @@ import { decodeProfile, encodeProfile } from './profileShare';
 import { monthlyTasks } from '../../domain/pricing';
 
 export default function ProfilesPage() {
-  const { t, i18n } = useTranslation('profiles');
+  const { t, i18n } = useTranslation(['profiles', 'common']);
   const lang = (i18n.language || 'en').startsWith('pl') ? 'pl' : 'en';
 
   const { profiles, models } = useAppData();
@@ -888,8 +889,17 @@ export default function ProfilesPage() {
                       </span>
                       {previewReferences.bestQuality ? (
                         <>
-                          <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 mt-1 truncate">
-                            {previewReferences.bestQuality.model.name}
+                          <div className="mt-1 flex items-center gap-1">
+                            <div className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                              {previewReferences.bestQuality.model.name}
+                            </div>
+                            <CopyNameButton
+                              text={previewReferences.bestQuality.model.name}
+                              ariaLabel={t('common:actions.copyModelName', {
+                                name: previewReferences.bestQuality.model.name,
+                              })}
+                              copiedLabel={t('common:actions.modelNameCopied')}
+                            />
                           </div>
                           <div className="text-xs text-zinc-500">
                             {previewReferences.bestQuality.model.providerName}
@@ -925,8 +935,17 @@ export default function ProfilesPage() {
                       </span>
                       {previewReferences.bestValue ? (
                         <>
-                          <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 mt-1 truncate">
-                            {previewReferences.bestValue.model.name}
+                          <div className="mt-1 flex items-center gap-1">
+                            <div className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                              {previewReferences.bestValue.model.name}
+                            </div>
+                            <CopyNameButton
+                              text={previewReferences.bestValue.model.name}
+                              ariaLabel={t('common:actions.copyModelName', {
+                                name: previewReferences.bestValue.model.name,
+                              })}
+                              copiedLabel={t('common:actions.modelNameCopied')}
+                            />
                           </div>
                           <div className="text-xs text-zinc-500">
                             {previewReferences.bestValue.model.providerName}
@@ -962,8 +981,17 @@ export default function ProfilesPage() {
                       </span>
                       {previewReferences.cheapestPaid ? (
                         <>
-                          <div className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 mt-1 truncate">
-                            {previewReferences.cheapestPaid.model.name}
+                          <div className="mt-1 flex items-center gap-1">
+                            <div className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                              {previewReferences.cheapestPaid.model.name}
+                            </div>
+                            <CopyNameButton
+                              text={previewReferences.cheapestPaid.model.name}
+                              ariaLabel={t('common:actions.copyModelName', {
+                                name: previewReferences.cheapestPaid.model.name,
+                              })}
+                              copiedLabel={t('common:actions.modelNameCopied')}
+                            />
                           </div>
                           <div className="text-xs text-zinc-500">
                             {previewReferences.cheapestPaid.model.providerName}

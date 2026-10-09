@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { REPO_URL, newIssueUrl } from '../../app/config';
 import type { SourceId, SourceStatus } from '../../domain/types';
@@ -20,7 +21,7 @@ const KNOWN_SOURCES: {
 ];
 
 export default function SourcesPage() {
-  const { t, i18n } = useTranslation('sources');
+  const { t, i18n } = useTranslation(['sources', 'common']);
   const { snapshot } = useAppData();
   const [unmatchedSearch, setUnmatchedSearch] = useState('');
   const [unmatchedSourceFilter, setUnmatchedSourceFilter] = useState<string>('all');
@@ -200,7 +201,14 @@ export default function SourcesPage() {
                         {plan.providerName}
                       </td>
                       <td className="py-2.5 px-3 font-semibold text-zinc-900 dark:text-zinc-100">
-                        {plan.name}
+                        <span className="inline-flex items-center gap-1">
+                          {plan.name}
+                          <CopyNameButton
+                            text={plan.name}
+                            ariaLabel={t('common:actions.copyPlanName', { name: plan.name })}
+                            copiedLabel={t('common:actions.planNameCopied')}
+                          />
+                        </span>
                       </td>
                       <td className="py-2.5 px-3 font-mono text-xs">${plan.priceUsdMonthly}/mo</td>
                       <td className="py-2.5 px-3">

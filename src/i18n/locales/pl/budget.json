@@ -3,6 +3,8 @@
   "subtitle": "Jak długo poszczególne modele mogą pracować za Twoje pieniądze?",
   "copyLink": "Kopiuj link",
   "linkCopied": "Skopiowano link!",
+  "copyModelName": "Kopiuj nazwę modelu {{name}}",
+  "modelNameCopied": "Nazwa modelu skopiowana",
   "budgetLabel": "Budżet miesięczny",
   "currencyLabel": "Waluta",
   "profileLabel": "Profil użycia",

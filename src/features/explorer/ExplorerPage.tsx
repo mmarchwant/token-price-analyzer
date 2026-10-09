@@ -11,6 +11,7 @@ import {
   Spinner,
 } from '../../components/ui';
 import { ShareButton } from '../../components/ShareButton';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
 import { stringCodec, useUrlState } from '../../state/urlState';
@@ -94,9 +95,16 @@ export default function ExplorerPage() {
               <Card key={model.id}>
                 <CardContent className="space-y-4">
                   <div>
-                    <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
-                      {model.name}
-                    </h2>
+                    <div className="flex items-center gap-1">
+                      <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                        {model.name}
+                      </h2>
+                      <CopyNameButton
+                        text={model.name}
+                        ariaLabel={t('copyModelName', { name: model.name })}
+                        copiedLabel={t('modelNameCopied')}
+                      />
+                    </div>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400">{model.providerName}</p>
                     {model.description && (
                       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
