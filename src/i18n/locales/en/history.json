@@ -1,5 +1,31 @@
 {
   "title": "Price History",
-  "subtitle": "Track historical price trends and changes over time",
-  "comingSoon": "Price History feature is coming soon."
+  "subtitle": "Track historical API and subscription price changes over time",
+  "controls": {
+    "year": "Year",
+    "category": "Category",
+    "item": "Model or plan"
+  },
+  "categories": {
+    "models": "API models",
+    "subscriptions": "Subscriptions"
+  },
+  "stats": {
+    "firstSeen": "First recorded point",
+    "lastUpdated": "Last price change",
+    "change": "Change from first price"
+  },
+  "chart": {
+    "ariaLabel": "Price history chart for {{item}}",
+    "input": "Input / 1M tokens",
+    "output": "Output / 1M tokens",
+    "subscription": "Monthly price"
+  },
+  "unitNote": "Prices are shown in USD. API prices are per 1M tokens.",
+  "empty": "No price history has been recorded yet.",
+  "emptyCategory": "No entries were recorded for this category and year.",
+  "errors": {
+    "index": "Price history index could not be loaded.",
+    "year": "Price history for this year could not be loaded."
+  }
 }
