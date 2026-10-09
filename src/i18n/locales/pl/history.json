@@ -1,5 +1,31 @@
 {
   "title": "Historia Cen",
-  "subtitle": "Śledź historyczne trendy cenowe i zmiany na przestrzeni czasu",
-  "comingSoon": "Funkcja Historii Cen będzie dostępna wkrótce."
+  "subtitle": "Śledź historyczne zmiany cen API i subskrypcji",
+  "controls": {
+    "year": "Rok",
+    "category": "Kategoria",
+    "item": "Model lub plan"
+  },
+  "categories": {
+    "models": "Modele API",
+    "subscriptions": "Subskrypcje"
+  },
+  "stats": {
+    "firstSeen": "Pierwszy zapis",
+    "lastUpdated": "Ostatnia zmiana ceny",
+    "change": "Zmiana względem pierwszej ceny"
+  },
+  "chart": {
+    "ariaLabel": "Wykres historii cen dla {{item}}",
+    "input": "Wejście / 1 mln tokenów",
+    "output": "Wyjście / 1 mln tokenów",
+    "subscription": "Cena miesięczna"
+  },
+  "unitNote": "Ceny są wyświetlane w walucie {{currency}} z użyciem bieżących kursów i wybranego VAT. Ceny API dotyczą 1 mln tokenów.",
+  "empty": "Nie zarejestrowano jeszcze historii cen.",
+  "emptyCategory": "Brak zapisów dla tej kategorii i roku.",
+  "errors": {
+    "index": "Nie udało się wczytać indeksu historii cen.",
+    "year": "Nie udało się wczytać historii cen dla tego roku."
+  }
 }
