@@ -7,7 +7,7 @@ import { useApplyTheme } from '../../hooks/useApplyTheme';
 import { DataStatus } from './DataStatus';
 import { Toggle } from '../ui/Toggle';
 import { NumberInput } from '../ui/NumberInput';
-import type { Currency } from '../../domain/types';
+import type { Currency, ModelIntent } from '../../domain/types';
 
 export function TokenIcon({ className = 'h-6 w-6' }: { className?: string }) {
   return (
@@ -34,11 +34,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const theme = useSettingsStore((state) => state.theme);
   const vatRatePct = useSettingsStore((state) => state.vatRatePct);
   const liveRefresh = useSettingsStore((state) => state.liveRefresh);
+  const modelIntent = useSettingsStore((state) => state.modelIntent);
 
   const setCurrency = useSettingsStore((state) => state.setCurrency);
   const setTheme = useSettingsStore((state) => state.setTheme);
   const setVatRatePct = useSettingsStore((state) => state.setVatRatePct);
   const setLiveRefresh = useSettingsStore((state) => state.setLiveRefresh);
+  const setModelIntent = useSettingsStore((state) => state.setModelIntent);
 
   const isCustomVat = !PRESET_VAT_RATES.includes(vatRatePct);
 
@@ -104,6 +106,25 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const renderSettings = (idPrefix: string) => (
     <>
+      <div className="flex items-center gap-1">
+        <label htmlFor={`${idPrefix}-model-intent-select`} className="sr-only">
+          {t('settings.modelIntent')}
+        </label>
+        <select
+          id={`${idPrefix}-model-intent-select`}
+          value={modelIntent}
+          onChange={(event) => setModelIntent(event.target.value as ModelIntent)}
+          className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs font-semibold text-zinc-800 shadow-xs focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 cursor-pointer"
+          aria-label={t('settings.modelIntent')}
+        >
+          <option value="all">{t('settings.modelIntentAll')}</option>
+          <option value="text-reasoning">{t('settings.modelIntentTextReasoning')}</option>
+          <option value="coding">{t('settings.modelIntentCoding')}</option>
+          <option value="agents">{t('settings.modelIntentAgents')}</option>
+          <option value="image-generation">{t('settings.modelIntentImageGeneration')}</option>
+          <option value="video-generation">{t('settings.modelIntentVideoGeneration')}</option>
+        </select>
+      </div>
       <div className="flex items-center gap-1">
         <label htmlFor={`${idPrefix}-vat-select`} className="sr-only">
           {t('settings.vat')}

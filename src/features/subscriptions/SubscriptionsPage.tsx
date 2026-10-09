@@ -18,6 +18,7 @@ import {
   useUrlState,
 } from '../../state/urlState';
 import { useSettingsStore } from '../../state/settings';
+import { filterModelsByIntent, matchesPlanIntent } from '../../domain/model-intent';
 import { BreakEvenChart } from './BreakEvenChart';
 import { SubscriptionCard } from './SubscriptionCard';
 
@@ -32,6 +33,11 @@ export default function SubscriptionsPage() {
   const setActiveHoursPerDay = useSettingsStore((state) => state.setActiveHoursPerDay);
   const includeFree = useSettingsStore((state) => state.includeFreeModels);
   const includeBatch = useSettingsStore((state) => state.includeBatchOffers);
+  const modelIntent = useSettingsStore((state) => state.modelIntent);
+  const visibleModels = useMemo(
+    () => filterModelsByIntent(models, modelIntent),
+    [models, modelIntent],
+  );
 
   // URL state
   const [maxPrice, setMaxPrice] = useUrlState('maxPrice', numberCodec({ min: 0 }), 0);
@@ -85,7 +91,7 @@ export default function SubscriptionsPage() {
       qualityVal: number;
     }[] = [];
 
-    for (const model of models) {
+    for (const model of visibleModels) {
       const offer = selectOffer(model, task, { includeFree, includeBatch });
       if (!offer) continue;
 
@@ -101,7 +107,7 @@ export default function SubscriptionsPage() {
     }
 
     return list;
-  }, [models, task, includeFree, includeBatch, profile.qualityDimension]);
+  }, [visibleModels, task, includeFree, includeBatch, profile.qualityDimension]);
 
   // Pareto frontier for API models
   const paretoSet = useMemo(() => {
@@ -137,6 +143,7 @@ export default function SubscriptionsPage() {
   // Filter plans
   const filteredPlans = useMemo(() => {
     return subscriptions.filter((plan) => {
+      if (!matchesPlanIntent(plan, models, modelIntent)) return false;
       // Agent filter
       if (agentOnly && plan.features.codingAgents.length === 0) {
         return false;
@@ -162,7 +169,18 @@ export default function SubscriptionsPage() {
 
       return true;
     });
-  }, [subscriptions, agentOnly, publishedOnly, providers, maxPrice, currency, fx, isVatApplied]);
+  }, [
+    subscriptions,
+    models,
+    modelIntent,
+    agentOnly,
+    publishedOnly,
+    providers,
+    maxPrice,
+    currency,
+    fx,
+    isVatApplied,
+  ]);
 
   // Group plans in price bands based on priceUsdMonthly
   const priceBands = useMemo(() => {
@@ -223,10 +241,10 @@ export default function SubscriptionsPage() {
 
   // Best covered plan for Verdict
   const verdictResult = useMemo(() => {
-    if (subscriptions.length === 0 || !cheapestParetoModel) return null;
+    if (filteredPlans.length === 0 || !cheapestParetoModel) return null;
 
-    const candidatePlans = subscriptions.filter((p) => p.priceUsdMonthly <= 25);
-    const bestPlan = candidatePlans[0] || subscriptions[0];
+    const candidatePlans = filteredPlans.filter((p) => p.priceUsdMonthly <= 25);
+    const bestPlan = candidatePlans[0] || filteredPlans[0];
     if (!bestPlan) return null;
 
     const primaryModel = models.find((m) => m.id === bestPlan.primaryModelId);
@@ -252,7 +270,7 @@ export default function SubscriptionsPage() {
       demandTasks,
       profile,
     });
-  }, [subscriptions, cheapestParetoModel, models, task, profile, demandTasks]);
+  }, [filteredPlans, cheapestParetoModel, models, task, profile, demandTasks]);
 
   const cheapestCostMonthly = cheapestParetoModel
     ? demandTasks * cheapestParetoModel.costPerTaskVal

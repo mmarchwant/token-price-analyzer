@@ -7,6 +7,7 @@ import {
   ModelAliasSchema,
   ModelAliasesFileSchema,
   ModelEntrySchema,
+  ModelIntentSchema,
   PriceOfferSchema,
   QualityDimensionSchema,
   QualityOverrideSchema,
@@ -37,6 +38,7 @@ export type QualityTier = z.infer<typeof QualityTierSchema>;
 export type QualityScores = z.infer<typeof QualityScoresSchema>;
 export type Speed = z.infer<typeof SpeedSchema>;
 export type ModelEntry = z.infer<typeof ModelEntrySchema>;
+export type ModelIntent = z.infer<typeof ModelIntentSchema>;
 export type QualityDimension = z.infer<typeof QualityDimensionSchema>;
 export type UsageProfile = z.infer<typeof UsageProfileSchema>;
 export type SubscriptionLimit = z.infer<typeof SubscriptionLimitSchema>;

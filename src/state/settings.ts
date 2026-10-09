@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist, StateStorage } from 'zustand/middleware';
-import type { Currency, UsageProfile } from '../domain/types';
+import type { Currency, ModelIntent, UsageProfile } from '../domain/types';
 
 export interface SettingsValue {
   currency: Currency;
@@ -13,6 +13,7 @@ export interface SettingsValue {
   includeFreeModels: boolean;
   includeBatchOffers: boolean;
   liveRefresh: boolean;
+  modelIntent: ModelIntent;
 }
 
 export interface SettingsState extends SettingsValue {
@@ -26,6 +27,7 @@ export interface SettingsState extends SettingsValue {
   setIncludeFreeModels: (include: boolean) => void;
   setIncludeBatchOffers: (include: boolean) => void;
   setLiveRefresh: (refresh: boolean) => void;
+  setModelIntent: (intent: ModelIntent) => void;
 
   upsertCustomProfile: (profile: UsageProfile) => void;
   deleteCustomProfile: (id: string) => void;
@@ -85,6 +87,7 @@ export function getDefaultSettings(): SettingsValue {
     includeFreeModels: true,
     includeBatchOffers: false,
     liveRefresh: true,
+    modelIntent: 'all',
   };
 }
 
@@ -103,6 +106,7 @@ export const useSettingsStore = create<SettingsState>()(
       setIncludeFreeModels: (includeFreeModels) => set({ includeFreeModels }),
       setIncludeBatchOffers: (includeBatchOffers) => set({ includeBatchOffers }),
       setLiveRefresh: (liveRefresh) => set({ liveRefresh }),
+      setModelIntent: (modelIntent) => set({ modelIntent }),
 
       upsertCustomProfile: (profile) =>
         set((state) => {

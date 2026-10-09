@@ -14,6 +14,8 @@ import { ShareButton } from '../../components/ShareButton';
 import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
+import { filterModelsByIntent } from '../../domain/model-intent';
+import { useSettingsStore } from '../../state/settings';
 import { stringCodec, useUrlState } from '../../state/urlState';
 import { filterExplorerModels } from './explorerModels';
 
@@ -27,9 +29,13 @@ const channelKeys = {
 export default function ExplorerPage() {
   const { t } = useTranslation(['explorer', 'common']);
   const { models, status, error, retry } = useAppData();
+  const modelIntent = useSettingsStore((state) => state.modelIntent);
   const { fmtPerMTok } = useMoney();
   const [search, setSearch] = useUrlState('search', stringCodec, '');
-  const matchingModels = useMemo(() => filterExplorerModels(models, search), [models, search]);
+  const matchingModels = useMemo(
+    () => filterExplorerModels(filterModelsByIntent(models, modelIntent), search),
+    [models, modelIntent, search],
+  );
   const hasSearch = search.trim().length > 0;
 
   return (

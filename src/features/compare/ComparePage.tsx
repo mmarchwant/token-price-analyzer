@@ -8,6 +8,7 @@ import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
+import { filterModelsByIntent, matchesPlanIntent } from '../../domain/model-intent';
 import { listCodec, stringCodec, useUrlState } from '../../state/urlState';
 import {
   buildCompareHref,
@@ -31,6 +32,15 @@ export default function ComparePage() {
   const profile = useActiveProfile();
   const { currency, isVatApplied } = useMoney();
   const settingsActiveHours = useSettingsStore((s) => s.activeHoursPerDay);
+  const modelIntent = useSettingsStore((s) => s.modelIntent);
+  const visibleModels = useMemo(
+    () => filterModelsByIntent(models, modelIntent),
+    [models, modelIntent],
+  );
+  const visibleSubscriptions = useMemo(
+    () => subscriptions.filter((plan) => matchesPlanIntent(plan, models, modelIntent)),
+    [subscriptions, models, modelIntent],
+  );
 
   const activeFx = useMemo(() => {
     return fx || { base: 'USD', rates: { USD: 1, EUR: 0.92, PLN: 4.2 } };
@@ -89,7 +99,7 @@ export default function ComparePage() {
 
     const q = query.toLowerCase().trim();
 
-    const candidateModels = models
+    const candidateModels = visibleModels
       .filter((m) => {
         const isAlreadyIn = refs.some((r) => r.kind === 'model' && r.id === m.id);
         if (isAlreadyIn) return false;
@@ -97,7 +107,7 @@ export default function ComparePage() {
       })
       .slice(0, 5);
 
-    const candidatePlans = subscriptions
+    const candidatePlans = visibleSubscriptions
       .filter((p) => {
         const isAlreadyIn = refs.some((r) => r.kind === 'plan' && r.id === p.id);
         if (isAlreadyIn) return false;
@@ -106,7 +116,7 @@ export default function ComparePage() {
       .slice(0, 5);
 
     return { candidateModels, candidatePlans };
-  }, [models, subscriptions, refs, query]);
+  }, [visibleModels, visibleSubscriptions, refs, query]);
 
   const allCandidateOptions = useMemo(() => {
     const options: { ref: CompareRef; label: string; group: 'model' | 'plan' }[] = [];
@@ -176,7 +186,7 @@ export default function ComparePage() {
   // Popular suggestions for empty state
   const popularSuggestions = useMemo(() => {
     // Top 2 models by quality
-    const sortedModels = [...models].sort((a, b) => {
+    const sortedModels = [...visibleModels].sort((a, b) => {
       const qA = qualityScore(a, profile.qualityDimension) ?? 0;
       const qB = qualityScore(b, profile.qualityDimension) ?? 0;
       return qB - qA;
@@ -184,13 +194,13 @@ export default function ComparePage() {
     const topModels = sortedModels.slice(0, 2);
 
     // Top 2 cheapest plans <= $25
-    const cheapPlans = subscriptions
+    const cheapPlans = visibleSubscriptions
       .filter((p) => p.priceUsdMonthly <= 25)
       .sort((a, b) => a.priceUsdMonthly - b.priceUsdMonthly)
       .slice(0, 2);
 
     return { topModels, cheapPlans };
-  }, [models, subscriptions, profile]);
+  }, [visibleModels, visibleSubscriptions, profile]);
 
   // Table rows
   const tableRows = useMemo(() => {

@@ -14,6 +14,7 @@ import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
+import { filterModelsByIntent, matchesPlanIntent } from '../../domain/model-intent';
 import {
   booleanCodec,
   enumCodec,
@@ -173,6 +174,7 @@ export default function AdvisorPage() {
   const { models, subscriptions, profiles, fees } = useAppData();
 
   const settingsBudget = useSettingsStore((s) => s.budget);
+  const modelIntent = useSettingsStore((s) => s.modelIntent);
   const settingsActiveHours = useSettingsStore((s) => s.activeHoursPerDay);
   const setSettingsBudget = useSettingsStore((s) => s.setBudget);
 
@@ -280,7 +282,15 @@ export default function AdvisorPage() {
         includeFree,
         preferFlexibility,
       };
-      const recs = advise(input, { models, subscriptions, channelFees: fees });
+      const visibleModels = filterModelsByIntent(models, modelIntent);
+      const visibleSubscriptions = subscriptions.filter((plan) =>
+        matchesPlanIntent(plan, models, modelIntent),
+      );
+      const recs = advise(input, {
+        models: visibleModels,
+        subscriptions: visibleSubscriptions,
+        channelFees: fees,
+      });
       setRecommendations(recs);
     }, 200);
 
@@ -295,6 +305,7 @@ export default function AdvisorPage() {
     includeFree,
     preferFlexibility,
     models,
+    modelIntent,
     subscriptions,
     fees,
   ]);
