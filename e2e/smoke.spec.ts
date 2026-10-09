@@ -8,7 +8,7 @@ test.describe('App Shell E2E Smoke Tests', () => {
 
     await expect(page).toHaveURL(/.*#\/advisor/);
     await expect(page).toHaveTitle(
-      /(What should I buy this month\?|AI Advisor) · Token Price Analyzer/,
+      /(What should I buy this month\?|AI Advisor) \| Token Price Analyzer/,
     );
 
     const heading = page.getByRole('heading', {
@@ -20,11 +20,11 @@ test.describe('App Shell E2E Smoke Tests', () => {
 
   test('navigates through feature routes and updates document title', async ({ page }) => {
     await page.goto('/#/explorer');
-    await expect(page).toHaveTitle(/Model Explorer · Token Price Analyzer/);
+    await expect(page).toHaveTitle(/Model Explorer \| Token Price Analyzer/);
     await expect(page.getByRole('heading', { level: 1, name: 'Model Explorer' })).toBeVisible();
 
     await page.goto('/#/budget');
-    await expect(page).toHaveTitle(/Budget reach calculator · Token Price Analyzer/);
+    await expect(page).toHaveTitle(/Budget reach calculator \| Token Price Analyzer/);
     await expect(
       page.getByRole('heading', { level: 1, name: 'Budget reach calculator' }),
     ).toBeVisible();
@@ -40,7 +40,9 @@ test.describe('App Shell E2E Smoke Tests', () => {
 
     await expect(page.getByRole('link', { name: 'Doradca', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Eksplorator', exact: true })).toBeVisible();
-    await expect(page).toHaveTitle(/(Co kupić w tym miesiącu\?|Doradca AI) · Token Price Analyzer/);
+    await expect(page).toHaveTitle(
+      /(Co kupić w tym miesiącu\?|Doradca AI) \| Token Price Analyzer/,
+    );
 
     // Reload page
     await page.reload();
@@ -52,7 +54,7 @@ test.describe('App Shell E2E Smoke Tests', () => {
   test('header does not overflow and keeps controls reachable at supported widths', async ({
     page,
   }) => {
-    for (const width of [390, 768, 1024, 1440]) {
+    for (const width of [390, 768, 1024, 1440, 1536]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/#/advisor');
       await page.evaluate(() => localStorage.setItem('tpa-lang', 'en'));
@@ -88,9 +90,12 @@ test.describe('App Shell E2E Smoke Tests', () => {
         )
         .toBe(true);
 
-      const language = page
-        .getByRole('region', { name: 'Main menu' })
-        .getByRole('combobox', { name: 'Language' });
+      const language =
+        width < 1536
+          ? page.getByRole('region', { name: 'Main menu' }).getByRole('combobox', {
+              name: 'Language',
+            })
+          : page.getByRole('combobox', { name: 'Language' });
       await language.selectOption('pl');
       await expect(page.getByRole('link', { name: 'Doradca' })).toBeVisible();
       await expect

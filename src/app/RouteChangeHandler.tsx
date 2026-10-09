@@ -3,6 +3,8 @@ import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { routes } from './routes';
 
+const APP_NAME = 'Token Price Analyzer';
+
 export function RouteChangeHandler() {
   const { pathname, hash } = useLocation();
   const { t, i18n } = useTranslation();
@@ -11,10 +13,10 @@ export function RouteChangeHandler() {
     const currentRoute = routes.find((r) => r.path === pathname);
     if (currentRoute) {
       const translatedTitle = t(`${currentRoute.ns}:title`);
-      document.title = `${translatedTitle} · Token Price Analyzer`;
+      document.title = `${translatedTitle} | ${APP_NAME}`;
     } else if (pathname !== '/') {
       const notFoundTitle = t('common:notFound.title');
-      document.title = `${notFoundTitle} · Token Price Analyzer`;
+      document.title = `${notFoundTitle} | ${APP_NAME}`;
     }
   }, [pathname, t, i18n.language]);
 
