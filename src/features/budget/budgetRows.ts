@@ -9,7 +9,7 @@ import {
   usableCredit,
   workDaysForBudget,
 } from '../../domain/pricing';
-import { meetsMinTier, paretoFrontier, qualityScore } from '../../domain/quality';
+import { meetsMinTier, paretoFrontier } from '../../domain/quality';
 import type {
   ChannelFee,
   ModelEntry,
@@ -75,7 +75,13 @@ export function buildBudgetRows(opts: BuildBudgetRowsOptions): BudgetRow[] {
     const rateLimited = isFree;
 
     const cPerTask = costPerTask(task, offer);
-    const quality = qualityScore(model, 'intelligence');
+    // A Budget result must be useful for the active profile. In particular, a
+    // coding or agentic profile should not be filled with models that only have
+    // a generic intelligence score (for example translation-only models).
+    const quality = model.quality[profile.qualityDimension];
+    if (quality === undefined) {
+      continue;
+    }
     const tier: QualityTier = model.quality.tier ?? 'C';
 
     let tasks: number;

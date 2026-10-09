@@ -16,6 +16,7 @@ import {
 } from '../../components/ui';
 import { ProfileSelect } from '../../components/ProfileSelect';
 import { ShareButton } from '../../components/ShareButton';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { useActiveProfile, useMoney } from '../../data/hooks';
 import { useSettingsStore } from '../../state/settings';
@@ -37,7 +38,6 @@ export default function BudgetPage() {
   const setIncludeFreeModels = useSettingsStore((state) => state.setIncludeFreeModels);
   const includeBatchOffers = useSettingsStore((state) => state.includeBatchOffers);
   const setIncludeBatchOffers = useSettingsStore((state) => state.setIncludeBatchOffers);
-  const activeHoursPerDay = useSettingsStore((state) => state.activeHoursPerDay);
 
   // URL state
   const [amount, setAmount] = useUrlState('amount', numberCodec({ min: 0 }), settingsBudget.amount);
@@ -243,6 +243,13 @@ export default function BudgetPage() {
             highlights.bestQualityFullMonth ? (
               <div className="flex items-center gap-2">
                 <span className="truncate">{highlights.bestQualityFullMonth.model.name}</span>
+                <CopyNameButton
+                  text={highlights.bestQualityFullMonth.model.name}
+                  ariaLabel={t('copyModelName', {
+                    name: highlights.bestQualityFullMonth.model.name,
+                  })}
+                  copiedLabel={t('modelNameCopied')}
+                />
                 <Badge variant="accent">{highlights.bestQualityFullMonth.tier}</Badge>
               </div>
             ) : (
@@ -268,6 +275,11 @@ export default function BudgetPage() {
             highlights.cheapestAcceptable ? (
               <div className="flex items-center gap-2">
                 <span className="truncate">{highlights.cheapestAcceptable.model.name}</span>
+                <CopyNameButton
+                  text={highlights.cheapestAcceptable.model.name}
+                  ariaLabel={t('copyModelName', { name: highlights.cheapestAcceptable.model.name })}
+                  copiedLabel={t('modelNameCopied')}
+                />
                 <Badge variant="accent">{highlights.cheapestAcceptable.tier}</Badge>
               </div>
             ) : (
@@ -293,6 +305,11 @@ export default function BudgetPage() {
             highlights.bestValue ? (
               <div className="flex items-center gap-2">
                 <span className="truncate">{highlights.bestValue.model.name}</span>
+                <CopyNameButton
+                  text={highlights.bestValue.model.name}
+                  ariaLabel={t('copyModelName', { name: highlights.bestValue.model.name })}
+                  copiedLabel={t('modelNameCopied')}
+                />
                 <Badge variant="accent">{highlights.bestValue.tier}</Badge>
               </div>
             ) : (
@@ -311,12 +328,7 @@ export default function BudgetPage() {
       </div>
 
       {/* Work-time ladder */}
-      <WorkTimeLadder
-        rows={rows}
-        profile={profile}
-        activeHoursPerDay={activeHoursPerDay}
-        minTier={tier}
-      />
+      <WorkTimeLadder rows={rows} minTier={tier} />
 
       {/* Bar Chart */}
       <BudgetBarChart rows={rows} profile={profile} metric={metric} minTier={tier} />
@@ -341,6 +353,11 @@ export default function BudgetPage() {
                       <h3 className="truncate font-bold text-zinc-900 dark:text-zinc-100">
                         {r.model.name}
                       </h3>
+                      <CopyNameButton
+                        text={r.model.name}
+                        ariaLabel={t('copyModelName', { name: r.model.name })}
+                        copiedLabel={t('modelNameCopied')}
+                      />
                       <Badge variant="accent">{r.tier}</Badge>
                     </div>
                     <p className="mt-0.5 text-xs text-zinc-500">{r.model.provider}</p>
@@ -520,6 +537,11 @@ export default function BudgetPage() {
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-1.5">
                         <span className="font-bold">{r.model.name}</span>
+                        <CopyNameButton
+                          text={r.model.name}
+                          ariaLabel={t('copyModelName', { name: r.model.name })}
+                          copiedLabel={t('modelNameCopied')}
+                        />
                         <Badge variant="accent">{r.tier}</Badge>
                       </div>
                       <span className="text-[10px] text-zinc-500">{r.model.provider}</span>

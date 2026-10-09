@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { Badge, Card, CardContent, CardHeader } from '../../components/ui';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
 import {
@@ -113,9 +114,16 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
               <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
                 {plan.providerName}
               </p>
-              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 font-display">
-                {plan.name}
-              </h3>
+              <div className="flex items-center gap-1">
+                <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 font-display">
+                  {plan.name}
+                </h3>
+                <CopyNameButton
+                  text={plan.name}
+                  ariaLabel={t('copyPlanName', { name: plan.name })}
+                  copiedLabel={t('planNameCopied')}
+                />
+              </div>
             </div>
             <div className="text-right">
               <div className="flex items-baseline justify-end gap-1">
@@ -213,6 +221,11 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
                   }`}
                 >
                   <span>{m.name}</span>
+                  <CopyNameButton
+                    text={m.name}
+                    ariaLabel={t('copyModelName', { name: m.name })}
+                    copiedLabel={t('modelNameCopied')}
+                  />
                   {m.tier && (
                     <span className="font-bold text-[10px] px-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300">
                       {m.tier}
@@ -312,12 +325,22 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
               <span className="font-medium text-zinc-800 dark:text-zinc-200">
                 {primaryModel?.name ?? plan.primaryModelId}
               </span>
+              <CopyNameButton
+                text={primaryModel?.name ?? plan.primaryModelId}
+                ariaLabel={t('copyModelName', { name: primaryModel?.name ?? plan.primaryModelId })}
+                copiedLabel={t('modelNameCopied')}
+              />
               {bestValueModel && bestTasks !== null && (
                 <span>
                   , {bestTasks.toLocaleString()} {lang === 'pl' ? 'na' : 'on'}{' '}
                   <span className="font-medium text-zinc-800 dark:text-zinc-200">
                     {bestValueModel.model.name}
                   </span>
+                  <CopyNameButton
+                    text={bestValueModel.model.name}
+                    ariaLabel={t('copyModelName', { name: bestValueModel.model.name })}
+                    copiedLabel={t('modelNameCopied')}
+                  />
                 </span>
               )}
             </p>

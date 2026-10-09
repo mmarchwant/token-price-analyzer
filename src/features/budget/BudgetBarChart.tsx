@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   BarChart,
@@ -16,6 +16,7 @@ import type { QualityTier, UsageProfile } from '../../domain/types';
 import { monthlyTasks } from '../../domain/pricing';
 import { meetsMinTier } from '../../domain/quality';
 import { useMoney } from '../../data/hooks';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 
 export interface BudgetBarChartProps {
   rows: BudgetRow[];
@@ -40,6 +41,16 @@ export const BudgetBarChart: React.FC<BudgetBarChartProps> = ({
 }) => {
   const { t } = useTranslation('budget');
   const { fmt, fmtTokens } = useMoney();
+  const [copiedName, setCopiedName] = useState<string | null>(null);
+
+  const copyModelName = useCallback(async (name: string) => {
+    try {
+      await navigator.clipboard?.writeText(name);
+      setCopiedName(name);
+    } catch {
+      // Clipboard permissions can be denied; the icon buttons remain available to retry.
+    }
+  }, []);
 
   const refValue = useMemo(() => {
     if (metric === 'days') {
@@ -114,68 +125,97 @@ export const BudgetBarChart: React.FC<BudgetBarChartProps> = ({
         {chartData.length === 0 ? (
           <p className="text-xs text-zinc-500 py-8 text-center">{t('highlights.noModel')}</p>
         ) : (
-          <div className="w-full h-96">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                layout="vertical"
-                data={chartData}
-                margin={{ top: 10, right: 30, left: 100, bottom: 20 }}
-              >
-                <XAxis
-                  type="number"
-                  tickFormatter={(v) =>
-                    metric === 'days' ? t('daysShort', { d: v }) : fmtTokens(v)
-                  }
-                  stroke="#888888"
-                  fontSize={11}
-                />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  width={90}
-                  tick={{ fontSize: 11 }}
-                  stroke="#888888"
-                />
-                <Tooltip
-                  content={({ active, payload }) => {
-                    if (!active || !payload || !payload.length || !payload[0]) return null;
-                    const item = payload[0].payload as (typeof chartData)[0];
-                    const r = item.row;
-                    return (
-                      <div className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-md text-xs space-y-1">
-                        <p className="font-bold text-zinc-900 dark:text-zinc-100">{item.name}</p>
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                          {t('col.channel')}:{' '}
-                          <span className="font-semibold">{r.offer.channel}</span>
-                        </p>
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                          {t('col.credit')}: <span className="font-semibold">{fmt(r.credit)}</span>
-                        </p>
-                        <p className="text-indigo-600 dark:text-indigo-400 font-semibold pt-1">
-                          {t(`metrics.${metric}`)}: {fmtValue(item.value, item.isInfinite)}
-                        </p>
-                      </div>
-                    );
-                  }}
-                />
-                <ReferenceLine
-                  x={refValue}
-                  stroke="#f59e0b"
-                  strokeDasharray="4 4"
-                  label={{
-                    value: t('refLineLabel', { value: fmtValue(refValue) }),
-                    fill: '#f59e0b',
-                    fontSize: 10,
-                    position: 'top',
-                  }}
-                />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                  {chartData.map((entry) => (
-                    <Cell key={entry.id} fill={TIER_BAR_COLORS[entry.row.tier]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="w-full">
+            <div className="h-96">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  layout="vertical"
+                  data={chartData}
+                  margin={{ top: 10, right: 30, left: 100, bottom: 20 }}
+                >
+                  <XAxis
+                    type="number"
+                    tickFormatter={(v) =>
+                      metric === 'days' ? t('daysShort', { d: v }) : fmtTokens(v)
+                    }
+                    stroke="#888888"
+                    fontSize={11}
+                  />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    width={90}
+                    tick={{ fontSize: 11 }}
+                    stroke="#888888"
+                  />
+                  <Tooltip
+                    content={({ active, payload }) => {
+                      if (!active || !payload || !payload.length || !payload[0]) return null;
+                      const item = payload[0].payload as (typeof chartData)[0];
+                      const r = item.row;
+                      return (
+                        <div className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-md text-xs space-y-1">
+                          <p className="font-bold text-zinc-900 dark:text-zinc-100">{item.name}</p>
+                          <p className="text-zinc-600 dark:text-zinc-400">
+                            {t('col.channel')}:{' '}
+                            <span className="font-semibold">{r.offer.channel}</span>
+                          </p>
+                          <p className="text-zinc-600 dark:text-zinc-400">
+                            {t('col.credit')}:{' '}
+                            <span className="font-semibold">{fmt(r.credit)}</span>
+                          </p>
+                          <p className="text-indigo-600 dark:text-indigo-400 font-semibold pt-1">
+                            {t(`metrics.${metric}`)}: {fmtValue(item.value, item.isInfinite)}
+                          </p>
+                        </div>
+                      );
+                    }}
+                  />
+                  <ReferenceLine
+                    x={refValue}
+                    stroke="#f59e0b"
+                    strokeDasharray="4 4"
+                    label={{
+                      value: t('refLineLabel', { value: fmtValue(refValue) }),
+                      fill: '#f59e0b',
+                      fontSize: 10,
+                      position: 'top',
+                    }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    radius={[0, 4, 4, 0]}
+                    className="cursor-copy"
+                    onClick={(data) => {
+                      if (data.name) void copyModelName(data.name);
+                    }}
+                  >
+                    {chartData.map((entry) => (
+                      <Cell key={entry.id} fill={TIER_BAR_COLORS[entry.row.tier]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <span className="sr-only" aria-live="polite">
+              {copiedName ? t('modelNameCopied') : ''}
+            </span>
+            <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-zinc-100 pt-3 dark:border-zinc-800">
+              {chartData.map((entry) => (
+                <span
+                  key={entry.id}
+                  className="inline-flex items-center text-xs text-zinc-600 dark:text-zinc-300"
+                >
+                  <CopyNameButton
+                    text={entry.name}
+                    ariaLabel={t('copyModelName', { name: entry.name })}
+                    copiedLabel={t('modelNameCopied')}
+                    onCopied={setCopiedName}
+                  />
+                  <span className="max-w-40 truncate">{entry.name}</span>
+                </span>
+              ))}
+            </div>
           </div>
         )}
       </CardContent>

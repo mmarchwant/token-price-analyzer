@@ -3,6 +3,10 @@
   "subtitle": "Compare monthly subscription plans vs pay-as-you-go API costs",
   "copyLink": "Copy link",
   "linkCopied": "Link copied!",
+  "copyModelName": "Copy {{name}} model name",
+  "modelNameCopied": "Model name copied",
+  "copyPlanName": "Copy {{name}} plan name",
+  "planNameCopied": "Plan name copied",
   "filter": {
     "activeHours": "Active work hours / day",
     "maxPrice": "Max price ({{currency}})",

@@ -1,6 +1,8 @@
 {
   "title": "Model Explorer",
   "subtitle": "Browse canonical models and their currently available offers",
+  "copyModelName": "Copy {{name}} model name",
+  "modelNameCopied": "Model name copied",
   "searchLabel": "Search models",
   "searchPlaceholder": "Search by model or provider",
   "searchHelp": "Your search is saved in the page URL.",
