@@ -9,6 +9,7 @@ import { Toggle } from '../../components/ui/Toggle';
 import { Tooltip } from '../../components/ui/Tooltip';
 import { NumberInput } from '../../components/ui/NumberInput';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
 import { useMoney } from '../../data/hooks';
@@ -598,7 +599,7 @@ function RecommendationCard({
   models: ModelEntry[];
   subscriptions: SubscriptionPlan[];
 }) {
-  const { t } = useTranslation('advisor');
+  const { t } = useTranslation(['advisor', 'common']);
   const { fmt } = useMoney();
 
   const strategyLabel = t(`strategies.${rec.strategy}` as keyof typeof t);
@@ -612,13 +613,19 @@ function RecommendationCard({
     const plan = subscriptions.find((p) => p.id === pId);
     if (plan) {
       itemElements.push(
-        <Link
-          key={`p-${pId}`}
-          to={`/subscriptions`}
-          className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
-        >
-          {plan.name} ({plan.providerName})
-        </Link>,
+        <span key={`p-${pId}`} className="inline-flex items-center gap-1">
+          <Link
+            to={`/subscriptions`}
+            className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
+          >
+            {plan.name} ({plan.providerName})
+          </Link>
+          <CopyNameButton
+            text={plan.name}
+            ariaLabel={t('common:actions.copyPlanName', { name: plan.name })}
+            copiedLabel={t('common:actions.planNameCopied')}
+          />
+        </span>,
       );
       const nextHref = buildCompareHref(compareRefs, { kind: 'plan', id: pId });
       const itemsParam = new URLSearchParams(nextHref.split('?')[1]).get('items') || '';
@@ -630,13 +637,19 @@ function RecommendationCard({
     const model = models.find((m) => m.id === mId);
     if (model) {
       itemElements.push(
-        <Link
-          key={`m-${mId}`}
-          to={`/explorer?search=${encodeURIComponent(model.name)}`}
-          className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
-        >
-          {model.name} ({model.providerName})
-        </Link>,
+        <span key={`m-${mId}`} className="inline-flex items-center gap-1">
+          <Link
+            to={`/explorer?search=${encodeURIComponent(model.name)}`}
+            className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold"
+          >
+            {model.name} ({model.providerName})
+          </Link>
+          <CopyNameButton
+            text={model.name}
+            ariaLabel={t('common:actions.copyModelName', { name: model.name })}
+            copiedLabel={t('common:actions.modelNameCopied')}
+          />
+        </span>,
       );
       const nextHref = buildCompareHref(compareRefs, { kind: 'model', id: mId });
       const itemsParam = new URLSearchParams(nextHref.split('?')[1]).get('items') || '';

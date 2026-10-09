@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { PageHeader, Card, CardContent, CardHeader, Badge } from '../../components/ui';
+import { CopyNameButton } from '../../components/ui/CopyNameButton';
 import { ProfileSelect } from '../../components/ProfileSelect';
 import { ShareButton } from '../../components/ShareButton';
 import { useAppData } from '../../data/AppData';
@@ -40,6 +41,18 @@ export default function ComparePage() {
   const [, setProfileParam] = useUrlState('p', stringCodec, profile.id);
 
   const refs = useMemo(() => parseItems(itemsParam), [itemsParam]);
+  const copyNameButton = (kind: CompareRef['kind'], name: string) => (
+    <CopyNameButton
+      text={name}
+      ariaLabel={t(
+        kind === 'model' ? 'common:actions.copyModelName' : 'common:actions.copyPlanName',
+        { name },
+      )}
+      copiedLabel={t(
+        kind === 'model' ? 'common:actions.modelNameCopied' : 'common:actions.planNameCopied',
+      )}
+    />
+  );
 
   // Sync to localStorage
   useEffect(() => {
@@ -467,6 +480,7 @@ export default function ComparePage() {
                       <span>
                         🤖 {m.name} ({m.providerName})
                       </span>
+                      {copyNameButton('model', m.name)}
                       <button
                         type="button"
                         onClick={() => handleRemove(ref)}
@@ -505,6 +519,7 @@ export default function ComparePage() {
                       <span>
                         💳 {p.name} ({p.providerName})
                       </span>
+                      {copyNameButton('plan', p.name)}
                       <button
                         type="button"
                         onClick={() => handleRemove(ref)}
@@ -596,9 +611,12 @@ export default function ComparePage() {
                         <Badge variant={ref.kind === 'plan' ? 'accent' : 'info'} className="mb-1">
                           {ref.kind === 'plan' ? t('groups.plans') : t('groups.models')}
                         </Badge>
-                        <h3 className="break-words text-sm font-bold text-zinc-900 dark:text-zinc-100">
-                          {name}
-                        </h3>
+                        <div className="flex items-center gap-1">
+                          <h3 className="break-words text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                            {name}
+                          </h3>
+                          {copyNameButton(ref.kind, name)}
+                        </div>
                         {provider && (
                           <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{provider}</p>
                         )}
@@ -656,8 +674,11 @@ export default function ComparePage() {
                                 <Badge variant={isPlan ? 'accent' : 'info'} className="mb-1">
                                   {isPlan ? t('groups.plans') : t('groups.models')}
                                 </Badge>
-                                <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100">
-                                  {name}
+                                <div className="flex items-center gap-1">
+                                  <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100">
+                                    {name}
+                                  </div>
+                                  {copyNameButton(ref.kind, name)}
                                 </div>
                                 {provider && (
                                   <div className="text-[11px] font-normal text-zinc-500">
