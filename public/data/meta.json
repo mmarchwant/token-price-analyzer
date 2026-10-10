@@ -1,42 +1,42 @@
 {
-  "generatedAt": "2026-10-09T11:22:01.298Z",
+  "generatedAt": "2026-10-10T10:39:13.444Z",
   "schemaVersion": 1,
-  "modelCount": 358,
+  "modelCount": 347,
   "subscriptionCount": 20,
   "sources": [
     {
       "id": "openrouter",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-09T11:22:01.298Z",
-      "itemCount": 358
+      "fetchedAt": "2026-10-10T10:39:13.444Z",
+      "itemCount": 347
     },
     {
       "id": "litellm",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-09T11:22:01.298Z",
-      "itemCount": 112
+      "fetchedAt": "2026-10-10T10:39:13.444Z",
+      "itemCount": 111
     },
     {
       "id": "artificial-analysis",
       "ok": false,
       "skipped": true,
-      "fetchedAt": "2026-10-09T11:22:01.298Z",
+      "fetchedAt": "2026-10-10T10:39:13.444Z",
       "itemCount": 0
     },
     {
       "id": "frankfurter",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-09T11:22:01.298Z",
+      "fetchedAt": "2026-10-10T10:39:13.444Z",
       "itemCount": 3
     },
     {
       "id": "curated",
       "ok": true,
       "skipped": false,
-      "fetchedAt": "2026-10-09T11:22:01.298Z",
+      "fetchedAt": "2026-10-10T10:39:13.444Z",
       "itemCount": 30
     }
   ]
